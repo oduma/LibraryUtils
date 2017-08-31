@@ -11,6 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibLister", "Lister\LibList
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Library.Lister.Tests.Unit", "Lister\Sciendo.Library.Lister.Tests.Unit\Sciendo.Library.Lister.Tests.Unit.csproj", "{6AE11EC0-5AB8-43D7-8F3E-9D80AAD342CC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Loved2Playlist", "Loved2Playlist", "{74129AFC-69C7-4922-9375-D3D3683CB299}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Love2Playlist.Processor", "Loved2Playlist\Sciendo.Love2Playlist.Processor\Sciendo.Love2Playlist.Processor.csproj", "{2E813849-0E59-4400-9BDB-FF4A2B898643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Love2Playlist", "Loved2Playlist\Sciendo.Love2Playlist\Sciendo.Love2Playlist.csproj", "{B1478827-AA75-44AE-BEA4-455E5DD13BF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Love2Playlist.Tests.Unit", "Loved2Playlist\Sciendo.Love2Playlist.Tests.Unit\Sciendo.Love2Playlist.Tests.Unit.csproj", "{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +37,18 @@ Global
 		{6AE11EC0-5AB8-43D7-8F3E-9D80AAD342CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AE11EC0-5AB8-43D7-8F3E-9D80AAD342CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AE11EC0-5AB8-43D7-8F3E-9D80AAD342CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E813849-0E59-4400-9BDB-FF4A2B898643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E813849-0E59-4400-9BDB-FF4A2B898643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E813849-0E59-4400-9BDB-FF4A2B898643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E813849-0E59-4400-9BDB-FF4A2B898643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1478827-AA75-44AE-BEA4-455E5DD13BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1478827-AA75-44AE-BEA4-455E5DD13BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1478827-AA75-44AE-BEA4-455E5DD13BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1478827-AA75-44AE-BEA4-455E5DD13BF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +57,8 @@ Global
 		{5482F7FD-E59E-4A01-8082-37E1AC442015} = {3BD1FEFA-CD6B-4849-BB3D-A8DFC4EB2C9F}
 		{092DF0F0-D792-4A8C-A9F5-CCFEA74EA9AD} = {3BD1FEFA-CD6B-4849-BB3D-A8DFC4EB2C9F}
 		{6AE11EC0-5AB8-43D7-8F3E-9D80AAD342CC} = {3BD1FEFA-CD6B-4849-BB3D-A8DFC4EB2C9F}
+		{2E813849-0E59-4400-9BDB-FF4A2B898643} = {74129AFC-69C7-4922-9375-D3D3683CB299}
+		{B1478827-AA75-44AE-BEA4-455E5DD13BF5} = {74129AFC-69C7-4922-9375-D3D3683CB299}
+		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D} = {74129AFC-69C7-4922-9375-D3D3683CB299}
 	EndGlobalSection
 EndGlobal
