@@ -2,8 +2,8 @@
 {
     public class LovePage
     {
-        public PageInfo PageInfo { get; set; }
+        public AdditionalAttributes AdditionalAttributes { get; set; }
 
-        public string Content { get; set; }
+        public LoveTrack[] LoveTracks{ get; set; }
     }
 }

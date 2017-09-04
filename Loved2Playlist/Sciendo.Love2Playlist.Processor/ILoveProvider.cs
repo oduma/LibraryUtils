@@ -9,6 +9,6 @@ namespace Sciendo.Love2Playlist.Processor
 {
     public interface ILoveProvider
     {
-        LovePage GetPage();
+        LovePage GetPage(int currentLovedPage);
     }
 }

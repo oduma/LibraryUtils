@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00017\lib\net40\Sciendo.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,22 +52,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectLoveEventArgs.cs" />
     <Compile Include="DataTypes\Artist.cs" />
     <Compile Include="Coordinator.cs" />
     <Compile Include="ICoordinator.cs" />
-    <Compile Include="ILoveCollection.cs" />
     <Compile Include="ILoveProvider.cs" />
     <Compile Include="DataTypes\Image.cs" />
-    <Compile Include="IMapper.cs" />
-    <Compile Include="LoveCollection.cs" />
     <Compile Include="DataTypes\LovePage.cs" />
+    <Compile Include="IPersister.cs" />
+    <Compile Include="IUrlProvider.cs" />
     <Compile Include="LoveProvider.cs" />
     <Compile Include="DataTypes\LoveTrack.cs" />
-    <Compile Include="Page2CollectionMapper.cs" />
-    <Compile Include="DataTypes\PageInfo.cs" />
+    <Compile Include="DataTypes\AdditionalAttributes.cs" />
+    <Compile Include="Persister.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataTypes\Size.cs" />
     <Compile Include="DataTypes\Streamable.cs" />
+    <Compile Include="SaveLoveEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
