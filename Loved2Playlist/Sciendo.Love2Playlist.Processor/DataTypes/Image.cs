@@ -1,10 +1,13 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace Sciendo.Love2Playlist.Processor.DataTypes
 {
     public class Image
     {
-        public Uri Url { get; set; }
+        [JsonProperty("url")]
+        public string Url { get; set; }
+        [JsonProperty("size")]
         public Size Size { get; set; }
     }
 }

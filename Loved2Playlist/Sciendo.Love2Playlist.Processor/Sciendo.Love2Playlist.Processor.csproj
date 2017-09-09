@@ -55,6 +55,8 @@
     <Compile Include="CollectLoveEventArgs.cs" />
     <Compile Include="DataTypes\Artist.cs" />
     <Compile Include="Coordinator.cs" />
+    <Compile Include="DataTypes\LoveDate.cs" />
+    <Compile Include="DataTypes\RootObject.cs" />
     <Compile Include="ICoordinator.cs" />
     <Compile Include="ILastFmProvider.cs" />
     <Compile Include="ILoveProvider.cs" />

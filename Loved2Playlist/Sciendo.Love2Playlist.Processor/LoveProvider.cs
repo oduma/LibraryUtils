@@ -20,7 +20,7 @@ namespace Sciendo.Love2Playlist.Processor
             if (string.IsNullOrEmpty(rawData))
                 return new LovePage();
 
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<LovePage>(rawData);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(rawData).LovePage;
         }
     }
 }
