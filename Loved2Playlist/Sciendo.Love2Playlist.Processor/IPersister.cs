@@ -7,7 +7,7 @@ using Sciendo.Love2Playlist.Processor.DataTypes;
 
 namespace Sciendo.Love2Playlist.Processor
 {
-    public interface IPersister
+    public interface IPersister:IDisposable
     {
         string LoveFile { get; }
 
@@ -15,6 +15,6 @@ namespace Sciendo.Love2Playlist.Processor
 
         void SaveToLoveFile(List<LoveTrack> loveTracks, string userName, int pageNumber);
 
-        void SaveToPlaylistFile();
+        void SaveToPlaylistFile(string playlistContent);
     }
 }

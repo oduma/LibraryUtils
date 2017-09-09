@@ -56,11 +56,14 @@
     <Compile Include="DataTypes\Artist.cs" />
     <Compile Include="Coordinator.cs" />
     <Compile Include="ICoordinator.cs" />
+    <Compile Include="ILastFmProvider.cs" />
     <Compile Include="ILoveProvider.cs" />
     <Compile Include="DataTypes\Image.cs" />
     <Compile Include="DataTypes\LovePage.cs" />
     <Compile Include="IPersister.cs" />
+    <Compile Include="IPlaylistCreator.cs" />
     <Compile Include="IUrlProvider.cs" />
+    <Compile Include="LastFmProvider.cs" />
     <Compile Include="LoveProvider.cs" />
     <Compile Include="DataTypes\LoveTrack.cs" />
     <Compile Include="DataTypes\AdditionalAttributes.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="DataTypes\Size.cs" />
     <Compile Include="DataTypes\Streamable.cs" />
     <Compile Include="SaveLoveEventArgs.cs" />
+    <Compile Include="SavePlaylistEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
