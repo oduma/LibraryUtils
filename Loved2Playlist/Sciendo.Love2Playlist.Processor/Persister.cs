@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sciendo.Common.Serialization;
 using Sciendo.Love2Playlist.Processor.DataTypes;
 
@@ -11,20 +7,24 @@ namespace Sciendo.Love2Playlist.Processor
 {
     public class Persister:IPersister
     {
-        public string LoveFile { get; private set; }
+        public string LoveFile => $"{_pageNumber} - {_userName} - {_rootFileName}";
         public string PlaylistFile { get; private set; }
 
-        
+        private readonly string _rootFileName;
+        private int _pageNumber;
+        private readonly string _userName;
 
-        public Persister(string loveFile, string playlistFile)
+
+        public Persister(string rootFileName, string userName)
         {
-            LoveFile = loveFile;
-            PlaylistFile = playlistFile;
-
+            _rootFileName = rootFileName;
+            _pageNumber = 0;
+            _userName = userName;
         }
         public void SaveToLoveFile(List<LoveTrack> loveTracks,string userName, int pageNumber)
         {
-            Serializer.SerializeToFile(loveTracks,string.Format( "{0} - {1} - {2}",pageNumber, userName, LoveFile));
+            _pageNumber = pageNumber;
+            Serializer.SerializeToFile(loveTracks,LoveFile);
         }
 
         public void SaveToPlaylistFile(string playlistContent)
