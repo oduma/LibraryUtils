@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataProvider.cs" />
     <Compile Include="DataTypes\ClementineTrack.cs" />
     <Compile Include="IDataProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,6 +51,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sciendo.Clementine.DataAccess\Sciendo.Clementine.DataAccess.csproj">
+      <Project>{2b40618b-cbd9-4c23-b142-6a110c9d8cf3}</Project>
+      <Name>Sciendo.Clementine.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sciendo.Love2Playlist.Processor\Sciendo.Love2Playlist.Processor.csproj">
       <Project>{2e813849-0e59-4400-9bdb-ff4a2b898643}</Project>
       <Name>Sciendo.Love2Playlist.Processor</Name>

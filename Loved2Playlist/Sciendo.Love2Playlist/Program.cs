@@ -17,7 +17,7 @@ namespace Sciendo.Love2Playlist
             LastFmConfigurationSection lastFmConfig = ConfigurationManager.GetSection("lastFm") as LastFmConfigurationSection;
             PlaylistConfigurationSection playlistConfig = ConfigurationManager.GetSection("playlist") as PlaylistConfigurationSection;
 
-            ILoveProvider loveProvider = new LoveProvider(new LastFmUrlProvider(lastFmConfig.Root,lastFmConfig.AppKey),new LastFmProvider());
+            ILoveProvider loveProvider = new LoveProvider(lastFmConfig,new LastFmProvider());
             IPersister persister = new Persister(playlistConfig.FileName,lastFmConfig.User);
             using (
                 var dataProvider =

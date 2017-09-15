@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Love2Playlist", "Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Love2Playlist.Tests.Unit", "Loved2Playlist\Sciendo.Love2Playlist.Tests.Unit\Sciendo.Love2Playlist.Tests.Unit.csproj", "{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Clementine.DataAccess", "Loved2Playlist\Sciendo.Clementine.DataAccess\Sciendo.Clementine.DataAccess.csproj", "{2B40618B-CBD9-4C23-B142-6A110C9D8CF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Clementine.DataAccess.Tests.Integration", "Loved2Playlist\Sciendo.Clementine.DataAccess.Tests.Integration\Sciendo.Clementine.DataAccess.Tests.Integration.csproj", "{8C4B0763-E831-4DED-9493-4DF70A7CB522}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B40618B-CBD9-4C23-B142-6A110C9D8CF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B40618B-CBD9-4C23-B142-6A110C9D8CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B40618B-CBD9-4C23-B142-6A110C9D8CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B40618B-CBD9-4C23-B142-6A110C9D8CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C4B0763-E831-4DED-9493-4DF70A7CB522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C4B0763-E831-4DED-9493-4DF70A7CB522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C4B0763-E831-4DED-9493-4DF70A7CB522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C4B0763-E831-4DED-9493-4DF70A7CB522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,5 +72,7 @@ Global
 		{2E813849-0E59-4400-9BDB-FF4A2B898643} = {74129AFC-69C7-4922-9375-D3D3683CB299}
 		{B1478827-AA75-44AE-BEA4-455E5DD13BF5} = {74129AFC-69C7-4922-9375-D3D3683CB299}
 		{4E970F0E-B53E-4E6B-AAD8-51C75FA6D29D} = {74129AFC-69C7-4922-9375-D3D3683CB299}
+		{2B40618B-CBD9-4C23-B142-6A110C9D8CF3} = {74129AFC-69C7-4922-9375-D3D3683CB299}
+		{8C4B0763-E831-4DED-9493-4DF70A7CB522} = {74129AFC-69C7-4922-9375-D3D3683CB299}
 	EndGlobalSection
 EndGlobal

@@ -43,6 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CollectLoveEventArgs.cs" />
+    <Compile Include="Configuration\LastFmConfigurationSection.cs" />
+    <Compile Include="Configuration\PlaylistConfigurationSection.cs" />
     <Compile Include="DataTypes\Artist.cs" />
     <Compile Include="Coordinator.cs" />
     <Compile Include="DataTypes\LoveDate.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="DataTypes\LoveTrack.cs" />
     <Compile Include="DataTypes\AdditionalAttributes.cs" />
     <Compile Include="Persister.cs" />
+    <Compile Include="PlaylistCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataTypes\Size.cs" />
     <Compile Include="DataTypes\Streamable.cs" />
@@ -78,6 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sciendo.Clementine.DataAccess\Sciendo.Clementine.DataAccess.csproj">
+      <Project>{2b40618b-cbd9-4c23-b142-6a110c9d8cf3}</Project>
+      <Name>Sciendo.Clementine.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
