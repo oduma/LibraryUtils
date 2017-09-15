@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,7 +60,10 @@
     <Compile Include="DataTypes\Artist.cs" />
     <Compile Include="Coordinator.cs" />
     <Compile Include="DataTypes\LoveDate.cs" />
+    <Compile Include="DataTypes\PartPlaylist.cs" />
+    <Compile Include="DataTypes\RankedFile.cs" />
     <Compile Include="DataTypes\RootObject.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="ICoordinator.cs" />
     <Compile Include="ILastFmProvider.cs" />
     <Compile Include="ILoveProvider.cs" />

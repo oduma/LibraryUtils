@@ -26,7 +26,9 @@ namespace Sciendo.Love2Playlist.Processor
         {
             int currentLovedPage = 1;
             int maxLovedPages = 0;
-            _persister.SaveToPlaylistFile("#EXTM3U");
+            int totalLoveReceived = 0;
+            int totalPlaylist = 0;
+            _persister.SaveToPlaylistFile($"#EXTM3U{Environment.NewLine}");
             do
             {
                 var lovePage = _loveProvider.GetPage(currentLovedPage);
@@ -35,11 +37,13 @@ namespace Sciendo.Love2Playlist.Processor
                 var loveTracks = lovePage.LoveTracks;
                 CollectedLove?.Invoke(this, new CollectLoveEventArgs(currentLovedPage, maxLovedPages));
                 _persister.SaveToLoveFile(loveTracks.ToList(), lovePage.AdditionalAttributes.UserName, lovePage.AdditionalAttributes.PageNumber);
-                SavedLove?.Invoke(this, new SaveLoveEventArgs(currentLovedPage++, _persister.LoveFile));
+                totalLoveReceived += loveTracks.Length;
+                SavedLove?.Invoke(this, new SaveLoveEventArgs(currentLovedPage++, totalLoveReceived,_persister.LoveFile));
                 var playlistFragment = _playlistCreator.AddToPlaylist(loveTracks);
-                _persister.SaveToPlaylistFile(playlistFragment);
-                SavedPlaylist?.Invoke(this, new SavePlaylistEventArgs(_persister.PlaylistFile));
-            } while (currentLovedPage < maxLovedPages);
+                _persister.SaveToPlaylistFile(playlistFragment.PlaylistContent);
+                totalPlaylist += playlistFragment.PlaylistFiles;
+                SavedPlaylist?.Invoke(this, new SavePlaylistEventArgs(totalPlaylist,_persister.PlaylistFile));
+            } while (currentLovedPage <= maxLovedPages);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Sciendo.Love2Playlist
             IPersister persister = new Persister(playlistConfig.FileName,lastFmConfig.User);
             using (
                 var dataProvider =
-                    new DataProvider(string.Format("Data Source={0}", playlistConfig.ClementineDatabaseFile)))
+                    new DataProvider($"Data Source={playlistConfig.ClementineDatabaseFile};version=3;"))
             {
                 IPlaylistCreator playlistCreator = new PlaylistCreator(dataProvider);
 
@@ -36,12 +36,12 @@ namespace Sciendo.Love2Playlist
 
         private static void Coordinator_SavedPlaylist(object sender, SavePlaylistEventArgs e)
         {
-            Console.WriteLine("PLAYLIST Save: {0}",e.ToFile);
+            Console.WriteLine("PLAYLIST Save: {0} Total till now: {1}",e.ToFile,e.TotalCummulated);
         }
 
         private static void Coordinator_SavedLove(object sender, SaveLoveEventArgs e)
         {
-            Console.WriteLine("LOVE Save: {0}", e.ToFile);
+            Console.WriteLine("LOVE Save: {0} Total till now: {1}", e.ToFile, e.TotalCummulated);
         }
 
         private static void Coordinator_CollectedLove(object sender, CollectLoveEventArgs e)

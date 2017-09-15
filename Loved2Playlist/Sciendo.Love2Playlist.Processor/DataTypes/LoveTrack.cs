@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace Sciendo.Love2Playlist.Processor.DataTypes
@@ -18,6 +19,7 @@ namespace Sciendo.Love2Playlist.Processor.DataTypes
         [JsonProperty("artist")]
         public Artist Artist { get; set; }
         [JsonProperty("image")]
+        [XmlIgnore]
         public IEnumerable<Image> Images { get; set; }
         [JsonProperty("streamable")]
         public Streamable Streamable { get; set; }

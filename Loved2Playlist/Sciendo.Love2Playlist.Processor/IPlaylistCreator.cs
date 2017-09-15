@@ -6,6 +6,6 @@ namespace Sciendo.Love2Playlist.Processor
 {
     public interface IPlaylistCreator
     {
-        string AddToPlaylist(IList<LoveTrack> loveTracks);
+        PartPlaylist AddToPlaylist(IList<LoveTrack> loveTracks);
     }
 }

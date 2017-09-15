@@ -6,10 +6,13 @@
 
         public string ToFile { get; private set; }
 
-        public SaveLoveEventArgs(int savePage, string saveFile)
+        public int TotalCummulated { get; private set; }
+
+        public SaveLoveEventArgs(int savePage, int totalCummulated, string saveFile)
         {
             SavedPage = savePage;
             ToFile = saveFile;
+            TotalCummulated = totalCummulated;
         }
     }
 }

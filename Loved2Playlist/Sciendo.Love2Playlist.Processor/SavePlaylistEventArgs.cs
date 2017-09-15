@@ -4,9 +4,12 @@
     {
         public string ToFile { get; private set; }
 
-        public SavePlaylistEventArgs(string toFile)
+        public int TotalCummulated { get; private set; }
+
+        public SavePlaylistEventArgs(int totalCummulated, string toFile)
         {
             ToFile = toFile;
+            TotalCummulated = totalCummulated;
         }
     }
 }

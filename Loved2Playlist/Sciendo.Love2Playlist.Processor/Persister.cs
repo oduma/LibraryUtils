@@ -8,7 +8,7 @@ namespace Sciendo.Love2Playlist.Processor
     public class Persister:IPersister
     {
         public string LoveFile => $"{_pageNumber} - {_userName} - {_rootFileName}";
-        public string PlaylistFile { get; private set; }
+        public string PlaylistFile => $"playlist-{_userName}-{_rootFileName}.m3u";
 
         private readonly string _rootFileName;
         private int _pageNumber;
@@ -20,6 +20,8 @@ namespace Sciendo.Love2Playlist.Processor
             _rootFileName = rootFileName;
             _pageNumber = 0;
             _userName = userName;
+            if(File.Exists(PlaylistFile))
+                File.Delete(PlaylistFile);
         }
         public void SaveToLoveFile(List<LoveTrack> loveTracks,string userName, int pageNumber)
         {
