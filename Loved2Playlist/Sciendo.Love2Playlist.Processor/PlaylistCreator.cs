@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using Sciendo.Clementine.DataAccess;
-using Sciendo.Clementine.DataAccess.DataTypes;
 using Sciendo.Love2Playlist.Processor.DataTypes;
 
 namespace Sciendo.Love2Playlist.Processor
