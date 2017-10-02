@@ -21,3 +21,7 @@ $output="-o""$startFolder\$targetFolder\*"""
 Start-Process -FilePath $pathTo7zip -ArgumentList @($archives,$output) -Wait
 $targetZipFiles= Get-ChildItem -Path $startFolder\$targetFolder
 $targetZipFiles |Where-Object {$_.Extension -eq $archiveExtension}|ForEach-Object {Remove-Item $_.FullName}
+#now move them in the right folders
+$pathTot2f=".\Sciendo.T2F.exe"
+Start-Process -FilePath $pathTot2f -ArgumentList @("$targetFolder","Move","-i","%a\%l\%n - %t","-c","%l\%n - %a - %t") -Wait
+
