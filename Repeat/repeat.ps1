@@ -52,7 +52,11 @@ function FilesMissing([System.Collections.ArrayList] $filesInTorrent)
 
         if(([string]::IsNullOrEmpty($fileInTorrent) -ne $true) -And ([System.IO.File]::Exists($fileInTorrent) -ne $true))
         {
-            return $true
+            if([System.IO.Directory]::Exists($fileInTorrent) -ne $true)
+            {
+                Write-Host "Cannot find: $fileInTorrent"
+                return $true
+            }
         }
     }
     return $false
@@ -87,5 +91,6 @@ $targetZipFiles= Get-ChildItem -Path $startFolder\$targetFolder
 $targetZipFiles |Where-Object {$_.Extension -eq $archiveExtension}|ForEach-Object {Remove-Item $_.FullName}
 #now move them in the right folders
 $pathTot2f=".\Sciendo.T2F.exe"
+Write-Host "Executing: $pathTot2f $targetFolder, Move, -i %a\%l\%n - %t, -c %l\%n - %a - %t"
 Start-Process -FilePath $pathTot2f -ArgumentList @("$targetFolder","Move","-i","%a\%l\%n - %t","-c","%l\%n - %a - %t") -Wait
 
