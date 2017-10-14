@@ -33,12 +33,17 @@ namespace Sciendo.T2F.Processor
             foreach (var file in files)
             {
                 var tag = _tagFileReader.ReadFile(file);
-                var fileExtension = Path.GetExtension(file);
-                var newFileName = _tagFileProcessor.CalculateFileName(tag,path,fileExtension,(IsPartOfCollection(tag))?fileNamePatternCollection:fileNamePattern);
-                _fileWriter.Do(file,newFileName);
-                if (_directoriesProcessed.All(d => d != Path.GetDirectoryName(file)))
+                if (!((tag == null) || string.IsNullOrEmpty(tag.Album) || string.IsNullOrEmpty(tag.Title)))
                 {
-                    ProcessNonMusicContents(Path.GetDirectoryName(file),Path.GetDirectoryName(newFileName), extensions);
+                    
+                    var fileExtension = Path.GetExtension(file);
+                    var newFileName = _tagFileProcessor.CalculateFileName(tag,path,fileExtension,
+                        (IsPartOfCollection(tag))?fileNamePatternCollection:fileNamePattern);
+                    _fileWriter.Do(file,newFileName);
+                    if (_directoriesProcessed.All(d => d != Path.GetDirectoryName(file)))
+                    {
+                        ProcessNonMusicContents(Path.GetDirectoryName(file),Path.GetDirectoryName(newFileName), extensions);
+                    }
                 }
             }
             CleanupEmptyDirectories(path);
