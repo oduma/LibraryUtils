@@ -10,14 +10,14 @@ namespace Sciendo.Playlist.Persister
     {
         private readonly IFileEnumerator _fileEnumerator;
         private readonly IFileReader<string> _fileReader;
-        private readonly IPlaylistAnaliserFactory _playlistAnaliserFactory;
+        private readonly IPlaylistHandlerFactory _playlistAnaliserFactory;
         private readonly string _sourceRoot;
         private readonly string _currentRoot;
         private readonly IContentWriter _fileWriter;
 
         public PersisterProcessor(IFileEnumerator fileEnumerator, 
             IFileReader<string> fileReader, 
-            IPlaylistAnaliserFactory playlistAnaliserFactory, 
+            IPlaylistHandlerFactory playlistAnaliserFactory, 
             string sourceRoot, 
             string currentRoot, 
             IContentWriter fileWriter)
@@ -35,7 +35,7 @@ namespace Sciendo.Playlist.Persister
             var files = _fileEnumerator.Get(path, SearchOption.TopDirectoryOnly);
             foreach (var file in files)
             {
-                var playlistHandler = _playlistAnaliserFactory.GetAnaliser(Path.GetExtension(file));
+                var playlistHandler = _playlistAnaliserFactory.GetHandler(Path.GetExtension(file));
                 if (playlistHandler != null)
                 {
                     var playlistRawContent = _fileReader.ReadFile(file);

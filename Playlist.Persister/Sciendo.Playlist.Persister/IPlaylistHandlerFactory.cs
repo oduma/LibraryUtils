@@ -2,8 +2,8 @@
 
 namespace Sciendo.Playlist.Persister
 {
-    public interface IPlaylistAnaliserFactory
+    public interface IPlaylistHandlerFactory
     {
-        IPlaylistHandler GetAnaliser(string playlistExtension);
+        IPlaylistHandler GetHandler(string playlistExtension);
     }
 }

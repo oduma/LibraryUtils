@@ -48,9 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IPlaylistAnaliserFactory.cs" />
+    <Compile Include="IPlaylistHandlerFactory.cs" />
     <Compile Include="PersisterProcessor.cs" />
-    <Compile Include="PlaylistAnaliserFactory.cs" />
+    <Compile Include="PlaylistHandlerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextFileReader.cs" />
   </ItemGroup>
