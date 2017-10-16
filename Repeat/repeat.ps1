@@ -65,22 +65,29 @@ function GetExcludeList()
 {
     $torrentFiles= Get-ChildItem -Path $startFolder -Filter "*.torrent"
     [System.Collections.ArrayList] $foldersToExclude = @($targetFolder)
+    [System.Collections.ArrayList] $torrentsToExclude = @("")
+    $retValue = New-Object PSObject -Property @{ FoldersToExclude=$foldersToExclude; TorrentsToExclude= $torrentsToExclude}
     foreach($torrentFile in $torrentFiles)
     {
         $torrentExpectedContents= GetTorrentExpectedContents $startFolder $torrentFile
         $inWork=FilesMissing -filesInTorrent $torrentExpectedContents.TorrentContent
         if($inWork)
         {
-            [void]$foldersToExclude.Add($torrentExpectedContents.TorrentFolder)
+            [void]$retValue.FoldersToExclude.Add($torrentExpectedContents.TorrentFolder)
+            [void]$retValue.TorrentsToExclude.Add($torrentFile)
         }
     }
-    return $foldersToExclude
+    return $retValue
 }
 
-$excludeFolders=GetExcludeList
-Write-Host $excludeFolders
-$folders = Get-ChildItem -Path $startFolder -Exclude $excludeFolders | ?{ $_.PSIsContainer }
+$excludes=GetExcludeList
+Write-Host $excludes.FoldersToExclude
+Write-Host $excludes.TorrentsToExclude
+$folders = Get-ChildItem -Path $startFolder -Exclude $excludes.FoldersToExclude | ?{ $_.PSIsContainer }
 $folders|ForEach-Object {Move-Item $_* $startFolder\$targetFolder}
+$torrentFiles=Get-ChildItem -Path "$startFolder\*.torrent" -Exclude $excludes.TorrentsToExclude
+$torrentFiles|ForEach-Object {Remove-Item -LiteralPath $_.FullName}
+
 $zipFiles= Get-ChildItem -Path $startFolder
 $zipFiles |Where-Object {$_.Extension -eq $archiveExtension}|ForEach-Object {Move-Item $_.FullName $startFolder\$targetFolder}
 $pathTo7zip="C:\Program Files\7-Zip\7z.exe"
@@ -93,4 +100,3 @@ $targetZipFiles |Where-Object {$_.Extension -eq $archiveExtension}|ForEach-Objec
 $pathTot2f=".\Sciendo.T2F.exe"
 Write-Host "Executing: $pathTot2f $targetFolder, Move, -i %a\%l\%n - %t, -c %l\%n - %a - %t"
 Start-Process -FilePath $pathTot2f -ArgumentList @("$targetFolder","Move","-i","%a\%l\%n - %t","-c","%l\%n - %a - %t") -Wait
-
