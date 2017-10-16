@@ -83,20 +83,29 @@ function GetExcludeList()
 $excludes=GetExcludeList
 Write-Host $excludes.FoldersToExclude
 Write-Host $excludes.TorrentsToExclude
+#####Move the folders exclude the ones not finished yet
 $folders = Get-ChildItem -Path $startFolder -Exclude $excludes.FoldersToExclude | ?{ $_.PSIsContainer }
 $folders|ForEach-Object {Move-Item $_* $startFolder\$targetFolder}
+
+#####Remove all the torrent files finished
 $torrentFiles=Get-ChildItem -Path "$startFolder\*.torrent" -Exclude $excludes.TorrentsToExclude
 $torrentFiles|ForEach-Object {Remove-Item -LiteralPath $_.FullName}
 
+######Move all the archives
 $zipFiles= Get-ChildItem -Path $startFolder
 $zipFiles |Where-Object {$_.Extension -eq $archiveExtension}|ForEach-Object {Move-Item $_.FullName $startFolder\$targetFolder}
+
+######Unarchive all copied archives
 $pathTo7zip="C:\Program Files\7-Zip\7z.exe"
 $archives="x ""$startFolder\$targetFolder\*$archiveExtension"""
 $output="-o""$startFolder\$targetFolder\*"""
 Start-Process -FilePath $pathTo7zip -ArgumentList @($archives,$output) -Wait
+
+######Delete all archives
 $targetZipFiles= Get-ChildItem -Path $startFolder\$targetFolder
 $targetZipFiles |Where-Object {$_.Extension -eq $archiveExtension}|ForEach-Object {Remove-Item $_.FullName}
-#now move them in the right folders
+
+######now move them in the right folders
 $pathTot2f=".\Sciendo.T2F.exe"
 Write-Host "Executing: $pathTot2f $targetFolder, Move, -i %a\%l\%n - %t, -c %l\%n - %a - %t"
 Start-Process -FilePath $pathTot2f -ArgumentList @("$targetFolder","Move","-i","%a\%l\%n - %t","-c","%l\%n - %a - %t") -Wait
