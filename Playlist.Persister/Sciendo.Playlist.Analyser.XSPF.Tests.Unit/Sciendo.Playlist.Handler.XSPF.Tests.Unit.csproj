@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D90FB487-BA09-4509-ABE6-615F15E3AB45}</ProjectGuid>
+    <ProjectGuid>{6ADA5363-73C6-42CD-9D33-20BDC3D29587}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sciendo.Common.IO</RootNamespace>
-    <AssemblyName>Sciendo.Common.IO</AssemblyName>
+    <RootNamespace>Sciendo.Playlist.Handler.XSPF.Tests.Unit</RootNamespace>
+    <AssemblyName>Sciendo.Playlist.Handler.XSPF.Tests.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -29,7 +32,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00017\lib\net40\Sciendo.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,20 +58,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContentCopier.cs" />
-    <Compile Include="ContentMover.cs" />
-    <Compile Include="ContentWriterBase.cs" />
-    <Compile Include="DirectoryEnumerator.cs" />
-    <Compile Include="DirectoryReadEventArgs.cs" />
-    <Compile Include="ExtensionsReadEventArgs.cs" />
-    <Compile Include="FileEnumerator.cs" />
-    <Compile Include="IContentWriter.cs" />
-    <Compile Include="IDirectoryEnumerator.cs" />
-    <Compile Include="IFileEnumerator.cs" />
-    <Compile Include="IFileReader.cs" />
+    <Compile Include="DeserializationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Sciendo.Playlist.Persister.Contracts\Sciendo.Playlist.Handler.Contracts.csproj">
+      <Project>{9ba6d39d-2fc1-4cc9-bdfb-4c630f3cbe44}</Project>
+      <Name>Sciendo.Playlist.Handler.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sciendo.Playlist.Persister.XSPF\Sciendo.Playlist.Handler.XSPF.csproj">
+      <Project>{632f3e8f-5230-48ca-a7f9-9a6486248d6e}</Project>
+      <Name>Sciendo.Playlist.Handler.XSPF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\80s.xspf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sciendo.Common.IO;
 
-namespace Sciendo.T2F.Processor
+namespace Sciendo.Common.IO
 {
     public abstract class ContentWriterBase: IContentWriter
     {
@@ -30,7 +25,7 @@ namespace Sciendo.T2F.Processor
         }
 
 
-        protected string StripIllegalChars(string input, char[] illegalCharsSet)
+        protected string StripIllegalChars(string input, char[] illegalCharsSet, string replaceWith ="_")
         {
             string result = input;
 
@@ -39,7 +34,7 @@ namespace Sciendo.T2F.Processor
                 var charPos = input.IndexOf(achr);
                 if (charPos > 0)
                 {
-                    result = result.Replace(achr.ToString(), "_");
+                    result = result.Replace(achr.ToString(), replaceWith);
                 }
             }
             return result;

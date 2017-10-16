@@ -1,8 +1,6 @@
-﻿using System;
-using System.IO;
-using Sciendo.Common.IO;
+﻿using System.IO;
 
-namespace Sciendo.T2F.Processor
+namespace Sciendo.Common.IO
 {
     public class ContentMover:ContentWriterBase
     {

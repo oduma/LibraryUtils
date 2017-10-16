@@ -44,12 +44,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContentCopier.cs" />
-    <Compile Include="ContentMover.cs" />
-    <Compile Include="ContentWriterBase.cs" />
     <Compile Include="IFileProcessor.cs" />
-    <Compile Include="IFileReader.cs" />
-    <Compile Include="IContentWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T2FProcessor.cs" />
     <Compile Include="TagFileProcessor.cs" />

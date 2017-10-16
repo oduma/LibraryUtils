@@ -1,4 +1,4 @@
-﻿namespace Sciendo.T2F.Processor
+﻿namespace Sciendo.Common.IO
 {
     public interface IContentWriter
     {

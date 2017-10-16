@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Sciendo.Common.IO;
 using TagLib;
 using File = System.IO.File;
 

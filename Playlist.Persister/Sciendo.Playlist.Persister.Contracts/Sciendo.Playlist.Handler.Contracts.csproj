@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D90FB487-BA09-4509-ABE6-615F15E3AB45}</ProjectGuid>
+    <ProjectGuid>{9BA6D39D-2FC1-4CC9-BDFB-4C630F3CBE44}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sciendo.Common.IO</RootNamespace>
-    <AssemblyName>Sciendo.Common.IO</AssemblyName>
+    <RootNamespace>Sciendo.Playlist.Handler.Contracts</RootNamespace>
+    <AssemblyName>Sciendo.Playlist.Handler.Contracts</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,20 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContentCopier.cs" />
-    <Compile Include="ContentMover.cs" />
-    <Compile Include="ContentWriterBase.cs" />
-    <Compile Include="DirectoryEnumerator.cs" />
-    <Compile Include="DirectoryReadEventArgs.cs" />
-    <Compile Include="ExtensionsReadEventArgs.cs" />
-    <Compile Include="FileEnumerator.cs" />
-    <Compile Include="IContentWriter.cs" />
-    <Compile Include="IDirectoryEnumerator.cs" />
-    <Compile Include="IFileEnumerator.cs" />
-    <Compile Include="IFileReader.cs" />
+    <Compile Include="IPlaylistHandler.cs" />
+    <Compile Include="PlaylistItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

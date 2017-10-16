@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using Sciendo.Common.IO;
 
-namespace Sciendo.T2F.Processor
+namespace Sciendo.Common.IO
 {
     public class ContentCopier:ContentWriterBase
     {
