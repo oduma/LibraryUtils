@@ -44,6 +44,7 @@
     <Compile Include="ContentMover.cs" />
     <Compile Include="ContentWriterBase.cs" />
     <Compile Include="DirectoryEnumerator.cs" />
+    <Compile Include="DirectoryOperations.cs" />
     <Compile Include="DirectoryReadEventArgs.cs" />
     <Compile Include="ExtensionsReadEventArgs.cs" />
     <Compile Include="FileEnumerator.cs" />
