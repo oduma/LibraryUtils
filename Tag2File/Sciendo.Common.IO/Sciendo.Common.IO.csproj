@@ -49,7 +49,9 @@
     <Compile Include="FileEnumerator.cs" />
     <Compile Include="IContentWriter.cs" />
     <Compile Include="IDirectoryEnumerator.cs" />
+    <Compile Include="IDirectoryOperations.cs" />
     <Compile Include="IFileEnumerator.cs" />
+    <Compile Include="IFileOperations.cs" />
     <Compile Include="IFileReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
