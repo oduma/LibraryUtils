@@ -20,7 +20,7 @@ namespace Sciendo.PP
                 PersisterProcessor persisterProcessor = new PersisterProcessor(fileEnumerator, new TextFileReader(),
                     new PlaylistHandlerFactory(), options.MusicSourceRoot, options.MusicCurrentRoot,
                     new ContentCopier(new DirectoryEnumerator(), fileEnumerator));
-                persisterProcessor.Start(options.PlaylistsDirectory);
+                persisterProcessor.Start(options.PlaylistsPath);
             }
             Console.WriteLine(options.GetHelpText());
         }

@@ -32,21 +32,34 @@ namespace Sciendo.Playlist.Persister
 
         public void Start(string path)
         {
-            var files = _fileEnumerator.Get(path, SearchOption.TopDirectoryOnly);
-            foreach (var file in files)
+            if (Directory.Exists(path))
             {
-                var playlistHandler = _playlistAnaliserFactory.GetHandler(Path.GetExtension(file));
-                if (playlistHandler != null)
+                var files = _fileEnumerator.Get(path, SearchOption.TopDirectoryOnly);
+                foreach (var file in files)
                 {
-                    var playlistRawContent = _fileReader.ReadFile(file);
-                    if (!string.IsNullOrEmpty(playlistRawContent))
-                    {
-                        var targetDirectory = CreateTargetDirectory(file);
-                        var playlist = playlistHandler.GetPlaylistItems(playlistRawContent);
-                        CopyContent(targetDirectory, playlist);
-                        var newPlaylistRawContent = playlistHandler.SetPlaylistItems(playlistRawContent, playlist);
-                        File.WriteAllText(Path.Combine(targetDirectory,Path.GetFileName(file)),newPlaylistRawContent);
-                    }
+                    ProcessFile(file);
+                }
+            }
+            if (File.Exists(path))
+            {
+                ProcessFile(path);
+            }
+
+        }
+
+        private void ProcessFile(string file)
+        {
+            var playlistHandler = _playlistAnaliserFactory.GetHandler(Path.GetExtension(file));
+            if (playlistHandler != null)
+            {
+                var playlistRawContent = _fileReader.ReadFile(file);
+                if (!string.IsNullOrEmpty(playlistRawContent))
+                {
+                    var targetDirectory = CreateTargetDirectory(file);
+                    var playlist = playlistHandler.GetPlaylistItems(playlistRawContent);
+                    CopyContent(targetDirectory, playlist);
+                    var newPlaylistRawContent = playlistHandler.SetPlaylistItems(playlistRawContent, playlist);
+                    File.WriteAllText(Path.Combine(targetDirectory, Path.GetFileName(file)), newPlaylistRawContent);
                 }
             }
         }

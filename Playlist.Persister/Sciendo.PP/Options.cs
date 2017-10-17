@@ -10,7 +10,7 @@ namespace Sciendo.PP
         public string MusicCurrentRoot { get; set; }
 
         [ValueOption(0)]
-        public string PlaylistsDirectory { get; set; }
+        public string PlaylistsPath { get; set; }
 
         public string GetHelpText()
         {
