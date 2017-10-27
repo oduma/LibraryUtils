@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24783742-C936-431E-91F5-766A6D586FFE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{B98EA142-0C16-4C1C-9666-D9506B349652}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sciendo.PP</RootNamespace>
-    <AssemblyName>Sciendo.PP</AssemblyName>
+    <RootNamespace>Sciendo.Playlist.Handler.M3U</RootNamespace>
+    <AssemblyName>Sciendo.Playlist.Handler.M3U</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,35 +44,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Options.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="M3UHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <Compile Include="Track.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tag2File\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
-      <Project>{d90fb487-ba09-4509-abe6-615f15e3ab45}</Project>
+      <Project>{D90FB487-BA09-4509-ABE6-615F15E3AB45}</Project>
       <Name>Sciendo.Common.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Tag2File\Sciendo.Common.Music.Tagging\Sciendo.Common.Music.Tagging.csproj">
-      <Project>{079B9E86-6A95-41D3-8CA3-E7FB34921812}</Project>
-      <Name>Sciendo.Common.Music.Tagging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sciendo.Playlist.Persister.Contracts\Sciendo.Playlist.Handler.Contracts.csproj">
-      <Project>{9ba6d39d-2fc1-4cc9-bdfb-4c630f3cbe44}</Project>
+      <Project>{9BA6D39D-2FC1-4CC9-BDFB-4C630F3CBE44}</Project>
       <Name>Sciendo.Playlist.Handler.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sciendo.Playlist.Persister.XSPF\Sciendo.Playlist.Handler.XSPF.csproj">
-      <Project>{632f3e8f-5230-48ca-a7f9-9a6486248d6e}</Project>
-      <Name>Sciendo.Playlist.Handler.XSPF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sciendo.Playlist.Persister\Sciendo.Playlist.Persister.csproj">
-      <Project>{4b5c7a63-f547-45c0-9f31-c62f58e2b093}</Project>
-      <Name>Sciendo.Playlist.Persister</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

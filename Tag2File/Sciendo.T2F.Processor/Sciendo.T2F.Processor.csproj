@@ -48,7 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T2FProcessor.cs" />
     <Compile Include="TagFileProcessor.cs" />
-    <Compile Include="TagFileReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sciendo.Common.IO\Sciendo.Common.IO.csproj">

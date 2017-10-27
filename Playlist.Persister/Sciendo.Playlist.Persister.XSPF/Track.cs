@@ -1,4 +1,7 @@
-﻿using System.Xml.Serialization;
+﻿using System.IO;
+using System.Xml.Serialization;
+using Sciendo.Common.IO;
+using TagLib;
 
 namespace Sciendo.Playlist.Handler.XSPF
 {
@@ -23,5 +26,20 @@ namespace Sciendo.Playlist.Handler.XSPF
 
         [XmlElement("image")]
         public string Image { get; set; }
+
+        public Track()
+        {
+            
+        }
+
+        public Track(IFileReader<Tag> tagFileReader, string file, string rootFolderPath)
+        {
+            var tag = tagFileReader.ReadFile($"{rootFolderPath}{Path.DirectorySeparatorChar}{file}");
+            this.Duration = 0;
+            this.Album = tag.Album;
+            this.Creator = tag.FirstPerformer;
+            this.Title = tag.Title;
+            this.Location = file;
+        }
     }
 }

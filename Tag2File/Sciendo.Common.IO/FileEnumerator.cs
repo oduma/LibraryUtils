@@ -30,7 +30,7 @@ namespace Sciendo.Common.IO
                 {
                     ExtensionsRead?.Invoke(this, new ExtensionsReadEventArgs(extension));
                     foreach (var file in Directory.EnumerateFiles(path, "*.*", searchOption)
-                        .Where(s => s.EndsWith(extension)))
+                        .Where(s => s.ToLower().EndsWith(extension.ToLower())))
                     {
                         yield return file;
                     }

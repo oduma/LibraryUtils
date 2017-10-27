@@ -4,7 +4,7 @@ using Sciendo.Common.IO;
 using TagLib;
 using File = System.IO.File;
 
-namespace Sciendo.T2F.Processor
+namespace Sciendo.Common.Music.Tagging
 {
     public class TagFileReader:IFileReader<Tag>
     {

@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.PP", "Playlist.Pers
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Playlist.Handler.XSPF.Tests.Unit", "Playlist.Persister\Sciendo.Playlist.Analyser.XSPF.Tests.Unit\Sciendo.Playlist.Handler.XSPF.Tests.Unit.csproj", "{6ADA5363-73C6-42CD-9D33-20BDC3D29587}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Playlist.Handler.M3U", "Playlist.Persister\Sciendo.Playlist.Handler.M3U\Sciendo.Playlist.Handler.M3U.csproj", "{B98EA142-0C16-4C1C-9666-D9506B349652}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Common.Music.Tagging", "Tag2File\Sciendo.Common.Music.Tagging\Sciendo.Common.Music.Tagging.csproj", "{079B9E86-6A95-41D3-8CA3-E7FB34921812}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +117,14 @@ Global
 		{6ADA5363-73C6-42CD-9D33-20BDC3D29587}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ADA5363-73C6-42CD-9D33-20BDC3D29587}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ADA5363-73C6-42CD-9D33-20BDC3D29587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B98EA142-0C16-4C1C-9666-D9506B349652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B98EA142-0C16-4C1C-9666-D9506B349652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B98EA142-0C16-4C1C-9666-D9506B349652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B98EA142-0C16-4C1C-9666-D9506B349652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{079B9E86-6A95-41D3-8CA3-E7FB34921812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079B9E86-6A95-41D3-8CA3-E7FB34921812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079B9E86-6A95-41D3-8CA3-E7FB34921812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079B9E86-6A95-41D3-8CA3-E7FB34921812}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -134,5 +146,7 @@ Global
 		{4B5C7A63-F547-45C0-9F31-C62F58E2B093} = {6FB4FE36-56CC-400D-88E8-A84C6957A9FD}
 		{24783742-C936-431E-91F5-766A6D586FFE} = {6FB4FE36-56CC-400D-88E8-A84C6957A9FD}
 		{6ADA5363-73C6-42CD-9D33-20BDC3D29587} = {6FB4FE36-56CC-400D-88E8-A84C6957A9FD}
+		{B98EA142-0C16-4C1C-9666-D9506B349652} = {6FB4FE36-56CC-400D-88E8-A84C6957A9FD}
+		{079B9E86-6A95-41D3-8CA3-E7FB34921812} = {81ED69B2-8507-45A8-AD30-BAF7E0CAA7A0}
 	EndGlobalSection
 EndGlobal

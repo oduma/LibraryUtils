@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Sciendo.Playlist.Persister;
 
 namespace Sciendo.PP
 {
@@ -8,6 +9,9 @@ namespace Sciendo.PP
         public string MusicSourceRoot { get; set; }
         [Option('c', "musicCurrent", DefaultValue = "", HelpText = "Root folder of the files now")]
         public string MusicCurrentRoot { get; set; }
+
+        [Option('t', "targetType", DefaultValue = PlaylistType.M3U, HelpText = "Target Type of the playlist")]
+        public PlaylistType TargetPlaylistType { get; set; }
 
         [ValueOption(0)]
         public string PlaylistsPath { get; set; }
