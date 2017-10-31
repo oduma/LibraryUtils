@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 using Sciendo.Common.IO;
 using TagLib;
 
-namespace Sciendo.Playlist.Handler.XSPF
+namespace Sciendo.Playlists.XSPF
 {
 
     [XmlRoot("track")]
@@ -34,7 +34,7 @@ namespace Sciendo.Playlist.Handler.XSPF
 
         public Track(IFileReader<Tag> tagFileReader, string file, string rootFolderPath)
         {
-            var tag = tagFileReader.ReadFile($"{rootFolderPath}{Path.DirectorySeparatorChar}{file}");
+            var tag = tagFileReader.Read($"{rootFolderPath}{Path.DirectorySeparatorChar}{file}");
             this.Duration = 0;
             this.Album = tag.Album;
             this.Creator = tag.FirstPerformer;

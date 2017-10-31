@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Sciendo.Common.IO;
 using Sciendo.Common.Serialization;
-using Sciendo.Playlist.Handler.Contracts;
+using Sciendo.Playlists;
 using TagLib;
 using File = System.IO.File;
 
@@ -18,25 +18,34 @@ namespace Sciendo.Playlist.Persister
         private readonly string _currentRoot;
         private readonly IContentWriter _fileWriter;
         private readonly IFileReader<Tag> _tagFileReader;
+        private readonly IFileWriter _textFileWriter;
         private readonly PlaylistType _targetPlaylistType;
+        private readonly DeviceType _deviceType;
 
         public PersisterProcessor(IFileEnumerator fileEnumerator, 
             IFileReader<string> textFileReader, 
             IFileReader<Tag> tagFileReader,
+            IFileWriter textFileWriter,
             IPlaylistHandlerFactory playlistAnaliserFactory, 
             string sourceRoot, 
             string currentRoot, 
             IContentWriter fileWriter,
-            PlaylistType targetPlaylistType)
+            PlaylistType targetPlaylistType,
+            DeviceType deviceType)
         {
             _fileEnumerator = fileEnumerator;
             _textFileReader = textFileReader;
             _tagFileReader = tagFileReader;
+            _textFileWriter = textFileWriter;
             _playlistAnaliserFactory = playlistAnaliserFactory;
             _sourceRoot = sourceRoot.ToLower();
             _currentRoot = currentRoot.ToLower();
             _fileWriter = fileWriter;
-            _targetPlaylistType = targetPlaylistType;
+            _deviceType = deviceType;
+            if(_deviceType==DeviceType.Mobile)
+                _targetPlaylistType=PlaylistType.M3U;
+            else
+                _targetPlaylistType = targetPlaylistType;
         }
 
         public event EventHandler<ProgressEventArgs> StartProcessing;
@@ -48,8 +57,7 @@ namespace Sciendo.Playlist.Persister
             if (Directory.Exists(path))
             {
                 var files = _fileEnumerator.Get(path, SearchOption.TopDirectoryOnly);
-                if (StartProcessing != null)
-                    StartProcessing(this, new ProgressEventArgs(path,files.Count()));
+                StartProcessing?.Invoke(this, new ProgressEventArgs(path, files.Count()));
 
                 foreach (var file in files)
                 {
@@ -58,8 +66,7 @@ namespace Sciendo.Playlist.Persister
             }
             if (File.Exists(path))
             {
-                if (StartProcessing != null)
-                    StartProcessing(this, new ProgressEventArgs(path, 1));
+                StartProcessing?.Invoke(this, new ProgressEventArgs(path, 1));
                 ProcessFile(path);
             }
 
@@ -85,9 +92,10 @@ namespace Sciendo.Playlist.Persister
         private void CreateTargetPlaylist(PlaylistItem[] inPlaylist, string sourceFile, string targetDirectory)
         {
             var playlistHandler = _playlistAnaliserFactory.GetHandler(_targetPlaylistType.ToString().ToLower());
-            var newPlaylistRawContent = playlistHandler.SetPlaylistItems(_tagFileReader, inPlaylist,targetDirectory);
+
+            var newPlaylistRawContent = playlistHandler.SetPlaylistItems((_deviceType!=DeviceType.Mobile)?_tagFileReader:null, inPlaylist,targetDirectory);
             var targetFileName = $"{Path.GetFileNameWithoutExtension(sourceFile)}.{_targetPlaylistType.ToString().ToLower()}";
-            File.WriteAllText(Path.Combine(targetDirectory, targetFileName), newPlaylistRawContent);
+            _textFileWriter.Write(newPlaylistRawContent, Path.Combine(targetDirectory, targetFileName));
             if(PlaylistCreated!=null)
                 PlaylistCreated(this, new ProgressEventArgs(targetFileName,1));
         }
@@ -106,7 +114,7 @@ namespace Sciendo.Playlist.Persister
             var playlistHandler = _playlistAnaliserFactory.GetHandler(Path.GetExtension(file));
             if (playlistHandler != null)
             {
-                var playlistRawContent = _textFileReader.ReadFile(file);
+                var playlistRawContent = _textFileReader.Read(file);
                 if (!string.IsNullOrEmpty(playlistRawContent))
                 {
                     return playlistHandler.GetPlaylistItems(playlistRawContent);
@@ -123,12 +131,22 @@ namespace Sciendo.Playlist.Persister
                 var sourceFile = (_sourceRoot.ToLower()==_currentRoot.ToLower())?
                     playlistItem.FileName:
                     playlistItem.FileName.ToLower().Replace(_sourceRoot, _currentRoot);
-                var targetFile = Path.Combine(targetDirectory, Path.GetFileName(sourceFile));
+                var targetFile = GetTargetFilePath(targetDirectory, sourceFile, ++fileCopyCount);
                 _fileWriter.Do(sourceFile,targetFile);
                 playlistItem.FileName = Path.GetFileName(targetFile);
-                fileCopyCount++;
             }
             return fileCopyCount;
+        }
+
+        private string GetTargetFilePath(string targetDirectory, string sourceFile, int indexInPlaylist)
+        {
+            var targetExtension = Path.GetExtension(sourceFile);
+
+            var targetFileName = Path.GetFileNameWithoutExtension(sourceFile);
+            if (_deviceType == DeviceType.Mobile)
+                targetFileName = indexInPlaylist.ToString().PadLeft(3, '0');
+            var targetFile = $"{targetFileName}{targetExtension}";
+            return Path.Combine(targetDirectory, targetFile);
         }
 
         private string CreateTargetDirectory(string playlistFileName)

@@ -32,7 +32,7 @@ namespace Sciendo.T2F.Processor
             var files = _fileEnumerator.Get(path,SearchOption.AllDirectories, extensions);
             foreach (var file in files)
             {
-                var tag = _tagFileReader.ReadFile(file);
+                var tag = _tagFileReader.Read(file);
                 if (!((tag == null) || string.IsNullOrEmpty(tag.Album) || string.IsNullOrEmpty(tag.Title)))
                 {
                     
@@ -54,8 +54,8 @@ namespace Sciendo.T2F.Processor
             foreach (var directory in Directory.GetDirectories(path))
             {
                 CleanupEmptyDirectories(directory);
-                if (Directory.GetFiles(directory).Length == 0 &&
-                    Directory.GetDirectories(directory).Length == 0)
+                if (!_fileEnumerator.Get(directory,SearchOption.AllDirectories).Any() &&
+                    !_directoryEnumerator.GetTopLevel(directory).Any())
                 {
                     Directory.Delete(directory, false);
                 }

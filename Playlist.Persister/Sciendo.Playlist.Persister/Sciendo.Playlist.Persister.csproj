@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceType.cs" />
     <Compile Include="IPlaylistHandlerFactory.cs" />
     <Compile Include="PersisterProcessor.cs" />
     <Compile Include="PlaylistHandlerFactory.cs" />
@@ -61,21 +62,13 @@
     <Compile Include="TextFileReader.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Tag2File\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
+    <ProjectReference Include="..\..\Common\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
       <Project>{d90fb487-ba09-4509-abe6-615f15e3ab45}</Project>
       <Name>Sciendo.Common.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sciendo.Playlist.Handler.M3U\Sciendo.Playlist.Handler.M3U.csproj">
-      <Project>{B98EA142-0C16-4C1C-9666-D9506B349652}</Project>
-      <Name>Sciendo.Playlist.Handler.M3U</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sciendo.Playlist.Persister.Contracts\Sciendo.Playlist.Handler.Contracts.csproj">
+    <ProjectReference Include="..\..\Playlists\Sciendo.Playlists\Sciendo.Playlists.csproj">
       <Project>{9ba6d39d-2fc1-4cc9-bdfb-4c630f3cbe44}</Project>
-      <Name>Sciendo.Playlist.Handler.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sciendo.Playlist.Persister.XSPF\Sciendo.Playlist.Handler.XSPF.csproj">
-      <Project>{632f3e8f-5230-48ca-a7f9-9a6486248d6e}</Project>
-      <Name>Sciendo.Playlist.Handler.XSPF</Name>
+      <Name>Sciendo.Playlists</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

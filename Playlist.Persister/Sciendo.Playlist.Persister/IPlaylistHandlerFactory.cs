@@ -1,4 +1,4 @@
-﻿using Sciendo.Playlist.Handler.Contracts;
+﻿using Sciendo.Playlists;
 
 namespace Sciendo.Playlist.Persister
 {

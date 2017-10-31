@@ -51,8 +51,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
-      <Project>{D90FB487-BA09-4509-ABE6-615F15E3AB45}</Project>
+    <ProjectReference Include="..\..\Common\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
+      <Project>{d90fb487-ba09-4509-abe6-615f15e3ab45}</Project>
       <Name>Sciendo.Common.IO</Name>
     </ProjectReference>
   </ItemGroup>

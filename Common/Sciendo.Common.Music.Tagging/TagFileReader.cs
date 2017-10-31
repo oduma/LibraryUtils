@@ -8,7 +8,7 @@ namespace Sciendo.Common.Music.Tagging
 {
     public class TagFileReader:IFileReader<Tag>
     {
-        public Tag ReadFile(string filePath)
+        public Tag Read(string filePath)
         {
             using (FileStream fs = File.OpenRead(filePath))
             {

@@ -50,13 +50,13 @@
     <Compile Include="TagFileProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
       <Project>{d90fb487-ba09-4509-abe6-615f15e3ab45}</Project>
       <Name>Sciendo.Common.IO</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
