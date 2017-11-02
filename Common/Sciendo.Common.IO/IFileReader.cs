@@ -2,6 +2,6 @@
 {
     public interface IFileReader<out T>
     {
-        T ReadFile(string filePath);
+        T Read(string filePath);
     }
 }

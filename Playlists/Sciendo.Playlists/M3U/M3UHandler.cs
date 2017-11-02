@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Sciendo.Common.IO;
-using Sciendo.Playlist.Handler.Contracts;
 using TagLib;
 
-namespace Sciendo.Playlist.Handler.M3U
+namespace Sciendo.Playlists.M3U
 {
     public class M3UHandler: IPlaylistHandler
     {

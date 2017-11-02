@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sciendo.Common.IO;
 
 namespace Sciendo.Library.Lister
 {
@@ -13,6 +12,8 @@ namespace Sciendo.Library.Lister
         private readonly string[] _musicExtensions;
         private readonly Scope _includeScope;
         private readonly bool _includeSize;
+        private readonly IFileEnumerator _fileEnumerator;
+        private readonly IDirectoryEnumerator _directoryEnumerator;
 
         public event EventHandler<ItemParsedEventArgs> ItemParsed; 
 
@@ -27,7 +28,7 @@ namespace Sciendo.Library.Lister
             libraryItems.Add(CreateFolderLibraryItem(folder));
             libraryItems.AddRange(GetFileLibraryItemsInFolder(folder).Where(i=>i!=null));
 
-            foreach (var folderInTheFolder in Directory.EnumerateDirectories(folder, "*", SearchOption.TopDirectoryOnly).OrderBy(s=>s, StringComparer.InvariantCultureIgnoreCase))
+            foreach (var folderInTheFolder in _directoryEnumerator.GetTopLevel(folder).OrderBy(s=>s, StringComparer.InvariantCultureIgnoreCase))
             {
                 libraryItems.AddRange(ParseFolder(folderInTheFolder));
             }
@@ -36,7 +37,7 @@ namespace Sciendo.Library.Lister
 
         private IEnumerable<LibraryItem> GetFileLibraryItemsInFolder(string folder)
         {
-            foreach (var fileInTheFolder in Directory.EnumerateFiles(folder, "*", SearchOption.TopDirectoryOnly).OrderBy(s => s, StringComparer.InvariantCultureIgnoreCase))
+            foreach (var fileInTheFolder in _fileEnumerator.Get(folder,SearchOption.TopDirectoryOnly).OrderBy(s => s, StringComparer.InvariantCultureIgnoreCase))
             {
                  yield return CreateFileLibraryItem(fileInTheFolder);
             }
@@ -68,11 +69,13 @@ namespace Sciendo.Library.Lister
             return (_musicExtensions.Contains(Path.GetExtension(file))) ? ItemType.MusicFile : ItemType.OtherFile;
         }
 
-        public LibraryParser(string rootFolder, string[] musicExtensions, Scope includeScope, bool includeSize)
+        public LibraryParser(string rootFolder, string[] musicExtensions, Scope includeScope, bool includeSize,IFileEnumerator fileEnumerator, IDirectoryEnumerator directoryEnumerator)
         {
             _musicExtensions = musicExtensions;
             _includeScope = includeScope;
             _includeSize = includeSize;
+            _fileEnumerator = fileEnumerator;
+            _directoryEnumerator = directoryEnumerator;
             _rootFolder = (string.IsNullOrEmpty(rootFolder))?
                 AppDomain.CurrentDomain.BaseDirectory:rootFolder;
 

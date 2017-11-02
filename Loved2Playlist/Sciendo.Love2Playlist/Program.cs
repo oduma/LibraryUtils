@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sciendo.Clementine.DataAccess;
+using Sciendo.Common.IO;
+using Sciendo.Common.Music.Tagging;
 using Sciendo.Love2Playlist.Processor;
 using Sciendo.Love2Playlist.Processor.Configuration;
+using Sciendo.Playlists.M3U;
 
 namespace Sciendo.Love2Playlist
 {
@@ -18,14 +21,13 @@ namespace Sciendo.Love2Playlist
             PlaylistConfigurationSection playlistConfig = ConfigurationManager.GetSection("playlist") as PlaylistConfigurationSection;
 
             ILoveProvider loveProvider = new LoveProvider(lastFmConfig,new LastFmProvider());
-            IPersister persister = new Persister(playlistConfig.FileName,lastFmConfig.User);
             using (
                 var dataProvider =
                     new DataProvider($"Data Source={playlistConfig.ClementineDatabaseFile};version=3;"))
             {
-                IPlaylistCreator playlistCreator = new PlaylistCreator(dataProvider);
 
-                ICoordinator coordinator = new Coordinator(loveProvider, persister, playlistCreator);
+                ICoordinator coordinator = new Coordinator(loveProvider, dataProvider, new M3UHandler(),
+                    new TagFileReader(), new TextFileWriter(), lastFmConfig.User, playlistConfig.FileName);
                 coordinator.CollectedLove += Coordinator_CollectedLove;
                 coordinator.SavedLove += Coordinator_SavedLove;
                 coordinator.SavedPlaylist += Coordinator_SavedPlaylist;

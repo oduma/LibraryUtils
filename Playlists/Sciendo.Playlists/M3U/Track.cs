@@ -1,12 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Sciendo.Common.IO;
 using TagLib;
 
-namespace Sciendo.Playlist.Handler.M3U
+namespace Sciendo.Playlists.M3U
 {
-    public class Track
+    internal class Track
     {
 
         private const string DurationSeparator = ",";
@@ -54,17 +53,25 @@ namespace Sciendo.Playlist.Handler.M3U
 
         public Track(IFileReader<Tag> tagFileReader, string file, string rootFolderPath)
         {
-            var tag = tagFileReader.ReadFile($"{rootFolderPath}{Path.DirectorySeparatorChar}{file}");
+            if (tagFileReader != null)
+                FillInTheTag(tagFileReader, $"{rootFolderPath}{Path.DirectorySeparatorChar}{file}");
             this.Duration = 0;
+            this.Location = file;
+        }
+
+        private void FillInTheTag(IFileReader<Tag> tagFileReader, string file)
+        {
+            var tag = tagFileReader.Read(file);
             this.Creator = tag.FirstPerformer;
             this.Title = tag.Title;
-            this.Location = file;
         }
 
         public override string ToString()
         {
             string duration = (string)((Duration==0)?string.Empty :$"{Duration}{DurationSeparator}");
-            return $"{duration} {Creator}{TitleSeparator}{Title}{Environment.NewLine}{Location}";
+            if(TrackHasTag())
+                return $"{duration} {Creator}{TitleSeparator}{Title}{Environment.NewLine}{Location}";
+            return $"{Environment.NewLine}{Location}";
         }
 
 

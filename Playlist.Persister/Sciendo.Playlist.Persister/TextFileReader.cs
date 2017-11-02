@@ -5,7 +5,7 @@ namespace Sciendo.Playlist.Persister
 {
     public class TextFileReader:IFileReader<string>
     {
-        public string ReadFile(string filePath)
+        public string Read(string filePath)
         {
             if(File.Exists(filePath))
                 return File.ReadAllText(filePath);

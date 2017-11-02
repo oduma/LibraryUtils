@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sciendo.Common.IO;
 using Sciendo.Common.Serialization;
 using Sciendo.Library.Lister;
 
@@ -16,7 +17,7 @@ namespace LibLister
             var result = CommandLine.Parser.Default.ParseArguments(args, options);
             if (result)
             {
-                LibraryParser libraryParser = new LibraryParser(options.Root,options.MusicExtensions.Split(';'),options.Include, options.IncludeSize);
+                LibraryParser libraryParser = new LibraryParser(options.Root,options.MusicExtensions.Split(';'),options.Include, options.IncludeSize, new FileEnumerator(), new DirectoryEnumerator());
                 libraryParser.ItemParsed += LibraryParser_ItemParsed;
                 Serializer.SerializeToFile(libraryParser.ParseLibrary(),options.OutputFile);
             }

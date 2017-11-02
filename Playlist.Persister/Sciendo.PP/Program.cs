@@ -21,8 +21,9 @@ namespace Sciendo.PP
                 IFileEnumerator fileEnumerator = new FileEnumerator();
                 PersisterProcessor persisterProcessor = new PersisterProcessor(fileEnumerator, new TextFileReader(),
                     new TagFileReader(),
+                    new TextFileWriter(), 
                     new PlaylistHandlerFactory(), options.MusicSourceRoot, options.MusicCurrentRoot,
-                    new ContentCopier(new DirectoryEnumerator(), fileEnumerator),options.TargetPlaylistType);
+                    new ContentCopier(new DirectoryEnumerator(), fileEnumerator),options.TargetPlaylistType,options.DeviceType);
                 persisterProcessor.StartProcessing += PersisterProcessor_StartProcessing;
                 persisterProcessor.StartProcessingFile += PersisterProcessor_StartProcessingFile;
                 persisterProcessor.CopyContentToTarget += PersisterProcessor_CopyContentToTarget;

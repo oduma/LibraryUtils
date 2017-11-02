@@ -13,6 +13,9 @@ namespace Sciendo.PP
         [Option('t', "targetType", DefaultValue = PlaylistType.M3U, HelpText = "Target Type of the playlist")]
         public PlaylistType TargetPlaylistType { get; set; }
 
+        [Option('d', "deviceType", DefaultValue = DeviceType.Mobile, HelpText = "Device Type of the playlist")]
+        public DeviceType DeviceType { get; set; }
+
         [ValueOption(0)]
         public string PlaylistsPath { get; set; }
 

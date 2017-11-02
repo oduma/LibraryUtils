@@ -1,6 +1,7 @@
 ﻿using System.Xml.Serialization;
+using Sciendo.Playlist.Handler.XSPF;
 
-namespace Sciendo.Playlist.Handler.XSPF
+namespace Sciendo.Playlists.XSPF
 {
     [XmlRoot(ElementName = "playlist", Namespace= "http://xspf.org/ns/0/")]
     public class Playlist
