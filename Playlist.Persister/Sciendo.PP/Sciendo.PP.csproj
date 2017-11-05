@@ -68,6 +68,10 @@
       <Project>{079b9e86-6a95-41d3-8ca3-e7fb34921812}</Project>
       <Name>Sciendo.Common.Music.Tagging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Playlists\Sciendo.Playlists\Sciendo.Playlists.csproj">
+      <Project>{9ba6d39d-2fc1-4cc9-bdfb-4c630f3cbe44}</Project>
+      <Name>Sciendo.Playlists</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sciendo.Playlist.Persister\Sciendo.Playlist.Persister.csproj">
       <Project>{4b5c7a63-f547-45c0-9f31-c62f58e2b093}</Project>
       <Name>Sciendo.Playlist.Persister</Name>

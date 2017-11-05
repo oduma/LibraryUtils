@@ -1,9 +1,7 @@
-﻿using System.Runtime.Remoting.Messaging;
-using Sciendo.Playlist.Handler.XSPF;
-using Sciendo.Playlists;
+﻿using Sciendo.Playlist.Handler.XSPF;
 using Sciendo.Playlists.M3U;
 
-namespace Sciendo.Playlist.Persister
+namespace Sciendo.Playlists
 {
     public class PlaylistHandlerFactory:IPlaylistHandlerFactory
     {

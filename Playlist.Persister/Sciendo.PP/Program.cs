@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Sciendo.Common.IO;
 using Sciendo.Common.Music.Tagging;
 using Sciendo.Playlist.Persister;
+using Sciendo.Playlists;
 
 namespace Sciendo.PP
 {

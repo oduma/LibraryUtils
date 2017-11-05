@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using Sciendo.Common.IO;
 
-namespace Sciendo.Playlist.Persister
+namespace Sciendo.Common.IO
 {
     public class TextFileReader:IFileReader<string>
     {

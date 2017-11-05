@@ -47,6 +47,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Playlists", "Playli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Playlists.Tests.Unit", "Playlists\Sciendo.Playlists.Tests.Unit\Sciendo.Playlists.Tests.Unit.csproj", "{6ADA5363-73C6-42CD-9D33-20BDC3D29587}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PlaylistTranslator", "PlaylistTranslator", "{DE429960-F481-457A-AAB0-DA66E4F57F7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Playlist.Translator", "PlaylistTranslator\Sciendo.Playlist.Translator\Sciendo.Playlist.Translator.csproj", "{C60E4A8E-9950-401B-8300-ACAE8711641B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.PT", "PlaylistTranslator\Sciendo.PT\Sciendo.PT.csproj", "{6415146C-29A6-489F-8B0E-72D741AC56C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +123,14 @@ Global
 		{6ADA5363-73C6-42CD-9D33-20BDC3D29587}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ADA5363-73C6-42CD-9D33-20BDC3D29587}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ADA5363-73C6-42CD-9D33-20BDC3D29587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C60E4A8E-9950-401B-8300-ACAE8711641B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C60E4A8E-9950-401B-8300-ACAE8711641B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C60E4A8E-9950-401B-8300-ACAE8711641B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60E4A8E-9950-401B-8300-ACAE8711641B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6415146C-29A6-489F-8B0E-72D741AC56C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6415146C-29A6-489F-8B0E-72D741AC56C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6415146C-29A6-489F-8B0E-72D741AC56C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6415146C-29A6-489F-8B0E-72D741AC56C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,5 +152,7 @@ Global
 		{079B9E86-6A95-41D3-8CA3-E7FB34921812} = {2A92E14F-B669-49ED-857F-9F175913AAD8}
 		{9BA6D39D-2FC1-4CC9-BDFB-4C630F3CBE44} = {2972E250-C6F6-4369-89AB-3B285D7B9608}
 		{6ADA5363-73C6-42CD-9D33-20BDC3D29587} = {2972E250-C6F6-4369-89AB-3B285D7B9608}
+		{C60E4A8E-9950-401B-8300-ACAE8711641B} = {DE429960-F481-457A-AAB0-DA66E4F57F7A}
+		{6415146C-29A6-489F-8B0E-72D741AC56C3} = {DE429960-F481-457A-AAB0-DA66E4F57F7A}
 	EndGlobalSection
 EndGlobal

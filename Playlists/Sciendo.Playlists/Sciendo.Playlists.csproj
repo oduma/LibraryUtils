@@ -53,8 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPlaylistHandler.cs" />
+    <Compile Include="IPlaylistHandlerFactory.cs" />
     <Compile Include="M3U\M3UHandler.cs" />
     <Compile Include="M3U\Track.cs" />
+    <Compile Include="PlaylistHandlerFactory.cs" />
     <Compile Include="PlaylistItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XSPF\Playlist.cs" />

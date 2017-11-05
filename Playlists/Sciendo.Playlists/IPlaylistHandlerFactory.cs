@@ -1,6 +1,4 @@
-﻿using Sciendo.Playlists;
-
-namespace Sciendo.Playlist.Persister
+﻿namespace Sciendo.Playlists
 {
     public interface IPlaylistHandlerFactory
     {
