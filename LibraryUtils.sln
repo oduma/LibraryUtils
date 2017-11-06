@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Playlist.Translator
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.PT", "PlaylistTranslator\Sciendo.PT\Sciendo.PT.csproj", "{6415146C-29A6-489F-8B0E-72D741AC56C3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plal", "Plal", "{42F3F23D-5E29-4417-A873-12B62D18F8A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
