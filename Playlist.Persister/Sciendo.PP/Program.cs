@@ -32,6 +32,7 @@ namespace Sciendo.PP
                 persisterProcessor.PlaylistCreated += PersisterProcessor_PlaylistCreated;
                 persisterProcessor.Start(options.PlaylistsPath);
                 Console.WriteLine("Finished running.");
+                return;
             }
             Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
         }
