@@ -53,8 +53,12 @@ namespace Sciendo.Playlists.M3U
 
         public Track(IFileReader<Tag> tagFileReader, string file, string rootFolderPath)
         {
+            var filePath = (string.IsNullOrEmpty(rootFolderPath))
+                ? file
+                : $"{rootFolderPath}{Path.DirectorySeparatorChar}{file}";
+
             if (tagFileReader != null)
-                FillInTheTag(tagFileReader, $"{rootFolderPath}{Path.DirectorySeparatorChar}{file}");
+                FillInTheTag(tagFileReader, filePath);
             this.Duration = 0;
             this.Location = file;
         }

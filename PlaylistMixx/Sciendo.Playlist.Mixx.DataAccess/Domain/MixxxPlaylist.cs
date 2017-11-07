@@ -37,7 +37,7 @@ namespace Sciendo.Mixx.DataAccess.Domain
                 var parameters = new DynamicParameters();
                 parameters.Add("@Id", result.Id,DbType.Int32,ParameterDirection.Input);
                 result.PlaylistTracks =
-                    connection.Query<MixxxPlaylistTrack>(@"SELECT pt.track_id, pt.position, tl.location
+                    connection.Query<MixxxPlaylistTrack>(@"SELECT pt.track_id as TrackId, pt.position as Position, tl.location as FileName
   FROM PlaylistTracks pt join library l on pt.track_id=l.id
   join track_locations tl on l.location=tl.id
   where playlist_id=@Id

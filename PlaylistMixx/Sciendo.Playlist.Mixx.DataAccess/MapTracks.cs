@@ -19,7 +19,10 @@ namespace Sciendo.Mixx.DataAccess
         {
             foreach (var fromDataTypeInstance in fromDataType)
             {
-                yield return new PlaylistItem {FileName = fromDataTypeInstance.FileName};
+                var tempFileName = fromDataTypeInstance.FileName.Replace(@"/", @"\");
+                tempFileName = (tempFileName.StartsWith(@"\")) ? tempFileName.Substring(1) : tempFileName;
+                
+                yield return new PlaylistItem {FileName = tempFileName};
             }
         }
     }
