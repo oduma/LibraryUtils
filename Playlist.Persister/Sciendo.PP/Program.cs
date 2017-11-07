@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommandLine;
 using Sciendo.Common.IO;
 using Sciendo.Common.Music.Tagging;
 using Sciendo.Playlist.Persister;
@@ -14,17 +15,17 @@ namespace Sciendo.PP
     {
         static void Main(string[] args)
         {
-            Options options = new Options();
-            var result = CommandLine.Parser.Default.ParseArguments(args, options);
-            if (result)
+            var result = CommandLine.Parser.Default.ParseArguments<Options>(args);
+            if (result.Tag==ParserResultType.Parsed)
             {
+                var options = ((Parsed<Options>) result).Value;
                 Console.WriteLine("Arguments Ok starting...");
                 IFileEnumerator fileEnumerator = new FileEnumerator();
                 PersisterProcessor persisterProcessor = new PersisterProcessor(fileEnumerator, new TextFileReader(),
                     new TagFileReader(),
-                    new TextFileWriter(), 
+                    new TextFileWriter(),
                     new PlaylistHandlerFactory(), options.MusicSourceRoot, options.MusicCurrentRoot,
-                    new ContentCopier(new DirectoryEnumerator(), fileEnumerator),options.TargetPlaylistType,options.DeviceType);
+                    new ContentCopier(new DirectoryEnumerator(), fileEnumerator), options.TargetPlaylistType, options.DeviceType);
                 persisterProcessor.StartProcessing += PersisterProcessor_StartProcessing;
                 persisterProcessor.StartProcessingFile += PersisterProcessor_StartProcessingFile;
                 persisterProcessor.CopyContentToTarget += PersisterProcessor_CopyContentToTarget;
@@ -32,7 +33,7 @@ namespace Sciendo.PP
                 persisterProcessor.Start(options.PlaylistsPath);
                 Console.WriteLine("Finished running.");
             }
-            Console.WriteLine(options.GetHelpText());
+            Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
         }
 
         private static void PersisterProcessor_PlaylistCreated(object sender, ProgressEventArgs e)

@@ -12,10 +12,10 @@ namespace Sciendo.Mixx.DataAccess
 {
     public class DataHandler:IDataHandler
     {
-        private readonly IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxPlaylistTrack>> _mapper;
+        private readonly IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> _mapper;
         private SQLiteConnection _connection;
 
-        public DataHandler(IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxPlaylistTrack>> mapper, string connectionString)
+        public DataHandler(IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> mapper, string connectionString)
         {
             _connection = new SQLiteConnection {ConnectionString = connectionString};
             _connection.Open();
@@ -37,7 +37,7 @@ namespace Sciendo.Mixx.DataAccess
         public bool Create(string name, IEnumerable<PlaylistItem> playlistItems)
         {
 
-            var mixxPlaylist = new MixxPlaylist(name);
+            var mixxPlaylist = new MixxxPlaylist(name);
             mixxPlaylist.PlaylistTracks = _mapper.Transform(playlistItems);
             using (var transaction = _connection.BeginTransaction())
             {
@@ -59,7 +59,7 @@ namespace Sciendo.Mixx.DataAccess
         {
             using (var transaction = _connection.BeginTransaction())
             {
-                var mixxPlaylist = MixxPlaylist.Load(name, true, _connection, transaction);
+                var mixxPlaylist = MixxxPlaylist.Load(name, true, _connection, transaction);
 
                 if (mixxPlaylist == null || mixxPlaylist.Id == 0)
                     return null;
@@ -71,8 +71,8 @@ namespace Sciendo.Mixx.DataAccess
         {
             using (var transaction = _connection.BeginTransaction())
             {
-                var existingMixxPlaylist = MixxPlaylist.Load(name, true, _connection, transaction);
-                if (existingMixxPlaylist.Id <= 0)
+                var existingMixxPlaylist = MixxxPlaylist.Load(name, true, _connection, transaction);
+                if (existingMixxPlaylist ==null || existingMixxPlaylist.Id <= 0)
                 {
                     transaction.Rollback();
                     return false;

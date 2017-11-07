@@ -38,8 +38,8 @@
       <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    <Reference Include="Rhino.Mocks, Version=4.0.0.0, Culture=neutral, PublicKeyToken=38730f1abddafc13, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RhinoMocks.4.0.0-alpha3\lib\net40\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -63,6 +63,10 @@
       <Project>{2e813849-0e59-4400-9bdb-ff4a2b898643}</Project>
       <Name>Sciendo.Love2Playlist.Processor</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="acknowledgements.txt" />
+    <Content Include="license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

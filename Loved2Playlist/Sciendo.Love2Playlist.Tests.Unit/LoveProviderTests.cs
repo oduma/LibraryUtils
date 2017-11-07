@@ -27,8 +27,8 @@ namespace Sciendo.Love2Playlist.Tests.Unit
         public void GetPageOk()
         {
             Uri uri = new Uri("http://localhost/mypage");
-            var mockedLastFmProvider = MockRepository.GenerateMock<ILastFmProvider>();
-            var mockedUrlProvider = MockRepository.GenerateMock<IUrlProvider>();
+            var mockedLastFmProvider = MockRepository.Mock<ILastFmProvider>();
+            var mockedUrlProvider = MockRepository.Mock<IUrlProvider>();
             mockedUrlProvider.Expect(m => m.GetUrl(2)).Return(uri);
             mockedLastFmProvider.Expect(m => m.GetLastFmContent(uri)).Return(_content);
             var loveProvider = new LoveProvider(mockedUrlProvider, mockedLastFmProvider);
@@ -59,8 +59,8 @@ namespace Sciendo.Love2Playlist.Tests.Unit
         public void GetPageNoRawData()
         {
             Uri uri = new Uri("http://localhost/mypage");
-            var mockedLastFmProvider = MockRepository.GenerateMock<ILastFmProvider>();
-            var mockedUrlProvider = MockRepository.GenerateMock<IUrlProvider>();
+            var mockedLastFmProvider = MockRepository.Mock<ILastFmProvider>();
+            var mockedUrlProvider = MockRepository.Mock<IUrlProvider>();
             mockedUrlProvider.Expect(m => m.GetUrl(2)).Return(uri);
             mockedLastFmProvider.Expect(m => m.GetLastFmContent(uri)).Return(String.Empty);
             var loveProvider = new LoveProvider(mockedUrlProvider, mockedLastFmProvider);

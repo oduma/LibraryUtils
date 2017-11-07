@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommandLine;
 using Sciendo.Common.IO;
 using Sciendo.Playlist.Translator;
 using Sciendo.Playlist.Translator.Configuration;
@@ -14,10 +15,10 @@ namespace Sciendo.PT
     {
         static void Main(string[] args)
         {
-            Options options = new Options();
-            var result = CommandLine.Parser.Default.ParseArguments(args, options);
-            if (result)
+            var result = CommandLine.Parser.Default.ParseArguments<Options>(args);
+            if (result.Tag== ParserResultType.Parsed)
             {
+                var options = ((Parsed<Options>) result).Value;
                 Console.WriteLine("Arguments Ok starting...");
                 var extensions =
 ((ExtensionsPlaylistsConfigSection)ConfigurationManager.GetSection("activeExtensions")).Extensions
@@ -29,7 +30,7 @@ namespace Sciendo.PT
                 translator.Start();
                 Console.WriteLine("Finished running.");
             }
-            Console.WriteLine(options.GetHelpText());
+            Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
 
         }
 

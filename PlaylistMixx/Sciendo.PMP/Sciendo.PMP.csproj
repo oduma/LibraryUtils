@@ -4,14 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{24783742-C936-431E-91F5-766A6D586FFE}</ProjectGuid>
+    <ProjectGuid>{FE8FBF09-1A31-46EE-AF89-92A34BB32517}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sciendo.PP</RootNamespace>
-    <AssemblyName>Sciendo.PP</AssemblyName>
+    <RootNamespace>Sciendo.PMP</RootNamespace>
+    <AssemblyName>Sciendo.PMP</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,8 +39,17 @@
       <HintPath>..\..\packages\CommandLineParser.2.1.1-beta\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Dapper, Version=1.50.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dapper.1.50.4-alpha1-00070\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net451\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\MixxxConfigurationSection.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,23 +73,34 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
-      <Project>{d90fb487-ba09-4509-abe6-615f15e3ab45}</Project>
+      <Project>{D90FB487-BA09-4509-ABE6-615F15E3AB45}</Project>
       <Name>Sciendo.Common.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Common\Sciendo.Common.Music.Tagging\Sciendo.Common.Music.Tagging.csproj">
-      <Project>{079b9e86-6a95-41d3-8ca3-e7fb34921812}</Project>
+      <Project>{079B9E86-6A95-41D3-8CA3-E7FB34921812}</Project>
       <Name>Sciendo.Common.Music.Tagging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Playlists\Sciendo.Playlists\Sciendo.Playlists.csproj">
-      <Project>{9ba6d39d-2fc1-4cc9-bdfb-4c630f3cbe44}</Project>
+      <Project>{9BA6D39D-2FC1-4CC9-BDFB-4C630F3CBE44}</Project>
       <Name>Sciendo.Playlists</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sciendo.Playlist.Persister\Sciendo.Playlist.Persister.csproj">
-      <Project>{4b5c7a63-f547-45c0-9f31-c62f58e2b093}</Project>
-      <Name>Sciendo.Playlist.Persister</Name>
+    <ProjectReference Include="..\Sciendo.Playlist.Mixx.DataAccess\Sciendo.Mixx.DataAccess.csproj">
+      <Project>{696C6171-1159-4A63-B144-1A621D53E9E7}</Project>
+      <Name>Sciendo.Mixx.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sciendo.Playlist.Mixx.Processor\Sciendo.Playlist.Mixx.Processor\Sciendo.Playlist.Mixx.Processor.csproj">
+      <Project>{E6BD2595-6C1C-4D58-BA0F-02F6424BCD09}</Project>
+      <Name>Sciendo.Playlist.Mixx.Processor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

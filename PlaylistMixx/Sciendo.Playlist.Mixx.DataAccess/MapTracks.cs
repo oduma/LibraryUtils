@@ -4,18 +4,18 @@ using Sciendo.Playlists;
 
 namespace Sciendo.Mixx.DataAccess
 {
-    public class MapTracks:IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxPlaylistTrack>>
+    public class MapTracks:IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>>
     {
-        public IEnumerable<MixxPlaylistTrack> Transform(IEnumerable<PlaylistItem> fromDataType)
+        public IEnumerable<MixxxPlaylistTrack> Transform(IEnumerable<PlaylistItem> fromDataType)
         {
             int index = 1;
             foreach (var fromDataTypeInstance in fromDataType)
             {
-                yield return new MixxPlaylistTrack(fromDataTypeInstance.FileName, index++);
+                yield return new MixxxPlaylistTrack(fromDataTypeInstance.FileName, index++);
             }
         }
 
-        public IEnumerable<PlaylistItem> Transform(IEnumerable<MixxPlaylistTrack> fromDataType)
+        public IEnumerable<PlaylistItem> Transform(IEnumerable<MixxxPlaylistTrack> fromDataType)
         {
             foreach (var fromDataTypeInstance in fromDataType)
             {

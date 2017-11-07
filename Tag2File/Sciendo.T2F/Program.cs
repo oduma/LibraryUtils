@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommandLine;
 using Sciendo.Common.IO;
 using Sciendo.Common.Music.Tagging;
 using Sciendo.T2F.Configuration;
@@ -15,10 +16,10 @@ namespace Sciendo.T2F
     {
         static void Main(string[] args)
         {
-            Options options = new Options();
-            var result = CommandLine.Parser.Default.ParseArguments(args, options);
-            if (result)
+            var result = CommandLine.Parser.Default.ParseArguments<Options>(args);
+            if (result.Tag==ParserResultType.Parsed)
             {
+                var options = ((Parsed<Options>) result).Value;
                 var extensions =
     ((ExtensionsWithTagsConfigSection)ConfigurationManager.GetSection("activeExtensions")).Extensions
     .Cast<ExtensionElement>().Select(e => e.Value).ToArray();
@@ -44,9 +45,9 @@ namespace Sciendo.T2F
                         options.CollectionPattern);
                     return;
                 }
-                Console.WriteLine(options.GetHelpText());
+                Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
             }
-            Console.WriteLine(options.GetHelpText());
+            Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
 
         }
 

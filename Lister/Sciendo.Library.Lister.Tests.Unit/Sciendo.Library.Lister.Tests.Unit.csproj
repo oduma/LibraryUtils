@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    <Reference Include="Rhino.Mocks, Version=4.0.0.0, Culture=neutral, PublicKeyToken=38730f1abddafc13, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RhinoMocks.4.0.0-alpha3\lib\net40\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -52,6 +52,10 @@
       <Project>{5482f7fd-e59e-4a01-8082-37e1ac442015}</Project>
       <Name>Sciendo.Library.Lister</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="acknowledgements.txt" />
+    <Content Include="license.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
