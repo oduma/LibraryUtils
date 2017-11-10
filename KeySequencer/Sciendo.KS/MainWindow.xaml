@@ -9,7 +9,8 @@
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         Background="Orange"
-        Icon="Icons/Clef.ico">
+        Icon="Icons/Clef.ico"
+        Topmost="True">
     <Grid ShowGridLines="False">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
