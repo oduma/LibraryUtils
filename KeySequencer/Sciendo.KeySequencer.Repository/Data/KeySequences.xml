@@ -1,0 +1,635 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<KeySequenceRepository version="1.0">
+<KeySequences>
+  <fromKey name="A" >
+    <toKey name="E" similarity="Super"/>
+  </fromKey>
+  <fromKey name="A" >
+    <toKey name="D" similarity="High"/>
+  </fromKey>
+  <fromKey name="A" >
+    <toKey name="F#m" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="A" >
+    <toKey name="Bm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="A" >
+    <toKey name="C#m" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Ab" >
+    <toKey name="Eb" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Ab" >
+    <toKey name="Db" similarity="High"/>
+  </fromKey>
+  <fromKey name="Ab" >
+    <toKey name="Fm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Ab" >
+    <toKey name="Bbm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Ab" >
+    <toKey name="Cm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Am" >
+    <toKey name="E" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Am" >
+    <toKey name="Dm" similarity="High"/>
+  </fromKey>
+  <fromKey name="Am" >
+    <toKey name="C" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Am" >
+    <toKey name="F" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Am" >
+    <toKey name="G" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Bb" >
+    <toKey name="F" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Bb" >
+    <toKey name="Eb" similarity="High"/>
+  </fromKey>
+  <fromKey name="Bb" >
+    <toKey name="Gm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Bb" >
+    <toKey name="Cm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Bb" >
+    <toKey name="Dm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Bm" >
+    <toKey name="F#" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Bm" >
+    <toKey name="Em" similarity="High"/>
+  </fromKey>
+  <fromKey name="Bm" >
+    <toKey name="D" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Bm" >
+    <toKey name="G" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Bm" >
+    <toKey name="A" similarity="Low"/>
+  </fromKey>
+  <fromKey name="C" >
+    <toKey name="G" similarity="Super"/>
+  </fromKey>
+  <fromKey name="C" >
+    <toKey name="F" similarity="High"/>
+  </fromKey>
+  <fromKey name="C" >
+    <toKey name="Am" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="C" >
+    <toKey name="Dm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="C" >
+    <toKey name="Em" similarity="Low"/>
+  </fromKey>
+  <fromKey name="C#m" >
+    <toKey name="Ab" similarity="Super"/>
+  </fromKey>
+  <fromKey name="C#m" >
+    <toKey name="F#m" similarity="High"/>
+  </fromKey>
+  <fromKey name="C#m" >
+    <toKey name="E" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="C#m" >
+    <toKey name="A" similarity="Low"/>
+  </fromKey>
+  <fromKey name="C#m" >
+    <toKey name="B" similarity="Low"/>
+  </fromKey>
+  <fromKey name="D" >
+    <toKey name="A" similarity="Super"/>
+  </fromKey>
+  <fromKey name="D" >
+    <toKey name="G" similarity="High"/>
+  </fromKey>
+  <fromKey name="D" >
+    <toKey name="Bm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="D" >
+    <toKey name="Em" similarity="Low"/>
+  </fromKey>
+  <fromKey name="D" >
+    <toKey name="F#m" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Db" >
+    <toKey name="Ab" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Db" >
+    <toKey name="F#" similarity="High"/>
+  </fromKey>
+  <fromKey name="Db" >
+    <toKey name="Bbm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Db" >
+    <toKey name="Ebm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Db" >
+    <toKey name="Fm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Dm" >
+    <toKey name="A" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Dm" >
+    <toKey name="Gm" similarity="High"/>
+  </fromKey>
+  <fromKey name="Dm" >
+    <toKey name="F" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Dm" >
+    <toKey name="C" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Dm" >
+    <toKey name="Bb" similarity="Low"/>
+  </fromKey>
+  <fromKey name="E" >
+    <toKey name="B" similarity="Super"/>
+  </fromKey>
+  <fromKey name="E" >
+    <toKey name="A" similarity="High"/>
+  </fromKey>
+  <fromKey name="E" >
+    <toKey name="C#m" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="E" >
+    <toKey name="G#m" similarity="Low"/>
+  </fromKey>
+  <fromKey name="E" >
+    <toKey name="F#m" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Em" >
+    <toKey name="B" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Em" >
+    <toKey name="Am" similarity="High"/>
+  </fromKey>
+  <fromKey name="Em" >
+    <toKey name="G" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Em" >
+    <toKey name="C" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Em" >
+    <toKey name="D" similarity="Low"/>
+  </fromKey>
+  <fromKey name="F" >
+    <toKey name="C" similarity="Super"/>
+  </fromKey>
+  <fromKey name="F" >
+    <toKey name="Bb" similarity="High"/>
+  </fromKey>
+  <fromKey name="F" >
+    <toKey name="Dm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="F" >
+    <toKey name="Gm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="F" >
+    <toKey name="Em" similarity="Low"/>
+  </fromKey>
+  <fromKey name="F#" >
+    <toKey name="C#" similarity="Super"/>
+  </fromKey>
+  <fromKey name="F#" >
+    <toKey name="B" similarity="High"/>
+  </fromKey>
+  <fromKey name="F#" >
+    <toKey name="Ebm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="F#" >
+    <toKey name="Abm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="F#" >
+    <toKey name="Bbm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Fm" >
+    <toKey name="C" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Fm" >
+    <toKey name="Bbm" similarity="High"/>
+  </fromKey>
+  <fromKey name="Fm" >
+    <toKey name="Ab" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Fm" >
+    <toKey name="C#" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Fm" >
+    <toKey name="Eb" similarity="Low"/>
+  </fromKey>
+  <fromKey name="G" >
+    <toKey name="D" similarity="Super"/>
+  </fromKey>
+  <fromKey name="G" >
+    <toKey name="C" similarity="High"/>
+  </fromKey>
+  <fromKey name="G" >
+    <toKey name="Em" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="G" >
+    <toKey name="Am" similarity="Low"/>
+  </fromKey>
+  <fromKey name="G" >
+    <toKey name="Bm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Gm" >
+    <toKey name="D" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Gm" >
+    <toKey name="Cm" similarity="High"/>
+  </fromKey>
+  <fromKey name="Gm" >
+    <toKey name="Bb" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Gm" >
+    <toKey name="Eb" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Gm" >
+    <toKey name="F" similarity="Low"/>
+  </fromKey>
+  <fromKey name="A#" >
+    <toKey name="F" similarity="Super"/>
+  </fromKey>
+  <fromKey name="A#" >
+    <toKey name="Eb" similarity="High"/>
+  </fromKey>
+  <fromKey name="A#" >
+    <toKey name="Gm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="A#" >
+    <toKey name="Cm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="A#" >
+    <toKey name="Dm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Abm" >
+    <toKey name="Eb" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Abm" >
+    <toKey name="C#m" similarity="High"/>
+  </fromKey>
+  <fromKey name="Abm" >
+    <toKey name="B" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Abm" >
+    <toKey name="E" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Abm" >
+    <toKey name="Gm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="A#m" >
+    <toKey name="F" similarity="Super"/>
+  </fromKey>
+  <fromKey name="A#m" >
+    <toKey name="Ebm" similarity="High"/>
+  </fromKey>
+  <fromKey name="A#m" >
+    <toKey name="C#" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="A#m" >
+    <toKey name="F#" similarity="Low"/>
+  </fromKey>
+  <fromKey name="A#m" >
+    <toKey name="A" similarity="Low"/>
+  </fromKey>
+  <fromKey name="B" >
+    <toKey name="F#" similarity="Super"/>
+  </fromKey>
+  <fromKey name="B" >
+    <toKey name="E" similarity="High"/>
+  </fromKey>
+  <fromKey name="B" >
+    <toKey name="Abm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="B" >
+    <toKey name="Abm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="B" >
+    <toKey name="C#m" similarity="Low"/>
+  </fromKey>
+  <fromKey name="B#" >
+    <toKey name="G" similarity="Super"/>
+  </fromKey>
+  <fromKey name="B#" >
+    <toKey name="F" similarity="High"/>
+  </fromKey>
+  <fromKey name="B#" >
+    <toKey name="Am" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="B#" >
+    <toKey name="Dm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="B#" >
+    <toKey name="Em" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Bbm" >
+    <toKey name="F" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Bbm" >
+    <toKey name="Ebm" similarity="High"/>
+  </fromKey>
+  <fromKey name="Bbm" >
+    <toKey name="C#" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Bbm" >
+    <toKey name="F#" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Bbm" >
+    <toKey name="A" similarity="Low"/>
+  </fromKey>
+  <fromKey name="B#m" >
+    <toKey name="G" similarity="Super"/>
+  </fromKey>
+  <fromKey name="B#m" >
+    <toKey name="Fm" similarity="High"/>
+  </fromKey>
+  <fromKey name="B#m" >
+    <toKey name="Eb" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="B#m" >
+    <toKey name="Ab" similarity="Low"/>
+  </fromKey>
+  <fromKey name="B#m" >
+    <toKey name="Dm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="C#" >
+    <toKey name="Ab" similarity="Super"/>
+  </fromKey>
+  <fromKey name="C#" >
+    <toKey name="F#" similarity="High"/>
+  </fromKey>
+  <fromKey name="C#" >
+    <toKey name="Bbm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="C#" >
+    <toKey name="Ebm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="C#" >
+    <toKey name="Fm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Cb" >
+    <toKey name="F#" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Cb" >
+    <toKey name="E" similarity="High"/>
+  </fromKey>
+  <fromKey name="Cb" >
+    <toKey name="Abm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Cb" >
+    <toKey name="Abm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Cb" >
+    <toKey name="C#m" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Cm" >
+    <toKey name="G" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Cm" >
+    <toKey name="Fm" similarity="High"/>
+  </fromKey>
+  <fromKey name="Cm" >
+    <toKey name="Eb" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Cm" >
+    <toKey name="Ab" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Cm" >
+    <toKey name="Dm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Cbm" >
+    <toKey name="F#" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Cbm" >
+    <toKey name="Em" similarity="High"/>
+  </fromKey>
+  <fromKey name="Cbm" >
+    <toKey name="D" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Cbm" >
+    <toKey name="G" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Cbm" >
+    <toKey name="A" similarity="Low"/>
+  </fromKey>
+  <fromKey name="D#" >
+    <toKey name="Bb" similarity="Super"/>
+  </fromKey>
+  <fromKey name="D#" >
+    <toKey name="Ab" similarity="High"/>
+  </fromKey>
+  <fromKey name="D#" >
+    <toKey name="Cm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="D#" >
+    <toKey name="Fm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="D#" >
+    <toKey name="Gm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="D#m" >
+    <toKey name="Bb" similarity="Super"/>
+  </fromKey>
+  <fromKey name="D#m" >
+    <toKey name="Abm" similarity="High"/>
+  </fromKey>
+  <fromKey name="D#m" >
+    <toKey name="F#" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="D#m" >
+    <toKey name="B" similarity="Low"/>
+  </fromKey>
+  <fromKey name="D#m" >
+    <toKey name="Fm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Dbm" >
+    <toKey name="Ab" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Dbm" >
+    <toKey name="F#m" similarity="High"/>
+  </fromKey>
+  <fromKey name="Dbm" >
+    <toKey name="E" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Dbm" >
+    <toKey name="A" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Dbm" >
+    <toKey name="B" similarity="Low"/>
+  </fromKey>
+  <fromKey name="E#" >
+    <toKey name="C" similarity="Super"/>
+  </fromKey>
+  <fromKey name="E#" >
+    <toKey name="Bb" similarity="High"/>
+  </fromKey>
+  <fromKey name="E#" >
+    <toKey name="Dm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="E#" >
+    <toKey name="Gm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="E#" >
+    <toKey name="Em" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Eb" >
+    <toKey name="Bb" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Eb" >
+    <toKey name="Ab" similarity="High"/>
+  </fromKey>
+  <fromKey name="Eb" >
+    <toKey name="Cm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Eb" >
+    <toKey name="Fm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Eb" >
+    <toKey name="Gm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="E#m" >
+    <toKey name="C" similarity="Super"/>
+  </fromKey>
+  <fromKey name="E#m" >
+    <toKey name="Bbm" similarity="High"/>
+  </fromKey>
+  <fromKey name="E#m" >
+    <toKey name="Ab" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="E#m" >
+    <toKey name="C#" similarity="Low"/>
+  </fromKey>
+  <fromKey name="E#m" >
+    <toKey name="Eb" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Ebm" >
+    <toKey name="Bb" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Ebm" >
+    <toKey name="Abm" similarity="High"/>
+  </fromKey>
+  <fromKey name="Ebm" >
+    <toKey name="F#" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Ebm" >
+    <toKey name="B" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Ebm" >
+    <toKey name="Fm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Fb" >
+    <toKey name="B" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Fb" >
+    <toKey name="A" similarity="High"/>
+  </fromKey>
+  <fromKey name="Fb" >
+    <toKey name="C#m" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Fb" >
+    <toKey name="G#m" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Fb" >
+    <toKey name="F#m" similarity="Low"/>
+  </fromKey>
+  <fromKey name="F#m" >
+    <toKey name="C#" similarity="Super"/>
+  </fromKey>
+  <fromKey name="F#m" >
+    <toKey name="Bm" similarity="High"/>
+  </fromKey>
+  <fromKey name="F#m" >
+    <toKey name="A" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="F#m" >
+    <toKey name="Abm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="F#m" >
+    <toKey name="Fm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Fbm" >
+    <toKey name="B" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Fbm" >
+    <toKey name="Am" similarity="High"/>
+  </fromKey>
+  <fromKey name="Fbm" >
+    <toKey name="G" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Fbm" >
+    <toKey name="C" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Fbm" >
+    <toKey name="D" similarity="Low"/>
+  </fromKey>
+  <fromKey name="G#" >
+    <toKey name="Eb" similarity="Super"/>
+  </fromKey>
+  <fromKey name="G#" >
+    <toKey name="Db" similarity="High"/>
+  </fromKey>
+  <fromKey name="G#" >
+    <toKey name="Fm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="G#" >
+    <toKey name="Bbm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="G#" >
+    <toKey name="Cm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Gb" >
+    <toKey name="C#" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Gb" >
+    <toKey name="B" similarity="High"/>
+  </fromKey>
+  <fromKey name="Gb" >
+    <toKey name="Ebm" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Gb" >
+    <toKey name="Abm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Gb" >
+    <toKey name="Bbm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Gbm" >
+    <toKey name="C#" similarity="Super"/>
+  </fromKey>
+  <fromKey name="Gbm" >
+    <toKey name="Bm" similarity="High"/>
+  </fromKey>
+  <fromKey name="Gbm" >
+    <toKey name="A" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="Gbm" >
+    <toKey name="Abm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="Gbm" >
+    <toKey name="Fm" similarity="Low"/>
+  </fromKey>
+  <fromKey name="G#m" >
+    <toKey name="Eb" similarity="Super"/>
+  </fromKey>
+  <fromKey name="G#m" >
+    <toKey name="C#m" similarity="High"/>
+  </fromKey>
+  <fromKey name="G#m" >
+    <toKey name="B" similarity="Medium"/>
+  </fromKey>
+  <fromKey name="G#m" >
+    <toKey name="E" similarity="Low"/>
+  </fromKey>
+  <fromKey name="G#m" >
+    <toKey name="Gm" similarity="Low"/>
+  </fromKey>
+</KeySequences>
+</KeySequenceRepository>

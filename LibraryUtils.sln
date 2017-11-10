@@ -61,6 +61,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Mixx.DataAccess", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.PMP", "PlaylistMixx\Sciendo.PMP\Sciendo.PMP.csproj", "{FE8FBF09-1A31-46EE-AF89-92A34BB32517}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KeySequencer", "KeySequencer", "{4A8E96F8-7A24-4748-84E8-18C45EF43D5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.KS", "KeySequencer\Sciendo.KS\Sciendo.KS.csproj", "{485A9A81-9659-409F-9514-EC0D30F81221}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.KeySequencer.Repository", "KeySequencer\Sciendo.KeySequencer.Repository\Sciendo.KeySequencer.Repository.csproj", "{7BD76AAC-0480-402D-BF00-1971E329BA71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.KeySequencer.Repository.Tests.Unit", "KeySequencer\Sciendo.KeySequencer.Repository.Tests.Unit\Sciendo.KeySequencer.Repository.Tests.Unit.csproj", "{9F1F9298-E11F-4C03-80C9-B997EBD4400C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +159,18 @@ Global
 		{FE8FBF09-1A31-46EE-AF89-92A34BB32517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE8FBF09-1A31-46EE-AF89-92A34BB32517}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE8FBF09-1A31-46EE-AF89-92A34BB32517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{485A9A81-9659-409F-9514-EC0D30F81221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{485A9A81-9659-409F-9514-EC0D30F81221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{485A9A81-9659-409F-9514-EC0D30F81221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{485A9A81-9659-409F-9514-EC0D30F81221}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD76AAC-0480-402D-BF00-1971E329BA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD76AAC-0480-402D-BF00-1971E329BA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD76AAC-0480-402D-BF00-1971E329BA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD76AAC-0480-402D-BF00-1971E329BA71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F1F9298-E11F-4C03-80C9-B997EBD4400C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F1F9298-E11F-4C03-80C9-B997EBD4400C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F1F9298-E11F-4C03-80C9-B997EBD4400C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F1F9298-E11F-4C03-80C9-B997EBD4400C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,5 +197,8 @@ Global
 		{E6BD2595-6C1C-4D58-BA0F-02F6424BCD09} = {DE065EDC-4D0F-4CBB-B761-F1F2F4055705}
 		{696C6171-1159-4A63-B144-1A621D53E9E7} = {DE065EDC-4D0F-4CBB-B761-F1F2F4055705}
 		{FE8FBF09-1A31-46EE-AF89-92A34BB32517} = {DE065EDC-4D0F-4CBB-B761-F1F2F4055705}
+		{485A9A81-9659-409F-9514-EC0D30F81221} = {4A8E96F8-7A24-4748-84E8-18C45EF43D5D}
+		{7BD76AAC-0480-402D-BF00-1971E329BA71} = {4A8E96F8-7A24-4748-84E8-18C45EF43D5D}
+		{9F1F9298-E11F-4C03-80C9-B997EBD4400C} = {4A8E96F8-7A24-4748-84E8-18C45EF43D5D}
 	EndGlobalSection
 EndGlobal
