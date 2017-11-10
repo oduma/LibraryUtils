@@ -35,7 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00017\lib\net40\Sciendo.Common.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00019\lib\net40\Sciendo.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -59,10 +59,6 @@
     <Compile Include="ProgressEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
-      <Project>{d90fb487-ba09-4509-abe6-615f15e3ab45}</Project>
-      <Name>Sciendo.Common.IO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Playlists\Sciendo.Playlists\Sciendo.Playlists.csproj">
       <Project>{9ba6d39d-2fc1-4cc9-bdfb-4c630f3cbe44}</Project>
       <Name>Sciendo.Playlists</Name>

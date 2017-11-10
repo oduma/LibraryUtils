@@ -43,6 +43,14 @@
       <HintPath>..\..\packages\Dapper.1.50.4-alpha1-00070\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00019\lib\net40\Sciendo.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -72,10 +80,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
-      <Project>{D90FB487-BA09-4509-ABE6-615F15E3AB45}</Project>
-      <Name>Sciendo.Common.IO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Common\Sciendo.Common.Music.Tagging\Sciendo.Common.Music.Tagging.csproj">
       <Project>{079B9E86-6A95-41D3-8CA3-E7FB34921812}</Project>
       <Name>Sciendo.Common.Music.Tagging</Name>

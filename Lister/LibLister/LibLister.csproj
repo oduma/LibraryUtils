@@ -42,7 +42,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00017\lib\net40\Sciendo.Common.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00019\lib\net40\Sciendo.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,10 +64,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
-      <Project>{d90fb487-ba09-4509-abe6-615f15e3ab45}</Project>
-      <Name>Sciendo.Common.IO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Sciendo.Library.Lister\Sciendo.Library.Lister.csproj">
       <Project>{5482f7fd-e59e-4a01-8082-37e1ac442015}</Project>
       <Name>Sciendo.Library.Lister</Name>

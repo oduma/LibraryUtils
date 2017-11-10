@@ -37,6 +37,14 @@
       <HintPath>..\..\packages\CommandLineParser.2.1.1-beta\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00019\lib\net40\Sciendo.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,10 +68,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Sciendo.Common.IO\Sciendo.Common.IO.csproj">
-      <Project>{d90fb487-ba09-4509-abe6-615f15e3ab45}</Project>
-      <Name>Sciendo.Common.IO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Common\Sciendo.Common.Music.Tagging\Sciendo.Common.Music.Tagging.csproj">
       <Project>{079b9e86-6a95-41d3-8ca3-e7fb34921812}</Project>
       <Name>Sciendo.Common.Music.Tagging</Name>
