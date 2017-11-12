@@ -60,7 +60,8 @@ namespace Sciendo.Playlist.Translator
                 }
                 else if(Directory.Exists(_outPath))
                 {
-                    var translatedFileName = $"{_outPath}{Path.DirectorySeparatorChar}{_inPath}";
+                    var inPathFileName = Path.GetFileName(_inPath);
+                    var translatedFileName = $"{_outPath}{Path.DirectorySeparatorChar}{inPathFileName}";
                     TranslateFile(_inPath, translatedFileName, replacementVariants);
                 }
                 else if(Path.GetExtension(_inPath).ToLower()!=Path.GetExtension(_outPath).ToLower())

@@ -30,7 +30,8 @@ namespace Sciendo.PT
                 translator.Start();
                 Console.WriteLine("Finished running.");
             }
-            Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
+            else
+                Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
 
         }
 
