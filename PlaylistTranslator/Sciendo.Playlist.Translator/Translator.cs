@@ -98,12 +98,18 @@ namespace Sciendo.Playlist.Translator
         private void TranslateFile(string fromFile, string toFile,Dictionary<string, string> replacementVariants)
         {
             var contents = _textFileReader.Read(fromFile);
+            contents = PerformOneTranslation(replacementVariants, contents);
+            _textFileWriter.Write(contents,toFile);
+            PathTranslated?.Invoke(this,new PathEventArgs(fromFile));
+        }
+
+        private static string PerformOneTranslation(Dictionary<string, string> replacementVariants, string contents)
+        {
             foreach (var fromReplacement in replacementVariants.Keys)
             {
                 contents = contents.Replace(fromReplacement, replacementVariants[fromReplacement]);
             }
-            _textFileWriter.Write(contents,toFile);
-            PathTranslated?.Invoke(this,new PathEventArgs(fromFile));
+            return contents;
         }
 
         private void TranslateToSameDirectory(Dictionary<string, string> replacementVariants)
@@ -123,5 +129,13 @@ namespace Sciendo.Playlist.Translator
         }
 
         public event EventHandler<PathEventArgs> PathTranslated;
+        public string Translate(string inString, Dictionary<string, string> findReplacePairs)
+        {
+            foreach (var source in findReplacePairs.Keys)
+            {
+                inString = PerformOneTranslation(BuildReplacementVariants(source, findReplacePairs[source]), inString);
+            }
+            return inString;
+        }
     }
 }
