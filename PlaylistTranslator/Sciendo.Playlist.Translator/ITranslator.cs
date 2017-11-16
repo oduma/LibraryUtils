@@ -1,9 +1,10 @@
 ﻿using System;
-using Sciendo.Common.MySynchExtensions;
+using MySynch.Q.Common;
+
 
 namespace Sciendo.Playlist.Translator
 {
-    public interface ITranslator:ITextMessageTranslator
+    public interface ITranslator:IMessageTranslator
     {
         event EventHandler<PathEventArgs> PathTranslated; 
         void Start();

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySynch.Q.Common.Contracts;
 using Sciendo.Common.IO;
 using Sciendo.Playlists;
 
@@ -129,13 +130,18 @@ namespace Sciendo.Playlist.Translator
         }
 
         public event EventHandler<PathEventArgs> PathTranslated;
-        public string Translate(string inString, Dictionary<string, string> findReplacePairs)
+
+        public TransferMessage Translate(TransferMessage inMessage, params object[] additionalParameters)
         {
-            foreach (var source in findReplacePairs.Keys)
-            {
-                inString = PerformOneTranslation(BuildReplacementVariants(source, findReplacePairs[source]), inString);
-            }
-            return inString;
+            if(inMessage.BodyType!=BodyType.Text)
+                return inMessage;
+            if(additionalParameters==null || additionalParameters.Length<2)
+                return inMessage;
+            var from = (string)additionalParameters[0];
+            var to = (string)additionalParameters[1];
+            inMessage.Body = PerformOneTranslation(BuildReplacementVariants(from, to), (string) inMessage.Body);
+            return inMessage;
+
         }
     }
 }
