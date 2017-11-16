@@ -12,44 +12,40 @@ namespace Sciendo.Playlist.Translator
 {
     public class Translator:ITranslator
     {
+        private readonly Dictionary<string, string> _findReplaceParams;
         private readonly string _inPath;
         private readonly string[] _extensions;
         private readonly string _outPath;
-        private readonly string _fromText;
-        private readonly string _toText;
         private readonly IFileEnumerator _fileEnumerator;
         private readonly IFileReader<string> _textFileReader;
         private readonly IFileWriter _textFileWriter;
 
+        public Translator(Dictionary<string, string> findReplaceParams)
+        {
+            if(findReplaceParams==null || findReplaceParams.Count<1)
+                throw new ArgumentNullException(nameof(findReplaceParams));
+            _findReplaceParams = findReplaceParams;
+        }
         public Translator(string inPath, string[] extensions, 
             string outPath, 
-            string fromText,
-            string toText,
-            IFileEnumerator fileEnumerator, IFileReader<string> textFileReader, IFileWriter textFileWriter)
+            Dictionary<string,string> findReplaceParams, IFileEnumerator fileEnumerator, IFileReader<string> textFileReader, IFileWriter textFileWriter):this(findReplaceParams)
         {
-            if(string.IsNullOrEmpty(inPath))
-                throw  new ArgumentException(nameof(inPath));
-            if(string.IsNullOrEmpty(fromText))
-                throw new ArgumentException(nameof(fromText));
             _inPath = inPath;
             _extensions = extensions;
             _outPath = outPath;
-            _fromText = fromText;
-            _toText = toText;
             _fileEnumerator = fileEnumerator;
             _textFileReader = textFileReader;
             _textFileWriter = textFileWriter;
         }
         public void Start()
         {
-            var replacementVariants = BuildReplacementVariants(_fromText,_toText);
             if (Directory.Exists(_inPath))
             {
                 if (!Directory.Exists(_outPath) || string.Equals(_inPath,_outPath,StringComparison.InvariantCultureIgnoreCase))
                 {
-                    TranslateToSameDirectory(replacementVariants);
+                    TranslateToSameDirectory(_findReplaceParams);
                 }
-                TranslateToDifferentDirectory(replacementVariants);
+                TranslateToDifferentDirectory(_findReplaceParams);
             }
             else
             {
@@ -57,22 +53,22 @@ namespace Sciendo.Playlist.Translator
                 {
                     var translatedFileName =
                         $"{Path.GetDirectoryName(_inPath)}{Path.DirectorySeparatorChar}translated_{Path.GetFileName(_inPath)}";
-                    TranslateFile(_inPath,translatedFileName, replacementVariants);
+                    TranslateFile(_inPath,translatedFileName, _findReplaceParams);
                 }
                 else if(Directory.Exists(_outPath))
                 {
                     var inPathFileName = Path.GetFileName(_inPath);
                     var translatedFileName = $"{_outPath}{Path.DirectorySeparatorChar}{inPathFileName}";
-                    TranslateFile(_inPath, translatedFileName, replacementVariants);
+                    TranslateFile(_inPath, translatedFileName, _findReplaceParams);
                 }
                 else if(Path.GetExtension(_inPath).ToLower()!=Path.GetExtension(_outPath).ToLower())
                 {
                     var translateFileName = _outPath.Replace(Path.GetExtension(_outPath), Path.GetExtension(_inPath));
-                    TranslateFile(_inPath, translateFileName, replacementVariants);
+                    TranslateFile(_inPath, translateFileName, _findReplaceParams);
                 }
                 else
                 {
-                    TranslateFile(_inPath, _outPath, replacementVariants);
+                    TranslateFile(_inPath, _outPath, _findReplaceParams);
                 }
             }
         }
@@ -86,14 +82,6 @@ namespace Sciendo.Playlist.Translator
                 TranslateFile(file, translatedFileName, replacementVariants);
             }
             PathTranslated?.Invoke(this, new PathEventArgs(_inPath));
-        }
-
-        private Dictionary<string, string> BuildReplacementVariants(string originalFromText, string originalToText)
-        {
-            
-            var replacementVariants = new Dictionary<string, string>();
-            replacementVariants.Add(originalFromText, originalToText);
-            return replacementVariants;
         }
 
         private void TranslateFile(string fromFile, string toFile,Dictionary<string, string> replacementVariants)
@@ -131,15 +119,13 @@ namespace Sciendo.Playlist.Translator
 
         public event EventHandler<PathEventArgs> PathTranslated;
 
-        public TransferMessage Translate(TransferMessage inMessage, params object[] additionalParameters)
+        public TransferMessage Translate(TransferMessage inMessage)
         {
+            if(inMessage==null)
+                return inMessage;
             if(inMessage.BodyType!=BodyType.Text)
                 return inMessage;
-            if(additionalParameters==null || additionalParameters.Length<2)
-                return inMessage;
-            var from = (string)additionalParameters[0];
-            var to = (string)additionalParameters[1];
-            inMessage.Body = PerformOneTranslation(BuildReplacementVariants(from, to), (string) inMessage.Body);
+            inMessage.Body = PerformOneTranslation(_findReplaceParams, (string) inMessage.Body);
             return inMessage;
 
         }

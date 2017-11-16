@@ -43,7 +43,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MySynch.Q.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MySynch.Q.Common.1.0.0-CI00006\lib\net461\MySynch.Q.Common.dll</HintPath>
+      <HintPath>..\..\packages\MySynch.Q.Common.1.0.0-CI00007\lib\net461\MySynch.Q.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
