@@ -1,14 +1,7 @@
-﻿using System;
-using MySynch.Q.Common;
-
-
-namespace Sciendo.Playlist.Translator
+﻿namespace Sciendo.Playlist.Translator
 {
-    public interface ITranslator:IMessageTranslator
+    public interface ITranslator
     {
-        event EventHandler<PathEventArgs> PathTranslated; 
-        void Start();
-
-        void Stop();
+        string Translate(string inString);
     }
 }
