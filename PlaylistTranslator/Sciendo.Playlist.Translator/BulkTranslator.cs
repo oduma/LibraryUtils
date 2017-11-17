@@ -80,15 +80,6 @@ namespace Sciendo.Playlist.Translator
             PathTranslated?.Invoke(this,new PathEventArgs(fromFile));
         }
 
-        private static string PerformOneTranslation(Dictionary<string, string> replacementVariants, string contents)
-        {
-            foreach (var fromReplacement in replacementVariants.Keys)
-            {
-                contents = contents.Replace(fromReplacement, replacementVariants[fromReplacement]);
-            }
-            return contents;
-        }
-
         private void TranslateToSameDirectory(Dictionary<string, string> replacementVariants)
         {
             foreach (var file in _fileEnumerator.Get(_inPath, SearchOption.TopDirectoryOnly,_extensions))
