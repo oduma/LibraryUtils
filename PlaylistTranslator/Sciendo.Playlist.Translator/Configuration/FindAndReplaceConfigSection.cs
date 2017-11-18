@@ -12,7 +12,7 @@ namespace Sciendo.Playlist.Translator.Configuration
         [ConfigurationProperty("fromToParams")]
         public FromToParamsElementCollection FromToParams
         {
-            get { return (FromToParamsElementCollection)this["`fromToParams"]; }
+            get { return (FromToParamsElementCollection)this["fromToParams"]; }
         }
 
     }
