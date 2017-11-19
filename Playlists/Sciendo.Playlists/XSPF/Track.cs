@@ -42,7 +42,7 @@ namespace Sciendo.Playlists.XSPF
             this.Album = tag.Album;
             this.Creator = tag.FirstPerformer;
             this.Title = tag.Title;
-            this.Location = file;
+            this.Location = "file:///" + file.Replace(@"\","/");
         }
     }
 }

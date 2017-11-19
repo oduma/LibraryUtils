@@ -28,9 +28,9 @@ namespace Sciendo.PT
                         .FromToParams
                         .Cast<FromToParamsElement>().Select(e => e).OrderBy(e=>e.Priority));
                 IFileEnumerator fileEnumerator = new FileEnumerator();
-                IBulkTranslator translator= new BulkTranslator(options.Source,extensions,options.Destination,fromToParams,fileEnumerator,new TextFileReader(), new TextFileWriter());
+                IBulkTranslator translator= new BulkTranslator(options.Source,extensions,options.Destination,fileEnumerator,new TextFileReader(), new TextFileWriter());
                 translator.PathTranslated += Translator_PathTranslated;
-                translator.Start();
+                translator.Start(fromToParams);
                 Console.WriteLine("Finished running.");
             }
             else

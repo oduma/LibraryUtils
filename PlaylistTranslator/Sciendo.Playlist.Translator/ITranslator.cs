@@ -1,4 +1,6 @@
-﻿namespace Sciendo.Playlist.Translator
+﻿using System.Collections.Generic;
+
+namespace Sciendo.Playlist.Translator
 {
     public interface ITranslator
     {

@@ -15,8 +15,7 @@ namespace Sciendo.Playlist.Translator
         private readonly IFileWriter _textFileWriter;
 
         public BulkTranslator(string inPath, string[] extensions, 
-            string outPath, 
-            Dictionary<string,string> findReplaceParams, IFileEnumerator fileEnumerator, IFileReader<string> textFileReader, IFileWriter textFileWriter):base(findReplaceParams)
+            string outPath, IFileEnumerator fileEnumerator, IFileReader<string> textFileReader, IFileWriter textFileWriter)
         {
             _inPath = inPath;
             _extensions = extensions;
@@ -25,15 +24,18 @@ namespace Sciendo.Playlist.Translator
             _textFileReader = textFileReader;
             _textFileWriter = textFileWriter;
         }
-        public void Start()
+        public void Start(Dictionary<string, string>  findReplaceParams)
         {
+            if(findReplaceParams==null || findReplaceParams.Keys.Count<1)
+                throw new ArgumentNullException(nameof(findReplaceParams));
+
             if (Directory.Exists(_inPath))
             {
                 if (!Directory.Exists(_outPath) || string.Equals(_inPath,_outPath,StringComparison.InvariantCultureIgnoreCase))
                 {
-                    TranslateToSameDirectory(FindReplaceParams);
+                    TranslateToSameDirectory(findReplaceParams);
                 }
-                TranslateToDifferentDirectory(FindReplaceParams);
+                TranslateToDifferentDirectory(findReplaceParams);
             }
             else
             {
@@ -41,22 +43,22 @@ namespace Sciendo.Playlist.Translator
                 {
                     var translatedFileName =
                         $"{Path.GetDirectoryName(_inPath)}{Path.DirectorySeparatorChar}translated_{Path.GetFileName(_inPath)}";
-                    TranslateFile(_inPath,translatedFileName, FindReplaceParams);
+                    TranslateFile(_inPath,translatedFileName, findReplaceParams);
                 }
                 else if(Directory.Exists(_outPath))
                 {
                     var inPathFileName = Path.GetFileName(_inPath);
                     var translatedFileName = $"{_outPath}{Path.DirectorySeparatorChar}{inPathFileName}";
-                    TranslateFile(_inPath, translatedFileName, FindReplaceParams);
+                    TranslateFile(_inPath, translatedFileName, findReplaceParams);
                 }
                 else if(Path.GetExtension(_inPath).ToLower()!=Path.GetExtension(_outPath).ToLower())
                 {
                     var translateFileName = _outPath.Replace(Path.GetExtension(_outPath), Path.GetExtension(_inPath));
-                    TranslateFile(_inPath, translateFileName, FindReplaceParams);
+                    TranslateFile(_inPath, translateFileName, findReplaceParams);
                 }
                 else
                 {
-                    TranslateFile(_inPath, _outPath, FindReplaceParams);
+                    TranslateFile(_inPath, _outPath, findReplaceParams);
                 }
             }
         }
