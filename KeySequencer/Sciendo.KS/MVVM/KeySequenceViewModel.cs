@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
 using Sciendo.KeySequencer.Repository;
@@ -48,10 +49,50 @@ namespace Sciendo.KS.MVVM
         }
         public ICommand Close { get; private set; }
 
+        public ICommand SelectSuper { get; private set; }
+
+        public ICommand SelectHigh { get; private set; }
+
+        public ICommand SelectMedium { get; private set; }
+
+        public ICommand SelectLow1 { get; private set; }
+
+        public ICommand SelectLow2 { get; private set; }
+
         public void InitalizeView()
         {
             LoadToKeys(new[] { "Low...", "Low...","Medium...", "High...", "Super..." });
             Close = new RelayCommand(PerformClose);
+            SelectSuper= new RelayCommand(PerformSelectSuper);
+            SelectHigh=new RelayCommand(PerformSelectHigh);
+            SelectMedium = new RelayCommand(PerformSelectMedium);
+            SelectLow1=new RelayCommand(PerformSelectLow1);
+            SelectLow2=new RelayCommand(PerformSelectLow2);
+        }
+
+        private void PerformSelectLow2()
+        {
+            SelectedFromKey = Low2ToKey;
+        }
+
+        private void PerformSelectLow1()
+        {
+            SelectedFromKey = Low1ToKey;
+        }
+
+        private void PerformSelectMedium()
+        {
+            SelectedFromKey = MediumToKey;
+        }
+
+        private void PerformSelectHigh()
+        {
+            SelectedFromKey = HighToKey;
+        }
+
+        private void PerformSelectSuper()
+        {
+            SelectedFromKey = SuperToKey;
         }
 
 
@@ -69,6 +110,7 @@ namespace Sciendo.KS.MVVM
                     RaisePropertyChanged(()=>MediumToKey);
                     RaisePropertyChanged(()=>Low2ToKey);
                     RaisePropertyChanged(()=>Low1ToKey);
+                    RaisePropertyChanged(()=>SelectedFromKey);
 
                 }
             }
