@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sciendo.Common.IO;
+﻿using Sciendo.Common.IO;
 using Sciendo.Mixx.DataAccess;
 using Sciendo.Playlists;
 using TagLib;

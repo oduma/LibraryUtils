@@ -62,10 +62,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="acknowledgements.txt" />
-    <Content Include="license.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Db\clementine.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

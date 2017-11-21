@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommandLine;
 using Sciendo.Common.IO;
 using Sciendo.Playlist.Translator;
@@ -15,7 +13,7 @@ namespace Sciendo.PT
     {
         static void Main(string[] args)
         {
-            var result = CommandLine.Parser.Default.ParseArguments<Options>(args);
+            var result = Parser.Default.ParseArguments<Options>(args);
             if (result.Tag== ParserResultType.Parsed)
             {
                 var options = ((Parsed<Options>) result).Value;

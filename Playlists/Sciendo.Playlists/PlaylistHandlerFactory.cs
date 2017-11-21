@@ -1,5 +1,5 @@
-﻿using Sciendo.Playlist.Handler.XSPF;
-using Sciendo.Playlists.M3U;
+﻿using Sciendo.Playlists.M3U;
+using Sciendo.Playlists.XSPF;
 
 namespace Sciendo.Playlists
 {

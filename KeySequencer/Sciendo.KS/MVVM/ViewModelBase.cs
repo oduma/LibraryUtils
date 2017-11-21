@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sciendo.KS.MVVM
 {
@@ -46,10 +42,7 @@ namespace Sciendo.KS.MVVM
         protected void RaisePropertyChanged(String propertyName)
         {
             PropertyChangedEventHandler temp = PropertyChanged;
-            if (temp != null)
-            {
-                temp(this, new PropertyChangedEventArgs(propertyName));
-            }
+            temp?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

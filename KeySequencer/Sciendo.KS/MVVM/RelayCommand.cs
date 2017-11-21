@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Sciendo.KS.MVVM
@@ -11,8 +7,8 @@ namespace Sciendo.KS.MVVM
 
     public class RelayCommand : ICommand
     {
-        private readonly Action execute;
-        private readonly Func<bool> canExecute;
+        private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
         public RelayCommand(Action execute)
             : this(execute, null)
@@ -24,11 +20,11 @@ namespace Sciendo.KS.MVVM
         {
             if (execute == null)
             {
-                throw new ArgumentNullException("execute");
+                throw new ArgumentNullException(nameof(execute));
             }
 
-            this.execute = execute;
-            this.canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged
@@ -40,12 +36,12 @@ namespace Sciendo.KS.MVVM
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return canExecute == null ? true : canExecute();
+            return _canExecute == null || _canExecute();
         }
 
         public void Execute(object parameter)
         {
-            execute();
+            _execute();
         }
     }
 }

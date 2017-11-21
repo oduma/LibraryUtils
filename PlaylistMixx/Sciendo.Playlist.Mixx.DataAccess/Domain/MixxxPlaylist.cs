@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Linq;
 using Dapper;
 
@@ -9,7 +8,7 @@ namespace Sciendo.Mixx.DataAccess.Domain
 {
     public class MixxxPlaylist
     {
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public int Id { get; private set; }
 

@@ -33,7 +33,7 @@ namespace Sciendo.T2F.Processor
             foreach (var file in files)
             {
                 var tag = _tagFileReader.Read(file);
-                if (!((tag == null) || string.IsNullOrEmpty(tag.Album) || string.IsNullOrEmpty(tag.Title)))
+                if (!(string.IsNullOrEmpty(tag?.Album) || string.IsNullOrEmpty(tag.Title)))
                 {
                     
                     var fileExtension = Path.GetExtension(file);
@@ -74,7 +74,7 @@ namespace Sciendo.T2F.Processor
             var childDirectories = _directoryEnumerator.GetTopLevel(sourceDirectoryName);
             foreach (var childDirectory in childDirectories)
             {
-                var childDirectoryParts = childDirectory.Split(new[] {Path.DirectorySeparatorChar});
+                var childDirectoryParts = childDirectory.Split(Path.DirectorySeparatorChar);
                        
                 _fileWriter.Do(childDirectory,$"{destinationDirectoryName}{Path.DirectorySeparatorChar}{childDirectoryParts[childDirectoryParts.Length-1]}");
             }

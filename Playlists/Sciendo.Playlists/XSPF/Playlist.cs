@@ -1,5 +1,4 @@
 ﻿using System.Xml.Serialization;
-using Sciendo.Playlist.Handler.XSPF;
 
 namespace Sciendo.Playlists.XSPF
 {

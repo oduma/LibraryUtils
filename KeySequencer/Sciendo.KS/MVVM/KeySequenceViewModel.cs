@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Sciendo.KeySequencer.Repository;
@@ -47,7 +42,7 @@ namespace Sciendo.KS.MVVM
         public string Low1ToKey { get; set; }
 
         public string Low2ToKey { get; private set; }
-        private void PerformClose()
+        private static void PerformClose()
         {
             Application.Current.Shutdown();
         }
@@ -55,7 +50,7 @@ namespace Sciendo.KS.MVVM
 
         public void InitalizeView()
         {
-            LoadToKeys(new string[] { "Low...", "Low...","Medium...", "High...", "Super..." });
+            LoadToKeys(new[] { "Low...", "Low...","Medium...", "High...", "Super..." });
             Close = new RelayCommand(PerformClose);
         }
 

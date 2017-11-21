@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sciendo.Mixx.DataAccess.Domain;
 using Sciendo.Playlists;
 
@@ -37,8 +33,7 @@ namespace Sciendo.Mixx.DataAccess
         public bool Create(string name, IEnumerable<PlaylistItem> playlistItems)
         {
 
-            var mixxPlaylist = new MixxxPlaylist(name);
-            mixxPlaylist.PlaylistTracks = _mapper.Transform(playlistItems);
+            var mixxPlaylist = new MixxxPlaylist(name) {PlaylistTracks = _mapper.Transform(playlistItems)};
             using (var transaction = _connection.BeginTransaction())
             {
                 var result= mixxPlaylist.Save(_connection, transaction);

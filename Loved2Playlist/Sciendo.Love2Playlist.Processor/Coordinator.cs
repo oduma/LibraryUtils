@@ -23,7 +23,7 @@ namespace Sciendo.Love2Playlist.Processor
         public event EventHandler<SaveLoveEventArgs> SavedLove;
         public event EventHandler<SavePlaylistEventArgs> SavedPlaylist;
 
-        private string _playlistFile => $"playlist-{_userName}-{_rootFileName}.m3u";
+        private string PlaylistFile => $"playlist-{_userName}-{_rootFileName}.m3u";
 
         private int _totalPlaylistFiles; 
         public Coordinator(ILoveProvider loveProvider,IDataProvider dataProvider, IPlaylistHandler playlistHandler, 
@@ -56,8 +56,8 @@ namespace Sciendo.Love2Playlist.Processor
 
             var playlistContents = _playlistHandler.SetPlaylistItems(_tagFileReader,
                 GetFilesForLoveTracks(loveTracks).ToArray());
-            _textFileWriter.Write(playlistContents,_playlistFile);
-            SavedPlaylist?.Invoke(this, new SavePlaylistEventArgs(_totalPlaylistFiles, _playlistFile));
+            _textFileWriter.Write(playlistContents,PlaylistFile);
+            SavedPlaylist?.Invoke(this, new SavePlaylistEventArgs(_totalPlaylistFiles, PlaylistFile));
         }
 
         private IEnumerable<PlaylistItem> GetFilesForLoveTracks(IList<LoveTrack> loveTracks)
@@ -72,11 +72,13 @@ namespace Sciendo.Love2Playlist.Processor
                 var bestTrack = _dataProvider.AllTracks.FilterAndRank(loveTrack).OrderBy(t => t.Rank).LastOrDefault();
                 if (bestTrack != null)
                 {
-                    _totalPlaylistFiles++;                    
-                    yield return new PlaylistItem
-                    {
-                        FileName = HttpUtility.UrlDecode(bestTrack.FileName).Replace("file:///", "").Replace(@"/", @"\")
-                    };
+                    _totalPlaylistFiles++;
+                    var urlDecoded = HttpUtility.UrlDecode(bestTrack.FileName);
+                    if (urlDecoded != null)
+                        yield return new PlaylistItem
+                        {
+                            FileName = urlDecoded.Replace("file:///", "").Replace(@"/", @"\")
+                        };
                 }
             }
         }

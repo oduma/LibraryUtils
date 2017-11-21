@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sciendo.Clementine.DataAccess;
 using Sciendo.Common.IO;
 using Sciendo.Common.Music.Tagging;
@@ -15,25 +11,27 @@ namespace Sciendo.Love2Playlist
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             LastFmConfigurationSection lastFmConfig = ConfigurationManager.GetSection("lastFm") as LastFmConfigurationSection;
             PlaylistConfigurationSection playlistConfig = ConfigurationManager.GetSection("playlist") as PlaylistConfigurationSection;
 
             ILoveProvider loveProvider = new LoveProvider(lastFmConfig,new LastFmProvider());
-            using (
-                var dataProvider =
-                    new DataProvider($"Data Source={playlistConfig.ClementineDatabaseFile};version=3;"))
-            {
-
-                ICoordinator coordinator = new Coordinator(loveProvider, dataProvider, new M3UHandler(),
-                    new TagFileReader(), new TextFileWriter(), lastFmConfig.User, playlistConfig.FileName);
-                coordinator.CollectedLove += Coordinator_CollectedLove;
-                coordinator.SavedLove += Coordinator_SavedLove;
-                coordinator.SavedPlaylist += Coordinator_SavedPlaylist;
-                coordinator.GetLovedAndPersistPlaylist();
-
-            }
+            if (playlistConfig != null)
+                using (
+                    var dataProvider =
+                        new DataProvider($"Data Source={playlistConfig.ClementineDatabaseFile};version=3;"))
+                {
+                    if (lastFmConfig != null)
+                    {
+                        ICoordinator coordinator = new Coordinator(loveProvider, dataProvider, new M3UHandler(),
+                            new TagFileReader(), new TextFileWriter(), lastFmConfig.User, playlistConfig.FileName);
+                        coordinator.CollectedLove += Coordinator_CollectedLove;
+                        coordinator.SavedLove += Coordinator_SavedLove;
+                        coordinator.SavedPlaylist += Coordinator_SavedPlaylist;
+                        coordinator.GetLovedAndPersistPlaylist();
+                    }
+                }
         }
 
         private static void Coordinator_SavedPlaylist(object sender, SavePlaylistEventArgs e)

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Sciendo.Clementine.DataAccess.Tests.Integration
@@ -10,7 +6,7 @@ namespace Sciendo.Clementine.DataAccess.Tests.Integration
     [TestFixture]
     public class DataProviderTests
     {
-        private string _dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Db\\clementine.db";
+        private readonly string _dbPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Db\\clementine.db";
 
         [Test]
         public void CreateADataProviderOk()

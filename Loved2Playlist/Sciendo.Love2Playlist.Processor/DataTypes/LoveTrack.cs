@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
@@ -11,7 +10,7 @@ namespace Sciendo.Love2Playlist.Processor.DataTypes
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("mbid")]
-        public string MBID { get; set; }
+        public string Mbid { get; set; }
         [JsonProperty("url")]
         public string Url { get; set; }
         [JsonProperty("date")]

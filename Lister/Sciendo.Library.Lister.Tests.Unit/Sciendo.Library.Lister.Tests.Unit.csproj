@@ -54,7 +54,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="acknowledgements.txt" />
     <Content Include="license.txt" />
   </ItemGroup>
   <ItemGroup>

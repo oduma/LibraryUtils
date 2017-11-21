@@ -38,7 +38,7 @@ namespace Sciendo.Playlists.M3U
 
         private IEnumerable<Track> DeserializeM3UPlaylist(string playlistContents)
         {
-            string[] playlistContentsLines = playlistContents.Split(new string[] {Environment.NewLine},
+            string[] playlistContentsLines = playlistContents.Split(new[] {Environment.NewLine},
                 StringSplitOptions.RemoveEmptyEntries);
             Track newTrack = null;
             foreach (string playlistContentsLine in playlistContentsLines)
@@ -66,7 +66,7 @@ namespace Sciendo.Playlists.M3U
         private string SerializeTrack(Track track)
         {
             string trackTagMarker = (track.TrackHasTag()) ? TrackTagMarker : string.Empty;
-            return $"{TrackMarker}{trackTagMarker}{track.ToString()}{Environment.NewLine}";
+            return $"{TrackMarker}{trackTagMarker}{track}{Environment.NewLine}";
         }
 
         private string SerializeM3UPlaylist(IEnumerable<Track> playlist)

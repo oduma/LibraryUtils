@@ -5,11 +5,7 @@ namespace Sciendo.Playlist.Translator.Configuration
     public class ExtensionsPlaylistsConfigSection : ConfigurationSection
     {
         [ConfigurationProperty("extensions")]
-        public ExtensionElementCollection Extensions
-        {
-            get { return (ExtensionElementCollection) this["extensions"]; }
-        }
-
+        public ExtensionElementCollection Extensions => (ExtensionElementCollection) this["extensions"];
     }
 
     [ConfigurationCollection(typeof(ExtensionElement))]
@@ -40,10 +36,6 @@ namespace Sciendo.Playlist.Translator.Configuration
 
     public class ExtensionElement : ConfigurationElement
     {
-        public ExtensionElement()
-        {
-        }
-
         [ConfigurationProperty("key", DefaultValue = "", IsKey = true, IsRequired = true)]
         public string Key
         {

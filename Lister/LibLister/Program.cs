@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommandLine;
 using Sciendo.Common.IO;
 using Sciendo.Common.Serialization;
@@ -14,7 +10,7 @@ namespace LibLister
     {
         static void Main(string[] args)
         {
-            var result = CommandLine.Parser.Default.ParseArguments<Options>(args);
+            var result = Parser.Default.ParseArguments<Options>(args);
             if (result.Tag==ParserResultType.Parsed)
             {
                 var options = ((Parsed<Options>) result).Value;

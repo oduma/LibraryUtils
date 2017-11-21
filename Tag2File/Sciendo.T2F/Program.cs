@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommandLine;
 using Sciendo.Common.IO;
 using Sciendo.Common.Music.Tagging;
@@ -16,7 +13,7 @@ namespace Sciendo.T2F
     {
         static void Main(string[] args)
         {
-            var result = CommandLine.Parser.Default.ParseArguments<Options>(args);
+            var result = Parser.Default.ParseArguments<Options>(args);
             if (result.Tag==ParserResultType.Parsed)
             {
                 var options = ((Parsed<Options>) result).Value;
@@ -31,9 +28,9 @@ namespace Sciendo.T2F
                 
                 if (options.ActionType == ActionType.Copy)
                 {
-                    T2FProcessor t2fProcessor = new T2FProcessor(fileEnumerator,directoryEnumerator, new TagFileReader(),
+                    T2FProcessor t2FProcessor = new T2FProcessor(fileEnumerator,directoryEnumerator, new TagFileReader(),
                         new TagFileProcessor(), new ContentCopier(directoryEnumerator,fileEnumerator));
-                    t2fProcessor.Start(options.RootPath, extensions, options.IndividualPattern,
+                    t2FProcessor.Start(options.RootPath, extensions, options.IndividualPattern,
                         options.CollectionPattern);
                     return;
                 }

@@ -8,7 +8,7 @@ namespace Sciendo.PMP
         [Value(0,Default="",HelpText = "Path to the playlist file.")]
         public string PlaylistFileName { get; set; }
 
-        [Value(1, Default = Playlist.Mixx.Processor.ProcessingType.PullFromMixxx,HelpText="PullFromMixxx or PushToMixxx")]
+        [Value(1, Default = ProcessingType.PullFromMixxx,HelpText="PullFromMixxx or PushToMixxx")]
         public ProcessingType ProcessingType { get; set; }
     }
 }

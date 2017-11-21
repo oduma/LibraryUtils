@@ -4,10 +4,6 @@ namespace Sciendo.Playlist.Translator.Configuration
 {
     public class FromToParamsElement : ConfigurationElement
     {
-        public FromToParamsElement()
-        {
-        }
-
         [ConfigurationProperty("from", DefaultValue = "", IsKey = true, IsRequired = true)]
         public string From
         {

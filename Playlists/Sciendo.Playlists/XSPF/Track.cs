@@ -38,11 +38,11 @@ namespace Sciendo.Playlists.XSPF
                 ? file
                 : $"{rootFolderPath}{Path.DirectorySeparatorChar}{file}";
             var tag = tagFileReader.Read(filePath);
-            this.Duration = 0;
-            this.Album = tag.Album;
-            this.Creator = tag.FirstPerformer;
-            this.Title = tag.Title;
-            this.Location = "file:///" + file.Replace(@"\","/");
+            Duration = 0;
+            Album = tag.Album;
+            Creator = tag.FirstPerformer;
+            Title = tag.Title;
+            Location = "file:///" + file.Replace(@"\","/");
         }
     }
 }

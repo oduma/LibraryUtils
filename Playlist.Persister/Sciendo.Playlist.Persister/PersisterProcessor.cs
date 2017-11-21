@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using Sciendo.Common.IO;
-using Sciendo.Common.Serialization;
 using Sciendo.Playlists;
 using TagLib;
 using File = System.IO.File;
@@ -42,10 +41,7 @@ namespace Sciendo.Playlist.Persister
             _currentRoot = currentRoot.ToLower();
             _fileWriter = fileWriter;
             _deviceType = deviceType;
-            if(_deviceType==DeviceType.Mobile)
-                _targetPlaylistType=PlaylistType.M3U;
-            else
-                _targetPlaylistType = targetPlaylistType;
+            _targetPlaylistType = _deviceType==DeviceType.Mobile ? PlaylistType.M3U : targetPlaylistType;
         }
 
         public event EventHandler<ProgressEventArgs> StartProcessing;
@@ -56,8 +52,8 @@ namespace Sciendo.Playlist.Persister
         {
             if (Directory.Exists(path))
             {
-                var files = _fileEnumerator.Get(path, SearchOption.TopDirectoryOnly);
-                StartProcessing?.Invoke(this, new ProgressEventArgs(path, files.Count()));
+                var files = _fileEnumerator.Get(path, SearchOption.TopDirectoryOnly).ToArray();
+                StartProcessing?.Invoke(this, new ProgressEventArgs(path, files.Length));
 
                 foreach (var file in files)
                 {
@@ -77,15 +73,13 @@ namespace Sciendo.Playlist.Persister
             var inPlaylist = ReadPlaylist(file);
             if (inPlaylist != null)
             {
-                if(StartProcessingFile!=null)
-                    StartProcessingFile(this, new ProgressEventArgs(file,inPlaylist.Length));
+                StartProcessingFile?.Invoke(this, new ProgressEventArgs(file,inPlaylist.Length));
                 var targetDirectory = HandleContent(file, inPlaylist);
                 CreateTargetPlaylist(inPlaylist, file, targetDirectory);
             }
             else
             {
-                if(StartProcessingFile!=null)
-                    StartProcessingFile(this, new ProgressEventArgs(file,0));
+                StartProcessingFile?.Invoke(this, new ProgressEventArgs(file,0));
             }
         }
 
@@ -96,16 +90,14 @@ namespace Sciendo.Playlist.Persister
             var newPlaylistRawContent = playlistHandler.SetPlaylistItems((_deviceType!=DeviceType.Mobile)?_tagFileReader:null, inPlaylist,targetDirectory);
             var targetFileName = $"{Path.GetFileNameWithoutExtension(sourceFile)}.{_targetPlaylistType.ToString().ToLower()}";
             _textFileWriter.Write(newPlaylistRawContent, Path.Combine(targetDirectory, targetFileName));
-            if(PlaylistCreated!=null)
-                PlaylistCreated(this, new ProgressEventArgs(targetFileName,1));
+            PlaylistCreated?.Invoke(this, new ProgressEventArgs(targetFileName,1));
         }
 
         private string HandleContent(string file, PlaylistItem[] inPlaylist)
         {
             var targetDirectory = CreateTargetDirectory(file);
             var countFiles = CopyContent(targetDirectory, inPlaylist);
-            if (CopyContentToTarget != null)
-                CopyContentToTarget(this, new ProgressEventArgs(targetDirectory,countFiles));
+            CopyContentToTarget?.Invoke(this, new ProgressEventArgs(targetDirectory,countFiles));
             return targetDirectory;
         }
 
@@ -151,11 +143,16 @@ namespace Sciendo.Playlist.Persister
 
         private string CreateTargetDirectory(string playlistFileName)
         {
-            var targetDirectory =
-                $"{AppDomain.CurrentDomain.BaseDirectory}{Path.GetFileName(playlistFileName).Replace(Path.GetExtension(playlistFileName), "")}";
-            if (!Directory.Exists(targetDirectory))
-                Directory.CreateDirectory(targetDirectory);
-            return targetDirectory;
+            var fileName = Path.GetFileName(playlistFileName);
+            if (fileName != null)
+            {
+                var targetDirectory =
+                    $"{AppDomain.CurrentDomain.BaseDirectory}{fileName.Replace(Path.GetExtension(fileName), "")}";
+                if (!Directory.Exists(targetDirectory))
+                    Directory.CreateDirectory(targetDirectory);
+                return targetDirectory;
+            }
+           return playlistFileName;
         }
 
 
