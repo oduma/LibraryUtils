@@ -32,7 +32,7 @@ namespace Sciendo.Playlist.Mixx.Processor
             var playlistItems = _dataHandler.Get(Path.GetFileNameWithoutExtension(playlistFileName));
             var playlistHandler = _playlistHandlerFactory.GetHandler(Path.GetExtension(playlistFileName));
             var playlistContents = playlistHandler.SetPlaylistItems(_tagFileReader, playlistItems.ToArray());
-            _textFileWriter.Write(playlistContents,playlistFileName);
+            _textFileWriter.Write(playlistContents.Replace("\0",""),playlistFileName);
         }
 
         public void Stop()
