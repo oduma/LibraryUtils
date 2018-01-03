@@ -17,32 +17,43 @@ namespace Sciendo.T2F
             if (result.Tag==ParserResultType.Parsed)
             {
                 var options = ((Parsed<Options>) result).Value;
+                Console.WriteLine("Executing with argument: >>>{0}<<<",options.RootPath);
+                var configSection = ((Tags2FilesConfigSection) ConfigurationManager.GetSection("tagsToFiles"));
                 var extensions =
-    ((ExtensionsWithTagsConfigSection)ConfigurationManager.GetSection("activeExtensions")).Extensions
+    configSection.Extensions
     .Cast<ExtensionElement>().Select(e => e.Value).ToArray();
+                var individualRule = configSection.Rules
+.Cast<RuleElement>().FirstOrDefault(r=>r.Type==RuleType.Individual);
+                if(individualRule==null)
+                    throw new ConfigurationErrorsException("no individual rule.");
+                var collectionRule = configSection.Rules
+.Cast<RuleElement>().FirstOrDefault(r => r.Type == RuleType.Collection);
+                if(collectionRule==null)
+                    throw new ConfigurationErrorsException("no collection rule.");
+                var actionType = configSection.ActionType.Type;
 
-                IFileEnumerator fileEnumerator= new FileEnumerator();
+
+                IFileEnumerator fileEnumerator = new FileEnumerator();
                 fileEnumerator.DirectoryRead += FileEnumerator_DirectoryRead;
                 fileEnumerator.ExtensionsRead += FileEnumerator_ExtensionsRead;
                 IDirectoryEnumerator directoryEnumerator= new DirectoryEnumerator();
                 
-                if (options.ActionType == ActionType.Copy)
+                if (actionType == ActionType.Copy)
                 {
                     T2FProcessor t2FProcessor = new T2FProcessor(fileEnumerator,directoryEnumerator, new TagFileReader(),
                         new TagFileProcessor(), new ContentCopier(directoryEnumerator,fileEnumerator));
-                    t2FProcessor.Start(options.RootPath, extensions, options.IndividualPattern,
-                        options.CollectionPattern);
+                    t2FProcessor.Start(options.RootPath, extensions, individualRule.Pattern,
+                        collectionRule.Pattern);
                     return;
                 }
-                if (options.ActionType == ActionType.Move)
+                if (actionType == ActionType.Move)
                 {
                     T2FProcessor t2FProcessor = new T2FProcessor(fileEnumerator,directoryEnumerator, new TagFileReader(),
                         new TagFileProcessor(), new ContentMover(directoryEnumerator, fileEnumerator));
-                    t2FProcessor.Start(options.RootPath, extensions, options.IndividualPattern,
-                        options.CollectionPattern);
+                    t2FProcessor.Start(options.RootPath, extensions, individualRule.Pattern,
+                        collectionRule.Pattern);
                     return;
                 }
-                Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
             }
             Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
 

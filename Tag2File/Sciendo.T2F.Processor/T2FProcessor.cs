@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Sciendo.Common.IO;
@@ -16,6 +17,7 @@ namespace Sciendo.T2F.Processor
         private List<string> _directoriesProcessed;
         private const string Various="Various";
         private const string Artists="Artists";
+        private Dictionary<string, bool> _collectionDirectories;
 
         public T2FProcessor(IFileEnumerator fileEnumerator,IDirectoryEnumerator directoryEnumerator,IFileReader<Tag> tagFileReader, IFileProcessor<Tag> tagFileProcessor, IContentWriter fileWriter)
         {
@@ -29,6 +31,7 @@ namespace Sciendo.T2F.Processor
         public void Start(string path, string[] extensions, string fileNamePattern, string fileNamePatternCollection)
         {
             _directoriesProcessed=new List<string>();
+            _collectionDirectories= new Dictionary<string, bool>();
             var files = _fileEnumerator.Get(path,SearchOption.AllDirectories, extensions);
             foreach (var file in files)
             {
@@ -38,7 +41,7 @@ namespace Sciendo.T2F.Processor
                     
                     var fileExtension = Path.GetExtension(file);
                     var newFileName = _tagFileProcessor.CalculateFileName(tag,path,fileExtension,
-                        (IsPartOfCollection(tag))?fileNamePatternCollection:fileNamePattern);
+                        (IsPartOfCollection(file, extensions))?fileNamePatternCollection:fileNamePattern);
                     _fileWriter.Do(file,newFileName);
                     if (_directoriesProcessed.All(d => d != Path.GetDirectoryName(file)))
                     {
@@ -81,9 +84,28 @@ namespace Sciendo.T2F.Processor
             _directoriesProcessed.Add(sourceDirectoryName);
         }
 
-        private bool IsPartOfCollection(Tag tag)
+        private bool IsPartOfCollection(string filePath, string[] extensions)
         {
-            return tag.AlbumArtists.Any(aa => aa.Contains(Various) || aa.Contains(Artists));
+            var parentDirectory = Path.GetDirectoryName(filePath);
+            if(parentDirectory==null)
+                throw new Exception("Something wrong.");
+            if (_collectionDirectories.ContainsKey(parentDirectory))
+                return _collectionDirectories[parentDirectory];
+            Tag tagProcessed = _tagFileReader.Read(filePath);
+            if (tagProcessed.AlbumArtists.Any(aa => aa.Contains(Various) || aa.Contains(Artists)))
+            {
+                _collectionDirectories.Add(parentDirectory,true);
+                return true;
+            }
+
+            var tags = ((IFilesReader<Tag>)_tagFileReader).Read(_fileEnumerator.Get(parentDirectory, SearchOption.AllDirectories, extensions));
+            if (tags.SelectMany(t => t.Performers).Distinct().Count() > 1)
+            {
+                _collectionDirectories.Add(parentDirectory,true);
+                return true;
+            }
+            _collectionDirectories.Add(parentDirectory,false);
+            return false;
         }
 
         public void Stop()

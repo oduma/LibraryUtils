@@ -65,6 +65,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.KeySequencer.Reposi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.KeySequencer.Repository.Tests.Unit", "KeySequencer\Sciendo.KeySequencer.Repository.Tests.Unit\Sciendo.KeySequencer.Repository.Tests.Unit.csproj", "{9F1F9298-E11F-4C03-80C9-B997EBD4400C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repeat", "Repeat", "{1890D15C-96C9-4193-B1C9-F807C3862EDC}"
+	ProjectSection(SolutionItems) = preProject
+		Repeat\repeat.ps1 = Repeat\repeat.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
