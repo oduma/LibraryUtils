@@ -8,7 +8,7 @@ namespace Sciendo.T2F.Processor
         public string CalculateFileName(Tag input, string rootPath, string extension, string fileNamePattern)
         {
             return
-                $"{rootPath}{Path.DirectorySeparatorChar}{string.Format(MapPattern(fileNamePattern), input.Title, IOFy(input.Album), string.Join("-", input.AlbumArtists), string.Join("-", input.Artists), input.Track, input.Disc)}{extension}";
+                $"{rootPath}{Path.DirectorySeparatorChar}{string.Format(MapPattern(fileNamePattern), IOFy(input.Title), IOFy(input.Album), IOFy(string.Join("-", input.AlbumArtists)), IOFy(string.Join("-", input.Artists)), input.Track, input.Disc)}{extension}";
         }
 
         private object IOFy(string input)
