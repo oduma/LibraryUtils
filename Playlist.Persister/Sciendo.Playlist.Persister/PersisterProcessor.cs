@@ -12,7 +12,6 @@ namespace Sciendo.Playlist.Persister
     {
         private readonly IFileEnumerator _fileEnumerator;
         private readonly IFileReader<string> _textFileReader;
-        private readonly IPlaylistHandlerFactory _playlistAnaliserFactory;
         private readonly string _sourceRoot;
         private readonly string _currentRoot;
         private readonly IContentWriter _fileWriter;
@@ -25,7 +24,6 @@ namespace Sciendo.Playlist.Persister
             IFileReader<string> textFileReader, 
             IFileReader<Tag> tagFileReader,
             IFileWriter textFileWriter,
-            IPlaylistHandlerFactory playlistAnaliserFactory, 
             string sourceRoot, 
             string currentRoot, 
             IContentWriter fileWriter,
@@ -36,7 +34,6 @@ namespace Sciendo.Playlist.Persister
             _textFileReader = textFileReader;
             _tagFileReader = tagFileReader;
             _textFileWriter = textFileWriter;
-            _playlistAnaliserFactory = playlistAnaliserFactory;
             _sourceRoot = sourceRoot.ToLower();
             _currentRoot = currentRoot.ToLower();
             _fileWriter = fileWriter;
@@ -85,7 +82,7 @@ namespace Sciendo.Playlist.Persister
 
         private void CreateTargetPlaylist(PlaylistItem[] inPlaylist, string sourceFile, string targetDirectory)
         {
-            var playlistHandler = _playlistAnaliserFactory.GetHandler(_targetPlaylistType.ToString().ToLower());
+            var playlistHandler = PlaylistHandlerFactory.GetHandler(_targetPlaylistType.ToString().ToLower());
 
             var newPlaylistRawContent = playlistHandler.SetPlaylistItems((_deviceType!=DeviceType.Mobile)?_tagFileReader:null, inPlaylist,targetDirectory);
             var targetFileName = $"{Path.GetFileNameWithoutExtension(sourceFile)}.{_targetPlaylistType.ToString().ToLower()}";
@@ -103,7 +100,7 @@ namespace Sciendo.Playlist.Persister
 
         private PlaylistItem[] ReadPlaylist(string file)
         {
-            var playlistHandler = _playlistAnaliserFactory.GetHandler(Path.GetExtension(file));
+            var playlistHandler = PlaylistHandlerFactory.GetHandler(Path.GetExtension(file));
             if (playlistHandler != null)
             {
                 var playlistRawContent = _textFileReader.Read(file);

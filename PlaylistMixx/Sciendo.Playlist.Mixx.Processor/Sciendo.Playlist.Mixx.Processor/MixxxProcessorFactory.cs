@@ -9,7 +9,6 @@ namespace Sciendo.Playlist.Mixx.Processor
     {
         public IMixxxProcessor GetProcessor(ProcessingType processingType, 
             IDataHandler dataHandler, 
-            IPlaylistHandlerFactory playlistHandlerFactory, 
             IFileReader<string> textFileReader, 
             IFileReader<Tag> tagFileReader, 
             IFileWriter textFileWriter)
@@ -17,9 +16,9 @@ namespace Sciendo.Playlist.Mixx.Processor
             switch (processingType)
             {
                 case ProcessingType.PushToMixxx:
-                    return new MixxxPushProcessor(dataHandler,playlistHandlerFactory,textFileReader);
+                    return new MixxxPushProcessor(dataHandler,textFileReader);
                 case ProcessingType.PullFromMixxx:
-                    return new MixxxPullProcessor(dataHandler,playlistHandlerFactory,tagFileReader,textFileWriter);
+                    return new MixxxPullProcessor(dataHandler,tagFileReader,textFileWriter);
                 default:
                     return null;
             }

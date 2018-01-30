@@ -11,14 +11,12 @@ namespace Sciendo.Playlist.Mixx.Processor
     public class MixxxPullProcessor:IMixxxProcessor
     {
         private readonly IDataHandler _dataHandler;
-        private readonly IPlaylistHandlerFactory _playlistHandlerFactory;
         private readonly IFileReader<Tag> _tagFileReader;
         private readonly IFileWriter _textFileWriter;
 
-        public MixxxPullProcessor(IDataHandler dataHandler, IPlaylistHandlerFactory playlistHandlerFactory,IFileReader<Tag> tagFileReader, IFileWriter textFileWriter)
+        public MixxxPullProcessor(IDataHandler dataHandler, IFileReader<Tag> tagFileReader, IFileWriter textFileWriter)
         {
             _dataHandler = dataHandler;
-            _playlistHandlerFactory = playlistHandlerFactory;
             _tagFileReader = tagFileReader;
             _textFileWriter = textFileWriter;
         }
@@ -27,7 +25,7 @@ namespace Sciendo.Playlist.Mixx.Processor
             if(string.IsNullOrEmpty(playlistFileName))
                 throw new ArgumentNullException(nameof(playlistFileName));
             var playlistItems = _dataHandler.Get(Path.GetFileNameWithoutExtension(playlistFileName));
-            var playlistHandler = _playlistHandlerFactory.GetHandler(Path.GetExtension(playlistFileName));
+            var playlistHandler = PlaylistHandlerFactory.GetHandler(Path.GetExtension(playlistFileName));
             var playlistContents = playlistHandler.SetPlaylistItems(_tagFileReader, playlistItems.ToArray());
             _textFileWriter.Write(playlistContents.Replace("\0",""),playlistFileName);
         }

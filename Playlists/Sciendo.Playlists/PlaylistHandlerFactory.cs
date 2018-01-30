@@ -3,11 +3,11 @@ using Sciendo.Playlists.XSPF;
 
 namespace Sciendo.Playlists
 {
-    public class PlaylistHandlerFactory:IPlaylistHandlerFactory
+    public static class PlaylistHandlerFactory
     {
         private const string XSPFExtension = "xspf";
         private const string M3UExtension = "m3u";
-        public IPlaylistHandler GetHandler(string playlistExtension)
+        public static IPlaylistHandler GetHandler(string playlistExtension)
         {
             switch (playlistExtension.Trim().Replace(".", "").ToLower())
             {
