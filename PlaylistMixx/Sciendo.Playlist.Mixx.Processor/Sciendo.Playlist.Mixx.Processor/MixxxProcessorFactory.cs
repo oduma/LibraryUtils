@@ -10,7 +10,7 @@ namespace Sciendo.Playlist.Mixx.Processor
         public IMixxxProcessor GetProcessor(ProcessingType processingType, 
             IDataHandler dataHandler, 
             IFileReader<string> textFileReader, 
-            IFileReader<Tag> tagFileReader, 
+            IFileReader<TagLib.File> tagFileReader, 
             IFileWriter textFileWriter)
         {
             switch (processingType)

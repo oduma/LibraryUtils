@@ -11,10 +11,10 @@ namespace Sciendo.Playlist.Mixx.Processor
     public class MixxxPullProcessor:IMixxxProcessor
     {
         private readonly IDataHandler _dataHandler;
-        private readonly IFileReader<Tag> _tagFileReader;
+        private readonly IFileReader<TagLib.File> _tagFileReader;
         private readonly IFileWriter _textFileWriter;
 
-        public MixxxPullProcessor(IDataHandler dataHandler, IFileReader<Tag> tagFileReader, IFileWriter textFileWriter)
+        public MixxxPullProcessor(IDataHandler dataHandler, IFileReader<TagLib.File> tagFileReader, IFileWriter textFileWriter)
         {
             _dataHandler = dataHandler;
             _tagFileReader = tagFileReader;

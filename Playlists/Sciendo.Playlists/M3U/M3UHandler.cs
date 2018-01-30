@@ -24,7 +24,7 @@ namespace Sciendo.Playlists.M3U
 
         }
 
-        public string SetPlaylistItems(IFileReader<Tag> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath)
+        public string SetPlaylistItems(IFileReader<TagLib.File> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath)
         {
             var playlist =  new Track[playlistItems.Length];
             for (int i = 0; i < playlistItems.Length; i++)

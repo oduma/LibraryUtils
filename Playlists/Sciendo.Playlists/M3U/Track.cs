@@ -51,7 +51,7 @@ namespace Sciendo.Playlists.M3U
             }
         }
 
-        public Track(IFileReader<Tag> tagFileReader, string file, string rootFolderPath)
+        public Track(IFileReader<TagLib.File> tagFileReader, string file, string rootFolderPath)
         {
             var filePath = (string.IsNullOrEmpty(rootFolderPath))
                 ? file
@@ -59,15 +59,16 @@ namespace Sciendo.Playlists.M3U
 
             if (tagFileReader != null)
                 FillInTheTag(tagFileReader, filePath);
-            Duration = 0;
             Location = file;
         }
 
-        private void FillInTheTag(IFileReader<Tag> tagFileReader, string file)
+        private void FillInTheTag(IFileReader<TagLib.File> tagFileReader, string file)
         {
-            var tag = tagFileReader.Read(file);
+            var tagFile = tagFileReader.Read(file);
+            var tag = tagFile.Tag;
             Creator = tag.FirstPerformer;
             Title = tag.Title;
+            Duration = tagFile.Properties.Duration.Milliseconds;
         }
 
         public override string ToString()

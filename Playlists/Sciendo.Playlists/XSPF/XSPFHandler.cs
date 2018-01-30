@@ -18,7 +18,7 @@ namespace Sciendo.Playlists.XSPF
                     .ToArray();
         }
 
-        public string SetPlaylistItems(IFileReader<Tag> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath)
+        public string SetPlaylistItems(IFileReader<TagLib.File> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath)
         {
             var playlist = new Playlist {Version = 1, Tracklist = new Track[playlistItems.Length]};
             for (int i=0; i<playlistItems.Length;i++)

@@ -15,7 +15,7 @@ namespace Sciendo.Love2Playlist.Processor
         private readonly ILoveProvider _loveProvider;
         private readonly IDataProvider _dataProvider;
         private readonly IPlaylistHandler _playlistHandler;
-        private readonly IFileReader<Tag> _tagFileReader;
+        private readonly IFileReader<TagLib.File> _tagFileReader;
         private readonly IFileWriter _textFileWriter;
         private readonly string _userName;
         private readonly string _rootFileName;
@@ -27,7 +27,7 @@ namespace Sciendo.Love2Playlist.Processor
 
         private int _totalPlaylistFiles; 
         public Coordinator(ILoveProvider loveProvider,IDataProvider dataProvider, IPlaylistHandler playlistHandler, 
-            IFileReader<Tag> tagFileReader,IFileWriter textFileWriter, string userName, string rootFileName)
+            IFileReader<TagLib.File> tagFileReader,IFileWriter textFileWriter, string userName, string rootFileName)
         {
             _loveProvider = loveProvider;
             _dataProvider = dataProvider;

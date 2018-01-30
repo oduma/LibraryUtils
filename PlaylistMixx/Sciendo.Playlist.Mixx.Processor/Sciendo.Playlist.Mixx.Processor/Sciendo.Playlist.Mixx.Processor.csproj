@@ -61,6 +61,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Sciendo.Common.Music.Contracts\Sciendo.Common.Music.Contracts.csproj">
+      <Project>{F8497019-BA53-468C-9EA8-26EAD565DB31}</Project>
+      <Name>Sciendo.Common.Music.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Playlists\Sciendo.Playlists\Sciendo.Playlists.csproj">
       <Project>{9ba6d39d-2fc1-4cc9-bdfb-4c630f3cbe44}</Project>
       <Name>Sciendo.Playlists</Name>

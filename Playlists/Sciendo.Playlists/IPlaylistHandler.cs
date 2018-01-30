@@ -9,7 +9,7 @@ namespace Sciendo.Playlists
 
         //PlaylistItem[] GetPlaylistItemsFromFile(string file);
 
-        string SetPlaylistItems(IFileReader<Tag> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath="");
+        string SetPlaylistItems(IFileReader<TagLib.File> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath="");
 
         //void SetPlaylistItemsToFile(IFileReader<Tag> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath,
         //    string fileToSave);

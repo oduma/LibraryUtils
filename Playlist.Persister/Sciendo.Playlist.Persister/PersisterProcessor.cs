@@ -15,14 +15,14 @@ namespace Sciendo.Playlist.Persister
         private readonly string _sourceRoot;
         private readonly string _currentRoot;
         private readonly IContentWriter _fileWriter;
-        private readonly IFileReader<Tag> _tagFileReader;
+        private readonly IFileReader<TagLib.File> _tagFileReader;
         private readonly IFileWriter _textFileWriter;
         private readonly PlaylistType _targetPlaylistType;
         private readonly DeviceType _deviceType;
 
         public PersisterProcessor(IFileEnumerator fileEnumerator, 
             IFileReader<string> textFileReader, 
-            IFileReader<Tag> tagFileReader,
+            IFileReader<TagLib.File> tagFileReader,
             IFileWriter textFileWriter,
             string sourceRoot, 
             string currentRoot, 
