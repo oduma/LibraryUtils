@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using Sciendo.Common.IO;
+using Sciendo.Common.Music.Contracts;
 using Sciendo.Mixx.DataAccess;
 using Sciendo.Playlists;
 
 namespace Sciendo.Playlist.Mixx.Processor
 {
-    public class MixxxPushProcessor:IMixxxProcessor
+    public class MixxxPushProcessor:IMixxxProcessor,IPostProcessor
     {
         private readonly IDataHandler _dataHandler;
         private readonly IFileReader<string> _fileReader;

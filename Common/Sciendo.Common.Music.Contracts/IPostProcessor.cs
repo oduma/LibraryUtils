@@ -8,6 +8,6 @@ namespace Sciendo.Common.Music.Contracts
 {
     public interface IPostProcessor
     {
-        void Process(string message);
+        void Start(string message);
     }
 }
