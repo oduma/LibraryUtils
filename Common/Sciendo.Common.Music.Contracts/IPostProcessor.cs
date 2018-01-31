@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sciendo.Common.Music.Contracts
+﻿namespace Sciendo.Common.Music.Contracts
 {
     public interface IPostProcessor
     {
-        void Start(string message);
+        bool Process(object messageContents, string messageName);
     }
 }
