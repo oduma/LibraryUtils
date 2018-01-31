@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
+using Sciendo.Mixx.DataAccess.Configuration;
 using Sciendo.Mixx.DataAccess.Domain;
 using Sciendo.Playlists;
 
@@ -11,9 +13,13 @@ namespace Sciendo.Mixx.DataAccess
         private readonly IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> _mapper;
         private SQLiteConnection _connection;
 
-        public DataHandler(IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> mapper, string connectionString)
+        public DataHandler(IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> mapper)
         {
-            _connection = new SQLiteConnection {ConnectionString = connectionString};
+            MixxxConfigurationSection mixxxConfig = ConfigurationManager.GetSection("mixxx") as MixxxConfigurationSection;
+
+            if(mixxxConfig==null)
+                throw new ConfigurationErrorsException("Empty or missing mixxx section.");
+            _connection = new SQLiteConnection {ConnectionString = $"Data Source={mixxxConfig.MixxxDatabaseFile};version=3;" };
             _connection.Open();
 
             _mapper = mapper;

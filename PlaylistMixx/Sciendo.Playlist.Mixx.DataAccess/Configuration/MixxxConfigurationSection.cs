@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Sciendo.PMP.Configuration
+namespace Sciendo.Mixx.DataAccess.Configuration
 {
     public class MixxxConfigurationSection: ConfigurationSection
     {

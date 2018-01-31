@@ -5,10 +5,10 @@ using CommandLine;
 using Sciendo.Common.IO;
 using Sciendo.Common.Music.Tagging;
 using Sciendo.Mixx.DataAccess;
+using Sciendo.Mixx.DataAccess.Configuration;
 using Sciendo.Mixx.DataAccess.Domain;
 using Sciendo.Playlist.Mixx.Processor;
 using Sciendo.Playlists;
-using Sciendo.PMP.Configuration;
 
 namespace Sciendo.PMP
 {
@@ -20,18 +20,22 @@ namespace Sciendo.PMP
             if (result.Tag == ParserResultType.Parsed)
             {
                 var options = ((Parsed<Options>) result).Value;
-                MixxxConfigurationSection mixxxConfig = ConfigurationManager.GetSection("mixxx") as MixxxConfigurationSection;
 
                 IMap<IEnumerable<PlaylistItem>,IEnumerable<MixxxPlaylistTrack> > trackMapper= new MapTracks();
-                if (mixxxConfig != null)
+                try
                 {
-                    IDataHandler dataHandler= new DataHandler(trackMapper, $"Data Source={mixxxConfig.MixxxDatabaseFile};version=3;"); 
+                    IDataHandler dataHandler = new DataHandler(trackMapper);
                     var processorFactory = new MixxxProcessorFactory();
                     var processor = processorFactory.GetProcessor(options.ProcessingType, dataHandler,
                         new TextFileReader(), new TagFileReader(), new TextFileWriter());
                     processor.MixxxPlaylistCreated += Processor_MixxxPlaylistCreated;
                     processor.MixxxPlaylistDeleted += Processor_MixxxPlaylistDeleted;
                     processor.Start(options.PlaylistFileName);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
                 }
             }
             else
