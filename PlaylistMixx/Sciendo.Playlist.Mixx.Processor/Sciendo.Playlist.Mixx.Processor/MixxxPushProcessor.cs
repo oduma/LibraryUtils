@@ -38,12 +38,11 @@ namespace Sciendo.Playlist.Mixx.Processor
             try
             {
                 playlistContents = (string)messageBody;
-                if (!string.IsNullOrEmpty(playlistContents))
-                    return PushPlaylistContentsToMixxx(playlistContents, messageName);
-                else
-                    return PushPlaylistContentsToMixxx(playlistContents,messageName,true);
+                return !string.IsNullOrEmpty(playlistContents) 
+                    ? PushPlaylistContentsToMixxx(playlistContents, messageName) 
+                    : PushPlaylistContentsToMixxx(playlistContents,messageName,true);
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
