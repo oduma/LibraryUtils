@@ -24,13 +24,12 @@ namespace Sciendo.PMP
                 IMap<IEnumerable<PlaylistItem>,IEnumerable<MixxxPlaylistTrack> > trackMapper= new MapTracks();
                 try
                 {
-                    IDataHandler dataHandler = new DataHandler(trackMapper);
+                    IDataHandler dataHandler = new DataHandler();
                     var processorFactory = new MixxxProcessorFactory();
-                    var processor = processorFactory.GetProcessor(options.ProcessingType, dataHandler,
-                        new TextFileReader(), new TagFileReader(), new TextFileWriter());
+                    var processor = processorFactory.GetProcessor(options.ProcessingType, dataHandler, new TagFileReader(), new TextFileWriter());
                     processor.MixxxPlaylistCreated += Processor_MixxxPlaylistCreated;
                     processor.MixxxPlaylistDeleted += Processor_MixxxPlaylistDeleted;
-                    processor.Start(options.PlaylistFileName);
+                    processor.Start(options.PlaylistFileName,trackMapper);
                 }
                 catch (Exception e)
                 {

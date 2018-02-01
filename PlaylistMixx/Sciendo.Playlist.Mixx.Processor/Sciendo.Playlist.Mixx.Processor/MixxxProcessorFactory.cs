@@ -9,14 +9,13 @@ namespace Sciendo.Playlist.Mixx.Processor
     {
         public IMixxxProcessor GetProcessor(ProcessingType processingType, 
             IDataHandler dataHandler, 
-            IFileReader<string> textFileReader, 
             IFileReader<TagLib.File> tagFileReader, 
             IFileWriter textFileWriter)
         {
             switch (processingType)
             {
                 case ProcessingType.PushToMixxx:
-                    return new MixxxPushProcessor(dataHandler,textFileReader);
+                    return new MixxxPushProcessor();
                 case ProcessingType.PullFromMixxx:
                     return new MixxxPullProcessor(dataHandler,tagFileReader,textFileWriter);
                 default:

@@ -10,10 +10,9 @@ namespace Sciendo.Mixx.DataAccess
 {
     public class DataHandler:IDataHandler
     {
-        private readonly IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> _mapper;
         private SQLiteConnection _connection;
 
-        public DataHandler(IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> mapper)
+        public DataHandler()
         {
             MixxxConfigurationSection mixxxConfig = ConfigurationManager.GetSection("mixxx") as MixxxConfigurationSection;
 
@@ -21,8 +20,6 @@ namespace Sciendo.Mixx.DataAccess
                 throw new ConfigurationErrorsException("Empty or missing mixxx section.");
             _connection = new SQLiteConnection {ConnectionString = $"Data Source={mixxxConfig.MixxxDatabaseFile};version=3;" };
             _connection.Open();
-
-            _mapper = mapper;
         }
 
         public void Dispose()
@@ -36,10 +33,10 @@ namespace Sciendo.Mixx.DataAccess
                 }
         }
 
-        public bool Create(string name, IEnumerable<PlaylistItem> playlistItems)
+        public bool Create(string name, IEnumerable<PlaylistItem> playlistItems, IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> mapper)
         {
 
-            var mixxPlaylist = new MixxxPlaylist(name) {PlaylistTracks = _mapper.Transform(playlistItems)};
+            var mixxPlaylist = new MixxxPlaylist(name) {PlaylistTracks = mapper.Transform(playlistItems)};
             using (var transaction = _connection.BeginTransaction())
             {
                 var result= mixxPlaylist.Save(_connection, transaction);
@@ -56,7 +53,7 @@ namespace Sciendo.Mixx.DataAccess
             }
         }
 
-        public IEnumerable<PlaylistItem> Get(string name)
+        public IEnumerable<PlaylistItem> Get(string name, IMap<IEnumerable<PlaylistItem>, IEnumerable<MixxxPlaylistTrack>> mapper)
         {
             using (var transaction = _connection.BeginTransaction())
             {
@@ -64,7 +61,7 @@ namespace Sciendo.Mixx.DataAccess
 
                 if (mixxPlaylist == null || mixxPlaylist.Id == 0)
                     return null;
-                return _mapper.Transform(mixxPlaylist.PlaylistTracks);
+                return mapper.Transform(mixxPlaylist.PlaylistTracks);
             }
         }
 

@@ -18,9 +18,7 @@ namespace Sciendo.PMP.Tests.Unit
         [Test]
         public void PostProcessorWithNonStringParameter()
         {
-            var mockDataHandler = MockRepository.Mock<IDataHandler>();
-            var mockFileReader = MockRepository.Mock<IFileReader<string>>();
-            MixxxPushProcessor processor = new MixxxPushProcessor(mockDataHandler,mockFileReader);
+            MixxxPushProcessor processor = new MixxxPushProcessor();
             Assert.False(processor.Process((object) new byte[] {1, 2, 3, 4}, "somename"));
         }
 
