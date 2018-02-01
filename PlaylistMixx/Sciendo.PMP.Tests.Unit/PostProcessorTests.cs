@@ -24,14 +24,5 @@ namespace Sciendo.PMP.Tests.Unit
             Assert.False(processor.Process((object) new byte[] {1, 2, 3, 4}, "somename"));
         }
 
-        [Test]
-        public void PostProcessorWithEmptyStringParameter()
-        {
-            var mockDataHandler = MockRepository.Mock<IDataHandler>();
-            var mockFileReader = MockRepository.Mock<IFileReader<string>>();
-            MixxxPushProcessor processor = new MixxxPushProcessor(mockDataHandler, mockFileReader);
-            Assert.False(processor.Process((object)"", "somename"));
-        }
-
     }
 }
