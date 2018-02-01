@@ -40,7 +40,8 @@ namespace Sciendo.Playlist.Mixx.Processor
                 playlistContents = (string)messageBody;
                 if (!string.IsNullOrEmpty(playlistContents))
                     return PushPlaylistContentsToMixxx(playlistContents, messageName);
-                return false;
+                else
+                    return PushPlaylistContentsToMixxx(playlistContents,messageName,true);
             }
             catch (Exception e)
             {
@@ -49,7 +50,7 @@ namespace Sciendo.Playlist.Mixx.Processor
 
         }
 
-        private bool PushPlaylistContentsToMixxx(string playlistContents, string playlistName)
+        private bool PushPlaylistContentsToMixxx(string playlistContents, string playlistName, bool deleteOnly=false)
         {
             var playlistHandler = PlaylistHandlerFactory.GetHandler(Path.GetExtension(playlistName));
             var playlistItems = playlistHandler.GetPlaylistItems(playlistContents);
@@ -58,10 +59,13 @@ namespace Sciendo.Playlist.Mixx.Processor
                 MixxxPlaylistDeleted?.Invoke(this,
                     new MixxxProcessorProgressEventHandler(Path.GetFileNameWithoutExtension(playlistName)));
             }
-            if (_dataHandler.Create(Path.GetFileNameWithoutExtension(playlistName), playlistItems))
+            if (!deleteOnly)
             {
-                MixxxPlaylistCreated?.Invoke(this,
-                    new MixxxProcessorProgressEventHandler(Path.GetFileNameWithoutExtension(playlistName)));
+                if (_dataHandler.Create(Path.GetFileNameWithoutExtension(playlistName), playlistItems))
+                {
+                    MixxxPlaylistCreated?.Invoke(this,
+                        new MixxxProcessorProgressEventHandler(Path.GetFileNameWithoutExtension(playlistName)));
+                }
             }
             return true;
         }
