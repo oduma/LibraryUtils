@@ -8,14 +8,13 @@
     <authors>Sciendo</authors>
 
     <!-- Optional elements -->
-    <!-- ... -->
+    <dependencies>
+      <dependency id="Dapper" version="1.50.4-alpha1-00070" />
+      <dependency id="System.Data.SQLite.Core" version="1.0.106.0" />
+      <dependency id="TagLib.Portable" version="1.0.4"  />
+    </dependencies>
   </metadata>
   <!-- Optional 'files' node -->
-  <dependencies>
-    <dependency id="Dapper" version="1.50.4-alpha1-00070" />
-    <dependency id="System.Data.SQLite.Core" version="1.0.106.0" />
-    <dependency id="TagLib.Portable" version="1.0.4"  />
-  </dependencies>
   <!--<files>
     <file src="bin\Release\*.dll" target="lib"/>
   </files>-->
