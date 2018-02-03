@@ -15,7 +15,7 @@
     </dependencies>
   </metadata>
   <!-- Optional 'files' node -->
-  <!--<files>
+  <files>
     <file src="bin\Release\*.dll" target="lib"/>
-  </files>-->
+  </files>
 </package>
