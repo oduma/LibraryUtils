@@ -16,6 +16,6 @@
   </metadata>
   <!-- Optional 'files' node -->
   <files>
-    <file src="bin\Release\*.dll" target="/{framework name}[{version}]"/>
+    <file src="bin\Release\*.dll" target="lib/net452"/>
   </files>
 </package>
