@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <!-- Required elements-->
+    <id>Sciendo.Playlist.Mixx.Processor</id>
+    <version>1.1.0-Build1</version>
+    <description>Post Processor for pushing playlists to Mixxx</description>
+    <authors>Sciendo</authors>
+
+    <!-- Optional elements -->
+    <!-- ... -->
+  </metadata>
+  <!-- Optional 'files' node -->
+  <dependencies>
+    <dependency id="Dapper" version="1.50.4-alpha1-00070" />
+    <dependency id="System.Data.SQLite.Core" version="1.0.106.0" />
+    <dependency id="TagLib.Portable" version="1.0.4"  />
+  </dependencies>
+  <files>
+    <file src="bin\Release\*.dll" target="lib"/>
+  </files>
+</package>
