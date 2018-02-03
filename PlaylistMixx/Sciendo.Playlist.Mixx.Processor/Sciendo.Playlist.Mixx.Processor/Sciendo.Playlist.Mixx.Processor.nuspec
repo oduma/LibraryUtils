@@ -16,7 +16,7 @@
     <dependency id="System.Data.SQLite.Core" version="1.0.106.0" />
     <dependency id="TagLib.Portable" version="1.0.4"  />
   </dependencies>
-  <files>
+  <!--<files>
     <file src="bin\Release\*.dll" target="lib"/>
-  </files>
+  </files>-->
 </package>
