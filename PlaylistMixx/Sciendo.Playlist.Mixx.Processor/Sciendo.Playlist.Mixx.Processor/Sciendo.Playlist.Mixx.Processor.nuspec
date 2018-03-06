@@ -8,11 +8,11 @@
     <authors>Sciendo</authors>
 
     <!-- Optional elements -->
-<!--    <dependencies>
+    <dependencies>
       <dependency id="Dapper" version="1.50.4" />
       <dependency id="System.Data.SQLite.Core" version="1.0.106.0" />
       <dependency id="TagLib.Portable" version="1.0.4"  />
-    </dependencies>-->
+    </dependencies>
   </metadata>
   <!-- Optional 'files' node -->
   <!--<files>

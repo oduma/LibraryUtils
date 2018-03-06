@@ -11,7 +11,7 @@ namespace Sciendo.T2F.Processor
     {
         private readonly IFileEnumerator _fileEnumerator;
         private readonly IDirectoryEnumerator _directoryEnumerator;
-        private readonly IFileReader<TagLib.File> _tagFileReader;
+        private readonly IFilesReader<TagLib.File> _tagFileReader;
         private readonly IFileProcessor<Tag> _tagFileProcessor;
         private readonly IContentWriter _fileWriter;
         private List<string> _directoriesProcessed;
@@ -20,7 +20,7 @@ namespace Sciendo.T2F.Processor
         private Dictionary<string, bool> _collectionDirectories;
 
         public T2FProcessor(IFileEnumerator fileEnumerator,IDirectoryEnumerator directoryEnumerator,
-            IFileReader<TagLib.File> tagFileReader, IFileProcessor<Tag> tagFileProcessor, IContentWriter fileWriter)
+            IFilesReader<TagLib.File> tagFileReader, IFileProcessor<Tag> tagFileProcessor, IContentWriter fileWriter)
         {
             _fileEnumerator = fileEnumerator;
             _directoryEnumerator = directoryEnumerator;
@@ -36,7 +36,7 @@ namespace Sciendo.T2F.Processor
             var files = _fileEnumerator.Get(path,SearchOption.AllDirectories, extensions);
             foreach (var file in files)
             {
-                var tag = _tagFileReader.Read(file).Tag;
+                var tag = _tagFileReader.Read(new [] { file}).FirstOrDefault().Tag;
                 if (!(string.IsNullOrEmpty(tag?.Album) || string.IsNullOrEmpty(tag.Title)))
                 {
                     
@@ -92,14 +92,14 @@ namespace Sciendo.T2F.Processor
                 throw new Exception("Something wrong.");
             if (_collectionDirectories.ContainsKey(parentDirectory))
                 return _collectionDirectories[parentDirectory];
-            Tag tagProcessed = _tagFileReader.Read(filePath).Tag;
+            Tag tagProcessed = _tagFileReader.Read(new [] { filePath}).FirstOrDefault().Tag;
             if (tagProcessed.AlbumArtists.Any(aa => aa.Contains(Various) || aa.Contains(Artists)))
             {
                 _collectionDirectories.Add(parentDirectory,true);
                 return true;
             }
 
-            var tags = ((IFilesReader<Tag>)_tagFileReader).Read(_fileEnumerator.Get(parentDirectory, SearchOption.AllDirectories, extensions));
+            var tags = _tagFileReader.Read(_fileEnumerator.Get(parentDirectory, SearchOption.AllDirectories, extensions)).Select(f=>f.Tag);
             if (tags.SelectMany(t => t.Performers).Distinct().Count() > 1)
             {
                 _collectionDirectories.Add(parentDirectory,true);
