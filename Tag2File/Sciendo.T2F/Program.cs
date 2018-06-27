@@ -30,30 +30,16 @@ namespace Sciendo.T2F
 .Cast<RuleElement>().FirstOrDefault(r => r.Type == RuleType.Collection);
                 if(collectionRule==null)
                     throw new ConfigurationErrorsException("no collection rule.");
-                var actionType = configSection.ActionType.Type;
 
+                IStorage storage = new FsStorage();
+                storage.Directory.DirectoryRead += FileEnumerator_DirectoryRead;
+                storage.Directory.ExtensionsRead += FileEnumerator_ExtensionsRead;
 
-                IFileEnumerator fileEnumerator = new FileEnumerator();
-                fileEnumerator.DirectoryRead += FileEnumerator_DirectoryRead;
-                fileEnumerator.ExtensionsRead += FileEnumerator_ExtensionsRead;
-                IDirectoryEnumerator directoryEnumerator= new DirectoryEnumerator();
-                
-                if (actionType == ActionType.Copy)
-                {
-                    T2FProcessor t2FProcessor = new T2FProcessor(fileEnumerator,directoryEnumerator, new TagFileReader(),
-                        new TagFileProcessor(), new ContentCopier(directoryEnumerator,fileEnumerator));
-                    t2FProcessor.Start(options.RootPath, extensions, individualRule.Pattern,
-                        collectionRule.Pattern);
-                    return;
-                }
-                if (actionType == ActionType.Move)
-                {
-                    T2FProcessor t2FProcessor = new T2FProcessor(fileEnumerator,directoryEnumerator, new TagFileReader(),
-                        new TagFileProcessor(), new ContentMover(directoryEnumerator, fileEnumerator));
-                    t2FProcessor.Start(options.RootPath, extensions, individualRule.Pattern,
-                        collectionRule.Pattern);
-                    return;
-                }
+                T2FProcessor t2FProcessor = new T2FProcessor(storage,
+                    new TagFileProcessor());
+                t2FProcessor.Start(options.RootPath, extensions, individualRule.Pattern,
+                    collectionRule.Pattern, configSection.ActionType.Type);
+                return;
             }
             Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
 

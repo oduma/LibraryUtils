@@ -12,18 +12,18 @@ namespace Sciendo.Playlist.Mixx.Processor
     public class MixxxPushProcessor:IMixxxProcessor,IPostProcessor
     {
         private readonly IDataHandler _dataHandler;
-        private readonly IFileReader<string> _fileReader;
+        private readonly IFile _file;
 
-        public MixxxPushProcessor()
+        public MixxxPushProcessor(IDataHandler dataHandler,IFile file)
         {
-            _dataHandler = new DataHandler();
-            _fileReader = new TextFileReader();
+            _dataHandler = dataHandler;
+            _file = file;
         }
         public void Start(string playlistFileName, IMap<IEnumerable<PlaylistItem>,IEnumerable<MixxxPlaylistTrack>> mapper)
         {
             if(string.IsNullOrEmpty(playlistFileName))
                 throw new ArgumentNullException(nameof(playlistFileName));
-            PushPlaylistContentsToMixxx(_fileReader.Read(playlistFileName), playlistFileName, new MapTracks());
+            PushPlaylistContentsToMixxx(_file.ReadAllText(playlistFileName), playlistFileName, new MapTracks());
         }
 
         public void Stop()

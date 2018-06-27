@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Sciendo.Common.IO;
+using Sciendo.Common.Music.Tagging;
 using TagLib;
 
 namespace Sciendo.Playlists.M3U
@@ -51,20 +52,24 @@ namespace Sciendo.Playlists.M3U
             }
         }
 
-        public Track(IFileReader<TagLib.File> tagFileReader, string file, string rootFolderPath)
+        public Track(IFile file, string path, string rootFolderPath)
         {
             var filePath = (string.IsNullOrEmpty(rootFolderPath))
-                ? file
-                : $"{rootFolderPath}{Path.DirectorySeparatorChar}{file}";
+                ? path
+                : $"{rootFolderPath}{Path.DirectorySeparatorChar}{path}";
 
-            if (tagFileReader != null)
-                FillInTheTag(tagFileReader, filePath);
-            Location = file;
+            if (file != null)
+            {
+                var tagFile = file.ReadTag(filePath);
+                if(tagFile!=null)
+                    FillInTheTag(tagFile);
+
+            }
+            Location = path;
         }
 
-        private void FillInTheTag(IFileReader<TagLib.File> tagFileReader, string file)
+        private void FillInTheTag(TagLib.File tagFile)
         {
-            var tagFile = tagFileReader.Read(file);
             var tag = tagFile.Tag;
             Creator = tag.FirstPerformer;
             Title = tag.Title;

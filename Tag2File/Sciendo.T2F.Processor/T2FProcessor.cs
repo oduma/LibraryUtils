@@ -3,50 +3,47 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Sciendo.Common.IO;
+using Sciendo.Common.Music.Tagging;
 using TagLib;
 
 namespace Sciendo.T2F.Processor
 {
     public class T2FProcessor
     {
-        private readonly IFileEnumerator _fileEnumerator;
-        private readonly IDirectoryEnumerator _directoryEnumerator;
-        private readonly IFilesReader<TagLib.File> _tagFileReader;
+        private readonly IStorage _storage;
         private readonly IFileProcessor<Tag> _tagFileProcessor;
-        private readonly IContentWriter _fileWriter;
         private List<string> _directoriesProcessed;
         private const string Various="Various";
         private const string Artists="Artists";
         private Dictionary<string, bool> _collectionDirectories;
 
-        public T2FProcessor(IFileEnumerator fileEnumerator,IDirectoryEnumerator directoryEnumerator,
-            IFilesReader<TagLib.File> tagFileReader, IFileProcessor<Tag> tagFileProcessor, IContentWriter fileWriter)
+        public T2FProcessor(IStorage storage, IFileProcessor<Tag> tagFileProcessor)
         {
-            _fileEnumerator = fileEnumerator;
-            _directoryEnumerator = directoryEnumerator;
-            _tagFileReader = tagFileReader;
+            _storage = storage;
             _tagFileProcessor = tagFileProcessor;
-            _fileWriter = fileWriter;
         }
 
-        public void Start(string path, string[] extensions, string fileNamePattern, string fileNamePatternCollection)
+        public void Start(string path, string[] extensions, string fileNamePattern, string fileNamePatternCollection, ActionType actionType)
         {
             _directoriesProcessed=new List<string>();
             _collectionDirectories= new Dictionary<string, bool>();
-            var files = _fileEnumerator.Get(path,SearchOption.AllDirectories, extensions);
+            var files = _storage.Directory.GetFiles(path,SearchOption.AllDirectories, extensions);
             foreach (var file in files)
             {
-                var tag = _tagFileReader.Read(new [] { file}).FirstOrDefault().Tag;
+                var tag = _storage.File.ReadTag(file).Tag;
                 if (!(string.IsNullOrEmpty(tag?.Album) || string.IsNullOrEmpty(tag.Title)))
                 {
                     
                     var fileExtension = Path.GetExtension(file);
                     var newFileName = _tagFileProcessor.CalculateFileName(tag,path,fileExtension,
                         (IsPartOfCollection(file, extensions))?fileNamePatternCollection:fileNamePattern);
-                    _fileWriter.Do(file,newFileName);
+                    _storage.File.Create(newFileName,_storage.File.Read(file));
+                    if(actionType==ActionType.Move)
+                        _storage.File.Delete(file);
                     if (_directoriesProcessed.All(d => d != Path.GetDirectoryName(file)))
                     {
-                        ProcessNonMusicContents(Path.GetDirectoryName(file),Path.GetDirectoryName(newFileName), extensions);
+                        ProcessNonMusicContents(Path.GetDirectoryName(file), Path.GetDirectoryName(newFileName),
+                            extensions, actionType);
                     }
                 }
             }
@@ -58,29 +55,25 @@ namespace Sciendo.T2F.Processor
             foreach (var directory in Directory.GetDirectories(path))
             {
                 CleanupEmptyDirectories(directory);
-                if (!_fileEnumerator.Get(directory,SearchOption.AllDirectories).Any() &&
-                    !_directoryEnumerator.GetTopLevel(directory).Any())
+                if (!_storage.Directory.GetFiles(directory,SearchOption.AllDirectories).Any() &&
+                    !_storage.Directory.GetTopLevel(directory).Any())
                 {
-                    Directory.Delete(directory, false);
+                    _storage.Directory.Delete(directory, false);
                 }
             }
         }
 
-        private void ProcessNonMusicContents(string sourceDirectoryName, string destinationDirectoryName, string[] extensions)
+        private void ProcessNonMusicContents(string sourceDirectoryName, string destinationDirectoryName, string[] extensions,ActionType actionType)
         {
-            var allFilesinTopFolder = _fileEnumerator.Get(sourceDirectoryName, SearchOption.TopDirectoryOnly).ToArray();
+            var allFilesinTopFolder = _storage.Directory.GetFiles(sourceDirectoryName, SearchOption.AllDirectories).ToArray();
 
             var nonMusicInTopFolder = allFilesinTopFolder.Where(f=>!extensions.Contains(Path.GetExtension(f)));
             foreach (var nonMusicFile in nonMusicInTopFolder)
             {
-                _fileWriter.Do(nonMusicFile,nonMusicFile.Replace(sourceDirectoryName,destinationDirectoryName));
-            }
-            var childDirectories = _directoryEnumerator.GetTopLevel(sourceDirectoryName);
-            foreach (var childDirectory in childDirectories)
-            {
-                var childDirectoryParts = childDirectory.Split(Path.DirectorySeparatorChar);
-                       
-                _fileWriter.Do(childDirectory,$"{destinationDirectoryName}{Path.DirectorySeparatorChar}{childDirectoryParts[childDirectoryParts.Length-1]}");
+                _storage.File.Create(nonMusicFile.Replace(sourceDirectoryName, destinationDirectoryName),
+                    _storage.File.Read(nonMusicFile));
+                if(actionType==ActionType.Move)
+                    _storage.File.Delete(nonMusicFile);
             }
             _directoriesProcessed.Add(sourceDirectoryName);
         }
@@ -92,14 +85,15 @@ namespace Sciendo.T2F.Processor
                 throw new Exception("Something wrong.");
             if (_collectionDirectories.ContainsKey(parentDirectory))
                 return _collectionDirectories[parentDirectory];
-            Tag tagProcessed = _tagFileReader.Read(new [] { filePath}).FirstOrDefault().Tag;
+            Tag tagProcessed = _storage.File.ReadTag(filePath).Tag;
             if (tagProcessed.AlbumArtists.Any(aa => aa.Contains(Various) || aa.Contains(Artists)))
             {
                 _collectionDirectories.Add(parentDirectory,true);
                 return true;
             }
-
-            var tags = _tagFileReader.Read(_fileEnumerator.Get(parentDirectory, SearchOption.AllDirectories, extensions)).Select(f=>f.Tag);
+            var tags =
+                _storage.Directory.GetFiles(parentDirectory, SearchOption.AllDirectories, extensions)
+                    .Select(fn => _storage.File.ReadTag(fn).Tag);
             if (tags.SelectMany(t => t.Performers).Distinct().Count() > 1)
             {
                 _collectionDirectories.Add(parentDirectory,true);

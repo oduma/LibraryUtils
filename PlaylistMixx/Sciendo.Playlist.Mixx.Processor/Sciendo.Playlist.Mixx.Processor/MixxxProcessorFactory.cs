@@ -8,16 +8,14 @@ namespace Sciendo.Playlist.Mixx.Processor
     public class MixxxProcessorFactory
     {
         public IMixxxProcessor GetProcessor(ProcessingType processingType, 
-            IDataHandler dataHandler, 
-            IFileReader<TagLib.File> tagFileReader, 
-            IFileWriter textFileWriter)
+            IDataHandler dataHandler, IFile file)
         {
             switch (processingType)
             {
                 case ProcessingType.PushToMixxx:
-                    return new MixxxPushProcessor();
+                    return new MixxxPushProcessor(dataHandler, file);
                 case ProcessingType.PullFromMixxx:
-                    return new MixxxPullProcessor(dataHandler,tagFileReader,textFileWriter);
+                    return new MixxxPullProcessor(dataHandler,file);
                 default:
                     return null;
             }

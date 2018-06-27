@@ -35,7 +35,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00027\lib\net40\Sciendo.Common.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00036\lib\net40\Sciendo.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -65,7 +65,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Sciendo.Common.Music.Tagging\Sciendo.Common.Music.Tagging.csproj">
+      <Project>{079b9e86-6a95-41d3-8ca3-e7fb34921812}</Project>
+      <Name>Sciendo.Common.Music.Tagging</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

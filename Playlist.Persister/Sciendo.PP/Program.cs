@@ -1,6 +1,7 @@
 ﻿using System;
 using CommandLine;
 using Sciendo.Common.IO;
+using Sciendo.Common.IO.MTP;
 using Sciendo.Common.Music.Tagging;
 using Sciendo.Playlist.Persister;
 using Sciendo.Playlists;
@@ -16,20 +17,25 @@ namespace Sciendo.PP
             {
                 var options = ((Parsed<Options>) result).Value;
                 Console.WriteLine("Arguments Ok starting...");
-                IFileEnumerator fileEnumerator = new FileEnumerator();
-                PersisterProcessor persisterProcessor = new PersisterProcessor(fileEnumerator, new TextFileReader(),
-                    new TagFileReader(),
-                    new TextFileWriter(), options.MusicSourceRoot, options.MusicCurrentRoot,
-                    new ContentCopier(new DirectoryEnumerator(), fileEnumerator), options.TargetPlaylistType, options.DeviceType);
+                IStorage sourceStorage = CreateStorage(options.InPlaylistsPath);
+                IStorage targetStorage = CreateStorage(options.OutPlaylistsPath);
+                PersisterProcessor persisterProcessor = new PersisterProcessor(sourceStorage, targetStorage, options.TargetPlaylistType);
                 persisterProcessor.StartProcessing += PersisterProcessor_StartProcessing;
                 persisterProcessor.StartProcessingFile += PersisterProcessor_StartProcessingFile;
                 persisterProcessor.CopyContentToTarget += PersisterProcessor_CopyContentToTarget;
                 persisterProcessor.PlaylistCreated += PersisterProcessor_PlaylistCreated;
-                persisterProcessor.Start(options.PlaylistsPath);
+                persisterProcessor.Start(options.InPlaylistsPath, options.OutPlaylistsPath);
                 Console.WriteLine("Finished running.");
                 return;
             }
             Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
+        }
+
+        private static IStorage CreateStorage(string optionsPlaylistsPath)
+        {
+            if(MtpPathInterpreter.IsMtpDevice(optionsPlaylistsPath))
+                return new MtpStorage();
+            return new FsStorage();
         }
 
         private static void PersisterProcessor_PlaylistCreated(object sender, ProgressEventArgs e)

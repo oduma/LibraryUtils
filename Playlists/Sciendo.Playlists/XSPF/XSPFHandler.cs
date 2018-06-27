@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using Sciendo.Common.IO;
+using Sciendo.Common.Music.Tagging;
 using Sciendo.Common.Serialization;
 using TagLib;
 
@@ -18,12 +20,18 @@ namespace Sciendo.Playlists.XSPF
                     .ToArray();
         }
 
-        public string SetPlaylistItems(IFileReader<TagLib.File> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath)
+        public string SetPlaylistItems(IFile file, PlaylistItem[] playlistItems, string rootFolderPath)
         {
             var playlist = new Playlist {Version = 1, Tracklist = new Track[playlistItems.Length]};
             for (int i=0; i<playlistItems.Length;i++)
             {
-                playlist.Tracklist[i] = new Track(tagFileReader, playlistItems[i].FileName, rootFolderPath);
+                var filePath = (string.IsNullOrEmpty(rootFolderPath))
+                    ? playlistItems[i].FileName
+                    : $"{rootFolderPath}{Path.DirectorySeparatorChar}{playlistItems[i].FileName}";
+
+                var tagFile = file.ReadTag(filePath);
+                if(tagFile!=null)
+                    playlist.Tracklist[i] = new Track(tagFile,filePath);
             }
 
             return Serializer.Serialize(playlist);

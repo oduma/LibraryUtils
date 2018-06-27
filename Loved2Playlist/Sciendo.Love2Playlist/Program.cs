@@ -25,7 +25,7 @@ namespace Sciendo.Love2Playlist
                     if (lastFmConfig != null)
                     {
                         ICoordinator coordinator = new Coordinator(loveProvider, dataProvider, new M3UHandler(),
-                            new TagFileReader(), new TextFileWriter(), lastFmConfig.User, playlistConfig.FileName);
+                            new FsStorage().File, lastFmConfig.User, playlistConfig.FileName);
                         coordinator.CollectedLove += Coordinator_CollectedLove;
                         coordinator.SavedLove += Coordinator_SavedLove;
                         coordinator.SavedPlaylist += Coordinator_SavedPlaylist;

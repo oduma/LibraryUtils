@@ -32,18 +32,14 @@ namespace Sciendo.Playlists.XSPF
             
         }
 
-        public Track(IFileReader<TagLib.File> tagFileReader, string file, string rootFolderPath)
+        public Track(TagLib.File tagFile, string filePath)
         {
-            var filePath = (string.IsNullOrEmpty(rootFolderPath))
-                ? file
-                : $"{rootFolderPath}{Path.DirectorySeparatorChar}{file}";
-            var tagFile = tagFileReader.Read(filePath);
             var tag = tagFile.Tag;
             Duration = tagFile.Properties.Duration.TotalMilliseconds;
             Album = tag.Album;
             Creator = tag.FirstPerformer;
             Title = tag.Title;
-            Location = "file:///" + file.Replace(@"\","/");
+            Location = "file:///" + filePath.Replace(@"\","/");
         }
     }
 }

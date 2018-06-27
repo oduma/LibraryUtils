@@ -24,12 +24,12 @@ namespace Sciendo.Playlists.M3U
 
         }
 
-        public string SetPlaylistItems(IFileReader<TagLib.File> tagFileReader, PlaylistItem[] playlistItems, string rootFolderPath)
+        public string SetPlaylistItems(IFile file, PlaylistItem[] playlistItems, string rootFolderPath)
         {
             var playlist =  new Track[playlistItems.Length];
             for (int i = 0; i < playlistItems.Length; i++)
             {
-                playlist[i] = new Track(tagFileReader, playlistItems[i].FileName, rootFolderPath);
+                playlist[i] = new Track(file, playlistItems[i].FileName, rootFolderPath);
             }
 
             return SerializeM3UPlaylist(playlist);

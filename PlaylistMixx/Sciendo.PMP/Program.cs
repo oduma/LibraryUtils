@@ -26,7 +26,7 @@ namespace Sciendo.PMP
                 {
                     IDataHandler dataHandler = new DataHandler();
                     var processorFactory = new MixxxProcessorFactory();
-                    var processor = processorFactory.GetProcessor(options.ProcessingType, dataHandler, new TagFileReader(), new TextFileWriter());
+                    var processor = processorFactory.GetProcessor(options.ProcessingType, dataHandler, new FsStorage().File);
                     processor.MixxxPlaylistCreated += Processor_MixxxPlaylistCreated;
                     processor.MixxxPlaylistDeleted += Processor_MixxxPlaylistDeleted;
                     processor.Start(options.PlaylistFileName,trackMapper);

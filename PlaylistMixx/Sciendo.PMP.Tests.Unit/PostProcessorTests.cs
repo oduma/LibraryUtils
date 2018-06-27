@@ -18,7 +18,7 @@ namespace Sciendo.PMP.Tests.Unit
         [Test]
         public void PostProcessorWithNonStringParameter()
         {
-            MixxxPushProcessor processor = new MixxxPushProcessor();
+            MixxxPushProcessor processor = new MixxxPushProcessor(new DataHandler(), new FSFile());
             Assert.False(processor.Process((object) new byte[] {1, 2, 3, 4}, "somename"));
         }
 

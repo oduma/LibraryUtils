@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using CommandLine;
 using Sciendo.Common.IO;
+using Sciendo.Common.IO.MTP;
 using Sciendo.Playlist.Translator;
 using Sciendo.Playlist.Translator.Configuration;
 
@@ -18,6 +19,8 @@ namespace Sciendo.PT
             {
                 var options = ((Parsed<Options>) result).Value;
                 Console.WriteLine("Arguments Ok starting...");
+                IStorage sourceStorage = CreateStorage(options.Source);
+                IStorage targetStorage = CreateStorage(options.Destination);
                 var extensions =
 ((ExtensionsPlaylistsConfigSection)ConfigurationManager.GetSection("activeExtensions")).Extensions
 .Cast<ExtensionElement>().Select(e => e.Value).ToArray();
@@ -25,8 +28,8 @@ namespace Sciendo.PT
                     GetSortedParams(((FindAndReplaceConfigSection) ConfigurationManager.GetSection("findReplaceSection"))
                         .FromToParams
                         .Cast<FromToParamsElement>().Select(e => e).OrderBy(e=>e.Priority));
-                IFileEnumerator fileEnumerator = new FileEnumerator();
-                IBulkTranslator translator= new BulkTranslator(options.Source,extensions,options.Destination,fileEnumerator,new TextFileReader(), new TextFileWriter());
+                IBulkTranslator translator = new BulkTranslator(options.Source, extensions, options.Destination,
+                    sourceStorage, targetStorage);
                 translator.PathTranslated += Translator_PathTranslated;
                 translator.Start(fromToParams);
                 Console.WriteLine("Finished running.");
@@ -34,6 +37,15 @@ namespace Sciendo.PT
             else
                 Console.WriteLine(CommandLine.Text.HelpText.AutoBuild(result));
 
+        }
+
+        private static IStorage CreateStorage(string path)
+        {
+            if (MtpPathInterpreter.IsMtpDevice(path))
+            {
+                return new MtpStorage();
+            }
+            return new FsStorage();
         }
 
         private static Dictionary<string, string> GetSortedParams(IEnumerable<FromToParamsElement> fromToParams)

@@ -15,8 +15,7 @@ namespace Sciendo.Love2Playlist.Processor
         private readonly ILoveProvider _loveProvider;
         private readonly IDataProvider _dataProvider;
         private readonly IPlaylistHandler _playlistHandler;
-        private readonly IFileReader<TagLib.File> _tagFileReader;
-        private readonly IFileWriter _textFileWriter;
+        private readonly IFile _file;
         private readonly string _userName;
         private readonly string _rootFileName;
         public event EventHandler<CollectLoveEventArgs> CollectedLove;
@@ -26,14 +25,12 @@ namespace Sciendo.Love2Playlist.Processor
         private string PlaylistFile => $"playlist-{_userName}-{_rootFileName}.m3u";
 
         private int _totalPlaylistFiles; 
-        public Coordinator(ILoveProvider loveProvider,IDataProvider dataProvider, IPlaylistHandler playlistHandler, 
-            IFileReader<TagLib.File> tagFileReader,IFileWriter textFileWriter, string userName, string rootFileName)
+        public Coordinator(ILoveProvider loveProvider,IDataProvider dataProvider, IPlaylistHandler playlistHandler,IFile file, string userName, string rootFileName)
         {
             _loveProvider = loveProvider;
             _dataProvider = dataProvider;
             _playlistHandler = playlistHandler;
-            _tagFileReader = tagFileReader;
-            _textFileWriter = textFileWriter;
+            _file = file;
             _userName = userName;
             _rootFileName = rootFileName;
         }
@@ -54,9 +51,9 @@ namespace Sciendo.Love2Playlist.Processor
                 CollectedLove?.Invoke(this, new CollectLoveEventArgs(currentLovedPage++, maxLovedPages));
             } while (currentLovedPage <= maxLovedPages);
 
-            var playlistContents = _playlistHandler.SetPlaylistItems(_tagFileReader,
+            var playlistContents = _playlistHandler.SetPlaylistItems(_file,
                 GetFilesForLoveTracks(loveTracks).ToArray());
-            _textFileWriter.Write(playlistContents,PlaylistFile);
+            _file.WriteAllText(PlaylistFile,playlistContents);
             SavedPlaylist?.Invoke(this, new SavePlaylistEventArgs(_totalPlaylistFiles, PlaylistFile));
         }
 
