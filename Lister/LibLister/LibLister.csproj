@@ -42,7 +42,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Common.1.0.0-Build00036\lib\net40\Sciendo.Common.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0.44\lib\net40\Sciendo.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
