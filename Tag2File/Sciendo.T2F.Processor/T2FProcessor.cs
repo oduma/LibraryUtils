@@ -37,13 +37,16 @@ namespace Sciendo.T2F.Processor
                     var fileExtension = Path.GetExtension(file);
                     var newFileName = _tagFileProcessor.CalculateFileName(tag,path,fileExtension,
                         (IsPartOfCollection(file, extensions))?fileNamePatternCollection:fileNamePattern);
-                    _storage.File.Create(newFileName,_storage.File.Read(file));
-                    if(actionType==ActionType.Move)
-                        _storage.File.Delete(file);
-                    if (_directoriesProcessed.All(d => d != Path.GetDirectoryName(file)))
+                    if (!string.Equals(file.ToLower(), newFileName.ToLower()))
                     {
-                        ProcessNonMusicContents(Path.GetDirectoryName(file), Path.GetDirectoryName(newFileName),
-                            extensions, actionType);
+                        _storage.File.Create(newFileName, _storage.File.Read(file));
+                        if (actionType == ActionType.Move)
+                            _storage.File.Delete(file);
+                        if (_directoriesProcessed.All(d => d != Path.GetDirectoryName(file)))
+                        {
+                            ProcessNonMusicContents(Path.GetDirectoryName(file), Path.GetDirectoryName(newFileName),
+                                extensions, actionType);
+                        }
                     }
                 }
             }
