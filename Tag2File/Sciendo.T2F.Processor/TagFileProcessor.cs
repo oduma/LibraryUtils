@@ -15,7 +15,7 @@ namespace Sciendo.T2F.Processor
         {
             if (char.IsLetter(inputArtists[0][0]))
             {
-                return inputArtists[0].Substring((inputArtists[0].ToLower().StartsWith("the "))?4:0, 1);
+                return inputArtists[0].Substring((inputArtists[0].ToLower().StartsWith("the ")) ? 4 : 0, 1).ToLower();
             }
             else
             {
