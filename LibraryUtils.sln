@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lister", "Lister", "{3BD1FEFA-CD6B-4849-BB3D-A8DFC4EB2C9F}"
 EndProject
@@ -73,6 +73,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.Common.Music.Contracts", "Common\Sciendo.Common.Music.Contracts\Sciendo.Common.Music.Contracts.csproj", "{F8497019-BA53-468C-9EA8-26EAD565DB31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.PMP.Tests.Unit", "PlaylistMixx\Sciendo.PMP.Tests.Unit\Sciendo.PMP.Tests.Unit.csproj", "{B85ABAAF-35B6-426B-8015-EE307E2E062C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LibraryInformationExporter", "LibraryInformationExporter", "{889053F0-227B-4E8A-848F-B74DB8127B37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIE", "LibraryInformationExporter\LIE\LIE.csproj", "{2A053B10-DE85-457B-9257-64931C7CFB30}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,6 +180,10 @@ Global
 		{B85ABAAF-35B6-426B-8015-EE307E2E062C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B85ABAAF-35B6-426B-8015-EE307E2E062C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B85ABAAF-35B6-426B-8015-EE307E2E062C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A053B10-DE85-457B-9257-64931C7CFB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A053B10-DE85-457B-9257-64931C7CFB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A053B10-DE85-457B-9257-64931C7CFB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A053B10-DE85-457B-9257-64931C7CFB30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -205,5 +213,9 @@ Global
 		{9F1F9298-E11F-4C03-80C9-B997EBD4400C} = {4A8E96F8-7A24-4748-84E8-18C45EF43D5D}
 		{F8497019-BA53-468C-9EA8-26EAD565DB31} = {2A92E14F-B669-49ED-857F-9F175913AAD8}
 		{B85ABAAF-35B6-426B-8015-EE307E2E062C} = {DE065EDC-4D0F-4CBB-B761-F1F2F4055705}
+		{2A053B10-DE85-457B-9257-64931C7CFB30} = {889053F0-227B-4E8A-848F-B74DB8127B37}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D453D10-EC02-4A23-8FEA-C64E7651D040}
 	EndGlobalSection
 EndGlobal

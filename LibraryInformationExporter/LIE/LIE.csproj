@@ -1,19 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B1478827-AA75-44AE-BEA4-455E5DD13BF5}</ProjectGuid>
+    <ProjectGuid>{2A053B10-DE85-457B-9257-64931C7CFB30}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sciendo.Love2Playlist</RootNamespace>
-    <AssemblyName>Sciendo.Love2Playlist</AssemblyName>
+    <RootNamespace>LIE</RootNamespace>
+    <AssemblyName>LIE</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,20 +33,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CsvHelper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CsvHelper.12.1.0\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Sciendo.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Common.1.0.0.44\lib\net40\Sciendo.Common.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\Sciendo.Common.1.0.0.45\lib\net40\Sciendo.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.106.0\lib\net451\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,8 +58,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumWithLocation.cs" />
+    <Compile Include="AlbumWithLocationEqualityComparer.cs" />
+    <Compile Include="ArtistNameExporter.cs" />
+    <Compile Include="ArtistNameMutations.cs" />
+    <Compile Include="FilesCollector.cs" />
+    <Compile Include="FileWithTag.cs" />
+    <Compile Include="RelationArtistTrack.cs" />
+    <Compile Include="RelationComposerTrack.cs" />
+    <Compile Include="RelationsBuilder.cs" />
+    <Compile Include="RelationTrackAlbum.cs" />
+    <Compile Include="TagPartReadEventArgs.cs" />
+    <Compile Include="ArtistRole.cs" />
+    <Compile Include="ArtistWithRole.cs" />
+    <Compile Include="ArtistWithRoleEqualityComparer.cs" />
+    <Compile Include="ArtistWithRoles.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TagType.cs" />
+    <Compile Include="TrackWithFile.cs" />
+    <Compile Include="TrackWithFileEqualityComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -73,32 +88,6 @@
       <Project>{079b9e86-6a95-41d3-8ca3-e7fb34921812}</Project>
       <Name>Sciendo.Common.Music.Tagging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Playlists\Sciendo.Playlists\Sciendo.Playlists.csproj">
-      <Project>{9ba6d39d-2fc1-4cc9-bdfb-4c630f3cbe44}</Project>
-      <Name>Sciendo.Playlists</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sciendo.Clementine.DataAccess\Sciendo.Clementine.DataAccess.csproj">
-      <Project>{2b40618b-cbd9-4c23-b142-6a110c9d8cf3}</Project>
-      <Name>Sciendo.Clementine.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sciendo.Love2Playlist.Processor\Sciendo.Love2Playlist.Processor.csproj">
-      <Project>{2e813849-0e59-4400-9bdb-ff4a2b898643}</Project>
-      <Name>Sciendo.Love2Playlist.Processor</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net451\System.Data.SQLite.Core.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
