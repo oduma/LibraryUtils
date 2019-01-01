@@ -19,7 +19,7 @@ namespace LIE
             filesCollector.Progress += NameExporter_TagPartRead;
             if (args[0].ToLower() == "rescan")
             {
-                CollectionOfFiles(filesCollector, @"c:\users\octo\Music\m\Michael Jackson\",
+                CollectionOfFiles(filesCollector, @"c:\users\octo\Music\",
                     new[] { ".mp3", ".flac", ".wma", ".m4a" }, allTagsFile);
             }
             Console.WriteLine("Loading tags from file: {0}...", allTagsFile);
@@ -142,7 +142,7 @@ namespace LIE
         }
         private static void NameExporter_TagPartRead(object sender, ProgressEventArgs e)
         {
-            Console.WriteLine("Reading and preprocessing: {0} .", e.Message);
+            Console.WriteLine("{0} - {1} .", DateTime.Now,e.Message);
         }
     }
 }
