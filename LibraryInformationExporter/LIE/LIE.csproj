@@ -58,26 +58,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlbumWithLocation.cs" />
+    <Compile Include="DataTypes\AlbumWithLocation.cs" />
     <Compile Include="AlbumWithLocationEqualityComparer.cs" />
     <Compile Include="ArtistNameExporter.cs" />
     <Compile Include="ArtistNameMutations.cs" />
     <Compile Include="FilesCollector.cs" />
-    <Compile Include="FileWithTag.cs" />
-    <Compile Include="RelationArtistTrack.cs" />
-    <Compile Include="RelationComposerTrack.cs" />
+    <Compile Include="DataTypes\FileWithTags.cs" />
+    <Compile Include="DataTypes\RelationArtistTrack.cs" />
+    <Compile Include="RelationArtistTrackComparer.cs" />
+    <Compile Include="RelationArtistTrackMap.cs" />
+    <Compile Include="DataTypes\RelationComposerTrack.cs" />
+    <Compile Include="Mappers\RelationComposerTrackMap.cs" />
     <Compile Include="RelationsBuilder.cs" />
-    <Compile Include="RelationTrackAlbum.cs" />
-    <Compile Include="TagPartReadEventArgs.cs" />
-    <Compile Include="ArtistRole.cs" />
-    <Compile Include="ArtistWithRole.cs" />
+    <Compile Include="DataTypes\RelationTrackAlbum.cs" />
+    <Compile Include="ProgressEventArgs.cs" />
+    <Compile Include="DataTypes\ArtistRole.cs" />
+    <Compile Include="DataTypes\ArtistWithRole.cs" />
     <Compile Include="ArtistWithRoleEqualityComparer.cs" />
-    <Compile Include="ArtistWithRoles.cs" />
+    <Compile Include="DataTypes\ArtistWithRoles.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TagType.cs" />
-    <Compile Include="TrackWithFile.cs" />
-    <Compile Include="TrackWithFileEqualityComparer.cs" />
+    <Compile Include="Mappers\RelationTrackAlbumMap.cs" />
+    <Compile Include="DataTypes\TrackWithFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -89,5 +91,6 @@
       <Name>Sciendo.Common.Music.Tagging</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

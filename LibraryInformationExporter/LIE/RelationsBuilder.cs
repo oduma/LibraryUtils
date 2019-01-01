@@ -1,65 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using LIE.DataTypes;
 
 namespace LIE
 {
     internal static class RelationsBuilder
     {
-        public static RelationTrackAlbum GetRelationTrackAlbum(TrackWithFile track, List<FileWithTag> currentTrackTags, List<AlbumWithLocation> allAlbums)
+        public static IEnumerable<RelationTrackAlbum> GetRelationsTrackAlbum(List<FileWithTags> allTags, List<AlbumWithLocation> allAlbums)
         {
-            var tagAlbum = currentTrackTags.FirstOrDefault(t => t.TagType == TagType.Album);
-            if (tagAlbum == null)
-                return null;
-            var tagTrackNo = currentTrackTags.FirstOrDefault((t => t.TagType == TagType.Track));
+            var q = from album in allAlbums
+                join tag in allTags
+                    on album.Location.Trim().ToLower() equals Path.GetDirectoryName(tag.FilePath)?.Trim().ToLower()
+                select new RelationTrackAlbum {AlbumId = album.AlbumId, TrackId = tag.TrackId, TrackNo = tag.Track};
 
-            var currentAlbum = allAlbums.FirstOrDefault(a =>
-                a.Name.Trim().ToLower() == tagAlbum.TagContents.Trim().ToLower() && a.Location.Trim().ToLower() ==
-                Path.GetDirectoryName(tagAlbum.FilePath).Trim().ToLower());
-
-            if (currentAlbum == null)
-                return null;
-
-            return new RelationTrackAlbum
-            {
-                TrackId = track.TrackId, TrackNo = (tagTrackNo == null) ? string.Empty : tagTrackNo.TagContents,
-                AlbumId = currentAlbum.AlbumId
-            };
+            return q;
         }
 
-        public static IEnumerable<RelationComposerTrack> GetRelationComposerTrack(TrackWithFile track, List<FileWithTag> currentTrackTags, List<ArtistWithRoles> allArtists)
+        public static IEnumerable<RelationComposerTrack> GetRelationsComposerTrack(List<FileWithTags> allTags, IEnumerable<ArtistWithRoles> allArtists)
         {
-            var tagComposers = currentTrackTags.FirstOrDefault(t => t.TagType == TagType.Composers);
-            if (tagComposers != null)
-            {
-                ArtistNameExporter artistNameExporter = new ArtistNameExporter();
-                var composersNames = artistNameExporter.ComposersDisambiguated(tagComposers.TagContents.Split(new[] { ';' }));
-                var composers = allArtists.Where(a => composersNames.Any(c => c.Name.Trim().ToLower() == a.Name.Trim().ToLower()));
-                foreach (var composer in composers)
-                {
-                    yield return new RelationComposerTrack { TrackId = track.TrackId, ArtistId = composer.ArtistId };
-                }
-            }
+            ArtistNameExporter artistNameExporter = new ArtistNameExporter();
+            var q = from artist in allArtists
+                from tag in allTags
+                    where artistNameExporter.ComposersDisambiguated(tag.Composers.Split(';')).Select(a=>a.Name.Trim().ToLower()).Contains(artist.Name.Trim().ToLower())
+                select new RelationComposerTrack { ArtistId = artist.ArtistId, TrackId = tag.TrackId};
+            return q;
         }
 
-        public static IEnumerable<RelationArtistTrack> GetRelationArtistTrack(TrackWithFile track, List<FileWithTag> currentTrackTags, List<ArtistWithRoles> allArtists)
+        public static IEnumerable<RelationArtistTrack> GetRelationsArtistTrack(List<FileWithTags> allTags, List<ArtistWithRoles> allArtists)
         {
-            var tagsArtists =
-                currentTrackTags.Where(t => t.TagType == TagType.Artist || t.TagType == TagType.AlbumArtist).ToList();
-            var year = currentTrackTags.FirstOrDefault(t => t.TagType == TagType.Year);
-            if (tagsArtists.Count>0)
-            {
-                ArtistNameExporter artistNameExporter = new ArtistNameExporter();
-                var artists = artistNameExporter.GetFullListOfArtistNamesFromTags(tagsArtists);
-                var existingArtists= allArtists.Where(a => artists.Any(c => c.Name.Trim().ToLower() == a.Name.Trim().ToLower()));
-                foreach (var existingArtist in existingArtists)
-                {
-                    yield return new RelationArtistTrack { TrackId = track.TrackId, ArtistId = existingArtist.ArtistId, Year = (year==null)?String.Empty : year.TagContents};
-                }
+            ArtistNameExporter artistNameExporter = new ArtistNameExporter();
 
-            }
+            return GetRelationsArtistTrack(allTags.Where(t => !string.IsNullOrEmpty(t.Artists)), allArtists,
+                    artistNameExporter)
+                .Union(
+                    GetRelationsAlbumArtistTrack(allTags.Where(t => !string.IsNullOrEmpty(t.AlbumArtists)), allArtists,
+                        artistNameExporter), new RelationArtistTrackComparer());
+        }
 
+        private static IEnumerable<RelationArtistTrack> GetRelationsArtistTrack(IEnumerable<FileWithTags> allTags, IEnumerable<ArtistWithRoles> allArtists,
+            ArtistNameExporter artistNameExporter)
+        {
+            var q = from artist in allArtists
+                from tag in allTags
+                where artistNameExporter.ArtistDisambiguated(tag.Artists).Select(a => a.Name.Trim().ToLower())
+                    .Contains(artist.Name.Trim().ToLower())
+                select new RelationArtistTrack {ArtistId = artist.ArtistId, TrackId = tag.TrackId, Year = tag.Year};
+            return q;
+        }
+        private static IEnumerable<RelationArtistTrack> GetRelationsAlbumArtistTrack(IEnumerable<FileWithTags> allTags, IEnumerable<ArtistWithRoles> allArtists,
+            ArtistNameExporter artistNameExporter)
+        {
+            var q = from artist in allArtists
+                from tag in allTags
+                where artistNameExporter.ArtistDisambiguated(tag.AlbumArtists).Select(a => a.Name.Trim().ToLower())
+                    .Contains(artist.Name.Trim().ToLower())
+                select new RelationArtistTrack { ArtistId = artist.ArtistId, TrackId = tag.TrackId, Year = tag.Year };
+            return q;
         }
     }
 }

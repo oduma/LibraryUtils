@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using LIE.DataTypes;
 
 namespace LIE
 {
@@ -6,7 +7,7 @@ namespace LIE
     {
         public bool Equals(AlbumWithLocation x, AlbumWithLocation y)
         {
-            if (string.IsNullOrEmpty(x.Location) || string.IsNullOrEmpty(y.Location))
+            if (string.IsNullOrEmpty(x?.Location) || string.IsNullOrEmpty(y?.Location))
                 return false;
             if (x.Location == y.Location)
                 return true;

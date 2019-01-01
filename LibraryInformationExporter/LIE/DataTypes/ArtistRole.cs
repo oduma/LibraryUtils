@@ -1,4 +1,4 @@
-﻿namespace LIE
+﻿namespace LIE.DataTypes
 {
     public enum ArtistRole
     {
