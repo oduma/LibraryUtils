@@ -1583,6 +1583,7 @@ namespace LIE
                 {"Ünloco", new []{ "Unloco" } },
                 {"URSS bajo el árbol", new []{ "URSS bajo el arbol" } },
                 {"Whiteside and Lil Kane", new []{ "Whiteside","Lil Kane" } },
+                {"Wolfgang Klingler, Thomas Heimes, Hans Christian Mittag", new []{ "Wolfgang Klingler","Thomas Heimes","Hans Christian Mittag" } },
 
             };
 

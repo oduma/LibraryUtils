@@ -67,7 +67,7 @@ namespace LIE
             IEnumerable<ArtistWithRole> artistsWithRole =
                 allTags.Where(t => !string.IsNullOrEmpty(t.Composers))
                     .SelectMany(t => ComposersDisambiguated(t.Composers.Split(';')))
-                    .Union(allTags.Where(t => !string.IsNullOrEmpty(t.AlbumArtists))
+                    .Union(allTags.Where(t => !string.IsNullOrEmpty(t.AlbumArtists) && t.AlbumArtists.Trim().ToLower()!="various artists")
                         .SelectMany(t => ArtistDisambiguated(t.AlbumArtists)))
                     .Union(allTags.Where(t => !string.IsNullOrEmpty(t.Artists))
                         .SelectMany(t => ArtistDisambiguated(t.Artists)));
