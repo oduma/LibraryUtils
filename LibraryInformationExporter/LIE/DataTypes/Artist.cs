@@ -4,7 +4,7 @@ using CsvHelper.Configuration.Attributes;
 
 namespace LIE.DataTypes
 {
-    public class ArtistWithRoles
+    public class Artist
     {
 
         [Name("artistID:ID(Artist)")]
@@ -12,6 +12,9 @@ namespace LIE.DataTypes
         [Name("name")]
         public string Name { get; set; }
         [Name(":LABEL")]
-        public List<ArtistRole> ArtistRoles { get; set; }
+        public ArtistType Type { get; set; }
+        public bool IsFeatured { get; set; }
+        public bool IsComposer { get; set; }
+
     }
 }

@@ -2,7 +2,7 @@
 
 namespace LIE.DataTypes
 {
-    internal class RelationTrackAlbum
+    public class RelationTrackAlbum
     {
         public Guid TrackId { get; set; }
         public string TrackNo { get; set; }

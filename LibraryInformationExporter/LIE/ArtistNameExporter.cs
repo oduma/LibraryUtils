@@ -1,158 +1,193 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using LIE.DataTypes;
 
 namespace LIE
 {
     public class ArtistNameExporter
     {
-        private readonly ArtistNameMutations _artistNameMutations;
 
-        public event EventHandler<ProgressEventArgs> Progress; 
+        public event EventHandler<ArtistNameExporterProgressEventArgs> Progress;
 
         public ArtistNameExporter()
         {
-            _artistNameMutations = new ArtistNameMutations();
         }
 
-        internal List<ArtistWithRole> ComposersDisambiguated(string[] composers)
+        public void AddComposers(string composersString, TrackWithArtists trackWithArtists)
         {
-            List<ArtistWithRole> artistsWithRoles = new List<ArtistWithRole>();
-            foreach (var composer in composers)
+            var composers = DisambiguateArtists(composersString, true, false).ToList();
+            var composersCount = composers.Count;
+            if (composersCount > 0)
             {
-                var composerSplits = composer.Split('/');
-                foreach (var composerSplit in composerSplits)
-                    artistsWithRoles.AddRange(ArtistDisambiguated(composerSplit,ArtistRole.Composer));
-            }
-
-            return artistsWithRoles;
-        }
-        internal IEnumerable<ArtistWithRole> ArtistDisambiguated(string joinedArtists, ArtistRole artistRole=ArtistRole.Artist)
-        {
-            foreach (var artistName in DisambiguateArtistName(joinedArtists))
-            {
-                yield return new ArtistWithRole { Name = artistName, Role = artistRole };
+                Progress?.Invoke(this, new ArtistNameExporterProgressEventArgs{ComposersFound=composersCount});
+                trackWithArtists.Artists.AddRange(composers);
             }
         }
 
-        private IEnumerable<string> DisambiguateArtistName(string artistName)
+        private IEnumerable<Artist> DisambiguateArtists(string joinedArtists, bool isComposer, 
+            bool isFeaturedArtist)
         {
-            var exceptionRules = new[] {"AC;DC", "AC; DC", "AC/DC", "AC/ DC"};
-            var artistNameParts = exceptionRules.Contains(artistName)
-                ? new[] {"AC/DC"}
-                : artistName.Split(new[] {";", "vs.", "Vs.", "feat.", "Feat.", "ft.", "Ft.", " feat "},
-                    StringSplitOptions.RemoveEmptyEntries);
-            foreach (var rawArtistNamePart in artistNameParts)
+            foreach (var artist in DisambiguateArtist(joinedArtists))
             {
-                var artistNamePart = rawArtistNamePart.Trim();
-                if (_artistNameMutations.FirstLevelArtistNameMutations.Keys.Contains(artistNamePart))
+                if (!string.IsNullOrEmpty(artist.Name))
                 {
-                    foreach (var artistNameMutation in _artistNameMutations.FirstLevelArtistNameMutations[artistNamePart])
+                    artist.Type = (artist.Type != ArtistType.Band && IsBand(artist.Name))
+                        ? ArtistType.Band
+                        : artist.Type;
+                    artist.IsFeatured = isFeaturedArtist;
+                    artist.IsComposer = isComposer;
+                    yield return artist;
+                }
+            }
+        }
+
+        private bool IsBand(string name)
+        {
+
+            //most of the people names start and end with a letter
+            if (!char.IsLetter(name[0]) || char.IsDigit((name[name.Length - 1])))
+                return true;
+
+            var nameParts = name.ToLower().Split(KnowledgeBase.Spliters.WordsSimpleSplitter);
+            if (nameParts.Length >= KnowledgeBase.Rules.MaxWordsPerArtist)
+                return true;
+            if (KnowledgeBase.Rules.BandStartWords.Any(w =>w == nameParts[0]))
+                return true;
+
+            if (nameParts.Any(w => KnowledgeBase.Rules.BandWords.Contains(w)))
+                return true;
+            return false;
+        }
+
+        private IEnumerable<Artist> DisambiguateArtist(string joinedArtists)
+        {
+            if (!string.IsNullOrEmpty(joinedArtists))
+            {
+                var simpleLatinLowerCaseJoinedArtists = GetSimpleLatinLowerCaseString(joinedArtists);
+
+            //return pre-canned artists
+            foreach (var artistExcludedFromSplitting in KnowledgeBase.Excludes.ArtistsForSplitting)
+            {
+                var artistExcludedFromSplittingLowerTrimmed = artistExcludedFromSplitting.ToLower().Trim();
+                if (simpleLatinLowerCaseJoinedArtists.Contains(artistExcludedFromSplittingLowerTrimmed))
+                {
+                    simpleLatinLowerCaseJoinedArtists =
+                        simpleLatinLowerCaseJoinedArtists.Replace(artistExcludedFromSplittingLowerTrimmed,
+                            string.Empty);
+                    yield return new Artist
+                        {Name = artistExcludedFromSplittingLowerTrimmed, Type = ArtistType.Artist};
+                }
+            }
+
+            //return pre-canned bands
+            if (!string.IsNullOrEmpty(simpleLatinLowerCaseJoinedArtists))
+            {
+                foreach (var bandExcludedFromSplitting in KnowledgeBase.Excludes.BandsForSplitting)
+                {
+                    var bandExcludedFromSplittingLowerTrimmed = bandExcludedFromSplitting.ToLower().Trim();
+                    if (simpleLatinLowerCaseJoinedArtists.Contains(bandExcludedFromSplittingLowerTrimmed))
                     {
-                        if (!string.IsNullOrEmpty(artistNameMutation))
-                            yield return artistNameMutation.Trim();
+                        simpleLatinLowerCaseJoinedArtists =
+                            simpleLatinLowerCaseJoinedArtists.Replace(bandExcludedFromSplittingLowerTrimmed,
+                                string.Empty);
+                        yield return new Artist
+                            {Name = bandExcludedFromSplittingLowerTrimmed, Type = ArtistType.Band};
                     }
                 }
-                else
-                {
-                    yield return artistNamePart.Trim();
-                }
             }
-        }
 
-        internal List<ArtistWithRoles> GetFullListOfArtistNamesFromTags(List<FileWithTags> allTags)
-        {
-            Progress?.Invoke(this, new ProgressEventArgs($"Analyzing {allTags.Count} Tags..."));
-            IEnumerable<ArtistWithRole> artistsWithRole =
-                allTags.Where(t => !string.IsNullOrEmpty(t.Composers))
-                    .SelectMany(t => ComposersDisambiguated(t.Composers.Split(';')))
-                    .Union(allTags.Where(t => !string.IsNullOrEmpty(t.AlbumArtists) && t.AlbumArtists.Trim().ToLower()!="various artists")
-                        .SelectMany(t => ArtistDisambiguated(t.AlbumArtists)))
-                    .Union(allTags.Where(t => !string.IsNullOrEmpty(t.Artists))
-                        .SelectMany(t => ArtistDisambiguated(t.Artists)));
-                       
-
-            List<ArtistWithRoles> artistsWithRoles = new List<ArtistWithRoles>();
-            var uniqueArtistsWithRole = artistsWithRole.Distinct(new ArtistWithRoleEqualityComparer());
-            foreach (var uniqueArtistWithRole in uniqueArtistsWithRole)
+            if (!string.IsNullOrEmpty(simpleLatinLowerCaseJoinedArtists))
             {
-                var artistWithRoles = artistsWithRoles.FirstOrDefault(a =>
-                    a.Name.ToLower() == uniqueArtistWithRole.Name.ToLower());
-                if (artistWithRoles == null)
+                var firstPassSplitParts = simpleLatinLowerCaseJoinedArtists.Split(
+                    KnowledgeBase.Excludes.CharactersSeparatorsForWords, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var firstPassSplitPart in firstPassSplitParts)
                 {
-                    var newArtistWithRoles = new ArtistWithRoles
+                    var secondPassSplitParts = firstPassSplitPart.Split(KnowledgeBase.Excludes.WordsSeparatorsGlobal,
+                        StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var secondPassSplitPart in secondPassSplitParts)
                     {
-                        ArtistId = Guid.NewGuid(),
-                        Name = uniqueArtistWithRole.Name,
-                        ArtistRoles = (uniqueArtistWithRole.Role == ArtistRole.Composer)
-                            ? new List<ArtistRole> {uniqueArtistWithRole.Role, ArtistRole.Artist}
-                            : new List<ArtistRole> {uniqueArtistWithRole.Role}
-                    };
-                    artistsWithRoles.Add(newArtistWithRoles);
-                    Progress?.Invoke(this, new ProgressEventArgs(newArtistWithRoles.Name));
-                }
-                else
-                {
-                    if(artistWithRoles.ArtistRoles.All(r=>r!=uniqueArtistWithRole.Role))
-                        artistWithRoles.ArtistRoles.Add(uniqueArtistWithRole.Role);
+                        if (KnowledgeBase.Transforms.ArtistNamesMutation.Keys.Contains(secondPassSplitPart))
+                        {
+                            yield return new Artist
+                                { Name = KnowledgeBase.Transforms.ArtistNamesMutation[secondPassSplitPart], Type = ArtistType.Artist };
+                            }
+                            else
+                            yield return new Artist
+                                {Name = secondPassSplitPart.Trim().ToLower(), Type = ArtistType.Artist};
+                    }
                 }
             }
-            return artistsWithRoles.OrderBy(a => a.Name).Select(AddBandQualifier).Where(a=>a!=null && !string.IsNullOrEmpty(a.Name)).ToList();
         }
-        private ArtistWithRoles AddBandQualifier(ArtistWithRoles artistWithRoles)
+    }
+
+        private static string GetSimpleLatinLowerCaseString(string input)
         {
-            if (artistWithRoles == null || string.IsNullOrEmpty(artistWithRoles.Name))
-                return null;
-            
-            //99% chance for being a band for artist that start with "The ", "El ", "My " or "New "
-            string[] bandStartWords = new[] {"the", "el", "new", "my"};
-            if (bandStartWords.Any(w => w == artistWithRoles.Name.Split(' ')[0]) &&
-                artistWithRoles.ArtistRoles.All(r => r != ArtistRole.Band))
-                artistWithRoles.ArtistRoles.Add(ArtistRole.Band);
-            //High chance for artist contain some words to be a band 
-            string[] bandWords = new[]
+            foreach (var key in KnowledgeBase.Transforms.LatinAlphabetTransformations.Keys)
             {
-                "and", "&", "band", "orchestra", "orkestar", "symphony", "philarmonic", "chamber", "royal", "at", "for",
-                "choir", "a", "y", "aa","city","of", "in","quartet", "in", "on","all","an","trio", "n'","foundation","etc.",
-                "av", "brothers", "family", "boys", "bros", "gang", "by","society", "club","quintet","twins","sisters",
-                "kids","experience", "chorale", "banda", "or", "to", "alliance", "und", "der", "duo", "die","association",
-                "kolektiv", "grupo", "et", "friends", "committee", "grand", "we", "las", "los", "collective", "les",
-                "group", "men", "orchestre", "girls", "ensemble","quintetto", "squad",
-            }; 
-            if ((artistWithRoles.Name.ToLower().Split(new []{' '}).Any(w=>bandWords.Contains(w))) &&
-                artistWithRoles.ArtistRoles.All(r => r != ArtistRole.Band))
-            {
-                artistWithRoles.ArtistRoles.Add(ArtistRole.Band);
-            }
-            //most of people have only 4 names
-            if (artistWithRoles.Name.Split(new[] {' '}).Length >= 4 &&
-                artistWithRoles.ArtistRoles.All(r => r != ArtistRole.Band))
-            {
-                artistWithRoles.ArtistRoles.Add(ArtistRole.Band);
-            }
-            //most of the people names start and end with a letter
-            if ((!char.IsLetter(artistWithRoles.Name[0]) ||
-                 char.IsDigit((artistWithRoles.Name[artistWithRoles.Name.Length - 1]))) &&
-                artistWithRoles.ArtistRoles.All(r => r != ArtistRole.Band))
-            {
-                artistWithRoles.ArtistRoles.Add(ArtistRole.Band);
+                input = input.Replace(key, KnowledgeBase.Transforms.LatinAlphabetTransformations[key]);
             }
 
-            string[] exceptionRules = new[] {"2pac", "antonio carles marques pinto", "aram mp3", "B L A C K I E", "Alvin Pleasant Delaney Carter",
-                "anna of the north","Boydston John D. III","Jennifer Evans van der Harten", "John 5", "KH of Moscrill",
-                @"Luther ""Guitar Junior"" Johnson", "Maria Isabel Garcia Asensio","Martin Luther King Jr.", "Michael L. Williams II",
-                "Michiel Van Der Kuy","Niels Henning Orsted Pedersen", "The Reverend Peyton",
-            };
-            if (exceptionRules.Contains(artistWithRoles.Name.ToLower()))
-            {
-                var band = artistWithRoles.ArtistRoles.FirstOrDefault(r => r == ArtistRole.Band);
-                if (band == ArtistRole.Band)
-                    artistWithRoles.ArtistRoles.Remove(band);
+            return input;
+        }
 
+        public void AddArtists(string artistsString, TrackWithArtists trackWithArtistsWithRoles)
+        {
+            var artists = DisambiguateArtists(artistsString, false, false).ToList();
+            var artistsCount = artists.Count();
+            if (artistsCount > 0)
+            {
+                Progress?.Invoke(this, new ArtistNameExporterProgressEventArgs{ArtistsFound = artistsCount});
+                trackWithArtistsWithRoles.Artists.AddRange(artists);
+            }
+        }
+
+        public void AddAlbumArtists(string albumArtistsString,
+            TrackWithArtists trackWithArtistsWithRoles)
+        {
+            var albumArtists = DisambiguateArtists(albumArtistsString, false, false).Where(a =>
+                a.Name.ToLower().Trim() != KnowledgeBase.Excludes.PlaceholderAlbumArtists.ToLower().Trim()).ToList();
+            if (albumArtists.Count > 0)
+            {
+                Progress?.Invoke(this,new ArtistNameExporterProgressEventArgs{AlbumArtistsFound = albumArtists.Count});
+                trackWithArtistsWithRoles.Artists.AddRange(albumArtists);
+            }
+        }
+
+        public void AddFeaturedArtists(string title, TrackWithArtists trackWithArtistsWithRoles)
+        {
+            List<Artist> featuredArtists= new List<Artist>();
+            var possibleArtistsFeatures = Regex.Matches(title, KnowledgeBase.Spliters.FeaturedArtistsInTheTitle);
+            if (possibleArtistsFeatures.Count > 0)
+            {
+                foreach (var possibleArtistsFeature in possibleArtistsFeatures)
+                {
+                    var possibleArtistFeatureWithoutMarkers = possibleArtistsFeature.ToString();
+                    foreach (var marker in KnowledgeBase.Excludes.FeaturedMarkers)
+                    {
+                        possibleArtistFeatureWithoutMarkers = possibleArtistFeatureWithoutMarkers.Replace(marker, string.Empty);
+                    }
+                    featuredArtists.AddRange(DisambiguateArtists(possibleArtistFeatureWithoutMarkers, false,true));
+                }
             }
 
-            return artistWithRoles;
+            if (featuredArtists.Count > 0)
+            {
+                Progress?.Invoke(this, new ArtistNameExporterProgressEventArgs{FeaturedArtistsFound = featuredArtists.Count});
+                trackWithArtistsWithRoles.Artists.AddRange(featuredArtists);
+            }
+        }
+
+        public List<Artist> AggregateArtists(List<ArtistWithTracks> allArtists)
+        {
+            return allArtists.Select(a => new Artist
+            {
+                ArtistId = a.ArtistId,
+                Name = a.Name,
+                Type = a.Tracks.First().Type,
+
+            }).ToList();
         }
     }
 }

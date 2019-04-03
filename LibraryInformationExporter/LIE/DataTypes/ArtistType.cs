@@ -1,10 +1,9 @@
 ﻿namespace LIE.DataTypes
 {
-    public enum ArtistRole
+    public enum ArtistType
     {
         None,
         Artist,
-        Band,
-        Composer
+        Band
     }
 }

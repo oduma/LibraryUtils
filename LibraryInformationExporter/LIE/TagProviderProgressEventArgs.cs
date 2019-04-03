@@ -1,10 +1,10 @@
 ﻿namespace LIE
 {
-    public class ProgressEventArgs
+    public class TagProviderProgressEventArgs
     {
         public string Message { get; }
 
-        public ProgressEventArgs(string message)
+        public TagProviderProgressEventArgs(string message)
         {
             Message = message;
         }
