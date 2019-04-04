@@ -33,9 +33,6 @@ namespace LIE
             {
                 if (!string.IsNullOrEmpty(artist.Name))
                 {
-                    artist.Type = (artist.Type != ArtistType.Band && IsBand(artist.Name))
-                        ? ArtistType.Band
-                        : artist.Type;
                     artist.IsFeatured = isFeaturedArtist;
                     artist.IsComposer = isComposer;
                     yield return artist;
@@ -43,22 +40,21 @@ namespace LIE
             }
         }
 
-        private bool IsBand(string name)
+        private ArtistType DetermineArtistType(List<string> decomposedArtistName)
         {
 
             //most of the people names start and end with a letter
-            if (!char.IsLetter(name[0]) || char.IsDigit((name[name.Length - 1])))
-                return true;
+            if (!char.IsLetter(decomposedArtistName[0][0]) || char.IsDigit(decomposedArtistName.Last()[0]))
+                return ArtistType.Band;
 
-            var nameParts = name.ToLower().Split(KnowledgeBase.Spliters.WordsSimpleSplitter);
-            if (nameParts.Length >= KnowledgeBase.Rules.MaxWordsPerArtist)
-                return true;
-            if (KnowledgeBase.Rules.BandStartWords.Any(w =>w == nameParts[0]))
-                return true;
+            if (decomposedArtistName.Count >= KnowledgeBase.Rules.MaxWordsPerArtist)
+                return ArtistType.Band;
+            if (KnowledgeBase.Rules.BandStartWords.Any(w =>w == decomposedArtistName[0]))
+                return ArtistType.Band;
 
-            if (nameParts.Any(w => KnowledgeBase.Rules.BandWords.Contains(w)))
-                return true;
-            return false;
+            if (decomposedArtistName.Any(w => KnowledgeBase.Rules.BandWords.Contains(w)))
+                return ArtistType.Band;
+            return ArtistType.Artist;
         }
 
         private IEnumerable<Artist> DisambiguateArtist(string joinedArtists)
@@ -93,7 +89,9 @@ namespace LIE
                             simpleLatinLowerCaseJoinedArtists.Replace(bandExcludedFromSplittingLowerTrimmed,
                                 string.Empty);
                         yield return new Artist
-                            {Name = bandExcludedFromSplittingLowerTrimmed, Type = ArtistType.Band};
+                            {Name = KnowledgeBase.Transforms.ArtistNamesMutation.Keys.Contains(bandExcludedFromSplittingLowerTrimmed)
+                                ? KnowledgeBase.Transforms.ArtistNamesMutation[bandExcludedFromSplittingLowerTrimmed]
+                                : bandExcludedFromSplittingLowerTrimmed, Type = ArtistType.Band};
                     }
                 }
             }
@@ -104,32 +102,68 @@ namespace LIE
                     KnowledgeBase.Excludes.CharactersSeparatorsForWords, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var firstPassSplitPart in firstPassSplitParts)
                 {
-                    var secondPassSplitParts = firstPassSplitPart.Split(KnowledgeBase.Excludes.WordsSeparatorsGlobal,
+                    var wordParts = firstPassSplitPart.Split(new char[] {KnowledgeBase.Spliters.WordsSimpleSplitter},
                         StringSplitOptions.RemoveEmptyEntries);
-                    foreach (var secondPassSplitPart in secondPassSplitParts)
+                    var decomposedArtistName= new List<string>();
+                    Artist artist;
+                    foreach (var wordPart in wordParts)
                     {
-                        if (KnowledgeBase.Transforms.ArtistNamesMutation.Keys.Contains(secondPassSplitPart))
+                        if (!KnowledgeBase.Excludes.WordsSeparatorsGlobal.Contains(wordPart))
                         {
-                            yield return new Artist
-                                { Name = KnowledgeBase.Transforms.ArtistNamesMutation[secondPassSplitPart], Type = ArtistType.Artist };
-                            }
-                            else
-                            yield return new Artist
-                                {Name = secondPassSplitPart.Trim().ToLower(), Type = ArtistType.Artist};
+                            decomposedArtistName.Add(wordPart);
+                        }
+                        else
+                        {
+                            artist = ComposeArtistAndType(ref decomposedArtistName);
+                            if (artist != null) 
+                                yield return artist;
+                        }
                     }
+
+                    artist = ComposeArtistAndType(ref decomposedArtistName);
+                    if (artist != null)
+                        yield return artist;
                 }
             }
         }
     }
 
-        private static string GetSimpleLatinLowerCaseString(string input)
+        private Artist ComposeArtistAndType(ref List<string> decomposedArtistName)
         {
-            foreach (var key in KnowledgeBase.Transforms.LatinAlphabetTransformations.Keys)
+            if (decomposedArtistName.Count > 0)
             {
-                input = input.Replace(key, KnowledgeBase.Transforms.LatinAlphabetTransformations[key]);
+
+                var artist = new Artist
+                {
+                    Name = ComposeArtistName(decomposedArtistName),
+                    Type = DetermineArtistType(decomposedArtistName)
+                };
+                decomposedArtistName = new List<string>();
+                return artist;
             }
 
-            return input;
+            return null;
+        }
+
+        private string ComposeArtistName(List<string> decomposedArtistName)
+        {
+            var recomposedArtistName =
+                string.Join(KnowledgeBase.Spliters.WordsSimpleSplitter.ToString(), decomposedArtistName);
+
+            return KnowledgeBase.Transforms.ArtistNamesMutation.Keys.Contains(recomposedArtistName)
+                ? KnowledgeBase.Transforms.ArtistNamesMutation[recomposedArtistName]
+                : recomposedArtistName;
+        }
+
+        private static string GetSimpleLatinLowerCaseString(string input)
+        {
+            var result = input.ToLower().Trim();
+            foreach (var key in KnowledgeBase.Transforms.LatinAlphabetTransformations.Keys)
+            {
+                result = result.Replace(key.ToLower(), KnowledgeBase.Transforms.LatinAlphabetTransformations[key]);
+            }
+
+            return result;
         }
 
         public void AddArtists(string artistsString, TrackWithArtists trackWithArtistsWithRoles)
