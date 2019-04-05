@@ -6,7 +6,7 @@ namespace LIE
     {
         public static class Excludes
         {
-            public static string[] NonTitledInformationFromTitle = new[] {"(live)", "(instrumental)", "(original mix)"};
+            public static string[] NonTitledInformationFromTitle = new[] { @"\(.?\)",@"\(part \d*\)", @"\(\d*\)", "(live)", "(instrumental)", "(original mix)"};
             public static string[] FeaturedMarkers = new[] {"(", ")"};
 
             public static string PlaceholderAlbumArtists = "Various Artists";

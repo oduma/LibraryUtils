@@ -86,14 +86,21 @@ namespace LIE
             return trackWithArtistsWithRoles;
         }
 
-        public static string ReplaceAll(this string input, IEnumerable<string> replace, string withString)
+        public static string ReplaceAll(this string input, IEnumerable<string> regexFind, string withString)
         {
             if (string.IsNullOrEmpty(input))
                 return input;
             string result = input;
-            foreach (var replacePart in replace)
+            foreach (var regexFindPart in regexFind)
             {
-                result = result.Replace(replacePart, withString);
+                var possibleMatches = Regex.Matches(input, regexFindPart);
+                if (possibleMatches.Count > 0)
+                {
+                    foreach (var possibleMatch in possibleMatches)
+                    {
+                        result = result.Replace(possibleMatch.ToString(), withString);
+                    }
+                }
             }
 
             return result;
