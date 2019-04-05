@@ -152,7 +152,7 @@ namespace LIE
 
             return KnowledgeBase.Transforms.ArtistNamesMutation.Keys.Contains(recomposedArtistName)
                 ? KnowledgeBase.Transforms.ArtistNamesMutation[recomposedArtistName]
-                : recomposedArtistName;
+                : recomposedArtistName.Trim();
         }
 
         private static string GetSimpleLatinLowerCaseString(string input)

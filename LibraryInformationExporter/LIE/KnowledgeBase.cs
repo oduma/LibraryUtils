@@ -495,6 +495,8 @@ namespace LIE
                 {"mихайло xай", "mihaylo hai"},
                 {"桜庭統", "motoi sakuraba"},
                 {"Ω▽", "ohmslice" },
+                {"ω▽","ohmslice" },
+                {"ω▽(ohmslice)","ohmslice" },
                 {"rollo", "rollo armstrong"},
                 {"つじあやの", "tsuji ayano"},
             };
