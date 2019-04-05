@@ -191,25 +191,31 @@ namespace LIE
 
         public void AddFeaturedArtists(string title, TrackWithArtists trackWithArtistsWithRoles)
         {
-            List<Artist> featuredArtists= new List<Artist>();
-            var possibleArtistsFeatures = Regex.Matches(title, KnowledgeBase.Spliters.FeaturedArtistsInTheTitle);
-            if (possibleArtistsFeatures.Count > 0)
+            if (!string.IsNullOrEmpty(title))
             {
-                foreach (var possibleArtistsFeature in possibleArtistsFeatures)
+                List<Artist> featuredArtists = new List<Artist>();
+                var possibleArtistsFeatures = Regex.Matches(title, KnowledgeBase.Spliters.FeaturedArtistsInTheTitle);
+                if (possibleArtistsFeatures.Count > 0)
                 {
-                    var possibleArtistFeatureWithoutMarkers = possibleArtistsFeature.ToString();
-                    foreach (var marker in KnowledgeBase.Excludes.FeaturedMarkers)
+                    foreach (var possibleArtistsFeature in possibleArtistsFeatures)
                     {
-                        possibleArtistFeatureWithoutMarkers = possibleArtistFeatureWithoutMarkers.Replace(marker, string.Empty);
-                    }
-                    featuredArtists.AddRange(DisambiguateArtists(possibleArtistFeatureWithoutMarkers, false,true));
-                }
-            }
+                        var possibleArtistFeatureWithoutMarkers = possibleArtistsFeature.ToString();
+                        foreach (var marker in KnowledgeBase.Excludes.FeaturedMarkers)
+                        {
+                            possibleArtistFeatureWithoutMarkers =
+                                possibleArtistFeatureWithoutMarkers.Replace(marker, string.Empty);
+                        }
 
-            if (featuredArtists.Count > 0)
-            {
-                Progress?.Invoke(this, new ArtistNameExporterProgressEventArgs{FeaturedArtistsFound = featuredArtists.Count});
-                trackWithArtistsWithRoles.Artists.AddRange(featuredArtists);
+                        featuredArtists.AddRange(DisambiguateArtists(possibleArtistFeatureWithoutMarkers, false, true));
+                    }
+                }
+
+                if (featuredArtists.Count > 0)
+                {
+                    Progress?.Invoke(this,
+                        new ArtistNameExporterProgressEventArgs {FeaturedArtistsFound = featuredArtists.Count});
+                    trackWithArtistsWithRoles.Artists.AddRange(featuredArtists);
+                }
             }
         }
 
