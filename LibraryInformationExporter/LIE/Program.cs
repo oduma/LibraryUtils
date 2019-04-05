@@ -56,12 +56,16 @@ namespace LIE
                     allTracks.Add(trackWithFile);
                     if (done++ % config.ReportFrequency == 0)
                         Console.WriteLine(
-                            "Done. Partial progress:\r\n Artists Found:\t{0}\r\nAlbum Artists Found:\t{1}\r\nComposers Found:\t{2}\r\nFeatured Artists:\t{3}\r\n",
+                            "Partial progress:\r\nArtists Found:\t{0}\r\nAlbum Artists Found:\t{1}\r\nComposers Found:\t{2}\r\nFeatured Artists:\t{3}\r\n",
                             Accumulator.ArtistsFound, Accumulator.AlbumArtistsFound,
                             Accumulator.ComposersFound, Accumulator.FeaturedArtistsFound);
                 }
+                Console.WriteLine(
+                "Final progress:\r\nArtists Found:\t{0}\r\nAlbum Artists Found:\t{1}\r\nComposers Found:\t{2}\r\nFeatured Artists:\t{3}\r\n",
+                    Accumulator.ArtistsFound, Accumulator.AlbumArtistsFound,
+                    Accumulator.ComposersFound, Accumulator.FeaturedArtistsFound);
 
-                Console.WriteLine("Writing artist names...");
+            Console.WriteLine("Writing artist names...");
                 var allArtistsWithRolesUnique = artistNameExporter.AggregateArtists(allArtists);
                 allArtistsWithRolesUnique.WriteFile(config.DataFiles.Facts.AllArtistsFile);
                 Console.WriteLine("Written {0} artist names.", allArtistsWithRolesUnique.Count);
