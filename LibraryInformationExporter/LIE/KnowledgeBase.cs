@@ -6,6 +6,7 @@ namespace LIE
     {
         public static class Excludes
         {
+            public static string[] NonTitledInformationFromTitle = new[] {"(live)", "(instrumental)", "(original mix)"};
             public static string[] FeaturedMarkers = new[] {"(", ")"};
 
             public static string PlaceholderAlbumArtists = "Various Artists";
@@ -115,6 +116,7 @@ namespace LIE
                 "2000 Years BC",
                 "4 Hero",
                 "50 & 50 Brothers",
+                "60,000,000 Buffalo",
                 "Above & Beyond",
                 "AC/DC",
                 "AC; DC",

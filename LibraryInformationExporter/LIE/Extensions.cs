@@ -86,6 +86,18 @@ namespace LIE
             return trackWithArtistsWithRoles;
         }
 
+        public static string ReplaceAll(this string input, IEnumerable<string> replace, string withString)
+        {
+            if (string.IsNullOrEmpty(input))
+                return input;
+            string result = input;
+            foreach (var replacePart in replace)
+            {
+                result = result.Replace(replacePart, withString);
+            }
+
+            return result;
+        }
         public static AlbumWithLocationAndTracks ExtractAlbum(this FileWithTags input, TrackWithFile trackWithFile )
         {
             return new AlbumWithLocationAndTracks

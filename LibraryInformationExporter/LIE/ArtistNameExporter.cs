@@ -193,6 +193,7 @@ namespace LIE
         {
             if (!string.IsNullOrEmpty(title))
             {
+                title = GetSimpleLatinLowerCaseString(title).ReplaceAll(KnowledgeBase.Excludes.NonTitledInformationFromTitle,string.Empty);
                 List<Artist> featuredArtists = new List<Artist>();
                 var possibleArtistsFeatures = Regex.Matches(title, KnowledgeBase.Spliters.FeaturedArtistsInTheTitle);
                 if (possibleArtistsFeatures.Count > 0)
