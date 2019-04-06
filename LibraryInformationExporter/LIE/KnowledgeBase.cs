@@ -112,7 +112,7 @@ namespace LIE
 
             public static string[] BandsForSplitting = new[]
             {
-                
+                "+-",
                 "2000 Years BC",
                 "4 Hero",
                 "50 & 50 Brothers",
@@ -191,6 +191,7 @@ namespace LIE
                 "Croy and the Boys",
                 "Damian Cowell's Disco Machine",
                 "Dance With the Dead",
+                "D and Chi",
                 "Daniel Ellsworth & The Great Lakes",
                 "Daphne Willis and Co.",
                 "Dave Dee Dozy Beaky Mick & Tich",
@@ -224,6 +225,7 @@ namespace LIE
                 "Ex:Re",
                 "Facts & Fiction",
                 "Family and Friends",
+                "F&F",
                 "Fighting With Wire",
                 "Flash & The Pan",
                 "Florence + The Machine",
@@ -313,7 +315,7 @@ namespace LIE
                 "Lyons & Co.",
                 "Magic & Naked",
                 "The Main Ingredient",
-                "The Main Squeez",
+                "The Main Squeeze",
                 "The Main Street Gospel",
                 "The Mamas & The Papas",
                 "Maps & Atlases",
@@ -365,6 +367,7 @@ namespace LIE
                 "Of The Wand And The Moon",
                 "Oh,Beast!",
                 "Oh, Rose",
+                "O & Mina Tindle",
                 "Orchid and Hound",
                 "Or, the Whale",
                 "O + S",
@@ -520,6 +523,7 @@ namespace LIE
                 {"ë", "e" },
                 {"Ê", "e" },
                 {"ė","e" },
+                {"ę","e" },
                 {"ğ", "g" },
                 {"í","i" },
                 {"ï","i" },
