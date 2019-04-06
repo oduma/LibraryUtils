@@ -43,6 +43,7 @@ namespace LIE
                 "main",
                 "mix",
                 "mixed",
+                "orch.",
                 "original",
                 "part",
                 "presents",
@@ -470,6 +471,7 @@ namespace LIE
                 "Wood & Wire",
                 "The World Is A Beautiful Place & I Am No Longer Afraid To Die",
                 "Wreck and Reference",
+                "X Ambassadors",
                 "Years & Years",
                 "Young & Sick",
                 "You, Me, And Everyone We Know",
@@ -531,6 +533,7 @@ namespace LIE
                 {"ñ","n" },
                 {"ń","n" },
                 {"ó","o" },
+                {"ò","o" },
                 {"Ö","o" },
                 {"ø","o" },
                 {"ô","o" },
@@ -552,6 +555,7 @@ namespace LIE
 
         public static class Rules
         {
+            public static string[] ExactFullMatchesOnTheArtistField = new[] {"x"};
             //99% chance for being a band for artist that start with "The ", "El ", "My " or "New "
             public static string[] BandStartWords = new[] 
                 { "el", "my", "new", "the",  };

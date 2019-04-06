@@ -130,7 +130,7 @@ namespace LIE
                             new TrackByArtist
                             {
                                 TrackId = from.TrackId, Type = artist.Type, File = from.File,
-                                Name = from.Name, IsFeatured = artist.IsFeatured
+                                Name = from.Name, IsFeatured = artist.IsFeatured,IsComposer = artist.IsComposer
                             }
                         }
                     });
@@ -147,9 +147,22 @@ namespace LIE
                             File = from.File,
                             Type = artist.Type,
                             IsFeatured = artist.IsFeatured,
+                            IsComposer =artist.IsComposer,
                             Name = from.Name,
                             TrackId = from.TrackId
                         });
+                    }
+                    else
+                    {
+                        if (existingTrack.IsComposer == false)
+                        {
+                            existingTrack.IsComposer = artist.IsComposer;
+                        }
+
+                        if (existingTrack.IsFeatured == false)
+                        {
+                            existingTrack.IsFeatured = artist.IsFeatured;
+                        }
                     }
                 }
             }

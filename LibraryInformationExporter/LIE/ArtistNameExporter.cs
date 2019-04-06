@@ -18,6 +18,7 @@ namespace LIE
         public void AddComposers(string composersString, TrackWithArtists trackWithArtists)
         {
             var composers = DisambiguateArtists(composersString, true, false).ToList();
+            composers.ForEach(c=>c.IsComposer=true);
             var composersCount = composers.Count;
             if (composersCount > 0)
             {
@@ -210,7 +211,7 @@ namespace LIE
                         featuredArtists.AddRange(DisambiguateArtists(possibleArtistFeatureWithoutMarkers, false, true));
                     }
                 }
-
+                featuredArtists.ForEach(a=>a.IsFeatured=true);
                 if (featuredArtists.Count > 0)
                 {
                     Progress?.Invoke(this,
