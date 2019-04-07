@@ -1,7 +1,7 @@
 ﻿using CsvHelper.Configuration;
 using LIE.DataTypes;
 
-namespace LIE
+namespace LIE.Mappers
 {
     internal sealed class RelationArtistTrackMap:ClassMap<RelationArtistTrack>
     {

@@ -36,9 +36,6 @@ namespace LIE.Configuration
 
         [ConfigurationProperty("relations")]
         public RelationsElement Relations => (RelationsElement)this["relations"];
-
-        [ConfigurationProperty("temporary")]
-        public TemporaryElement Temporary => (TemporaryElement)this["temporary"];
     }
 
     public class NotProcessedElement : ConfigurationElement
@@ -112,22 +109,4 @@ namespace LIE.Configuration
         }
 
     }
-
-    public class TemporaryElement : ConfigurationElement
-    {
-        [ConfigurationProperty("allFeaturedFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string AllFeaturedFile
-        {
-            get => (string)this["allFeaturedFile"];
-            set => this["allFeaturedFile"] = value;
-        }
-
-        [ConfigurationProperty("featuredArtistsNotFoundFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string FeaturedArtistsNotFoundFile
-        {
-            get => (string)this["featuredArtistsNotFoundFile"];
-            set => this["featuredArtistsNotFoundFile"] = value;
-        }
-    }
-
 }

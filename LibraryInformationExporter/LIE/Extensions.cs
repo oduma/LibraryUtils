@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using CsvHelper;
 using LIE.DataTypes;
 using LIE.Mappers;
 
@@ -15,62 +12,67 @@ namespace LIE
     {
         public static List<FileWithTags> WriteFile(this IEnumerable<FileWithTags> input, string filePath)
         {
-            IOManager.WriteWithoutMapper(input, filePath);
+            IoManager.WriteWithoutMapper(input, filePath);
             return input.ToList();
 
         }
 
         public static void WriteFile(this List<string> input, string filePath)
         {
-            if(input.Count>0)
-                IOManager.WriteWithoutMapper(input, filePath);
+            if (input.Count > 0)
+                IoManager.WriteWithMapper<string, StringMap>(input, filePath);
         }
 
 
         public static void WriteFile(this List<Artist> input, string filePath)
         {
-            IOManager.WriteWithMapper<Artist,ArtistWithRolesMap>(input, filePath);
+            IoManager.WriteWithMapper<Artist, ArtistMap>(input, filePath);
         }
 
         public static List<AlbumWithLocation> WriteFile(this List<AlbumWithLocation> input, string filePath)
         {
-            IOManager.WriteWithMapper<AlbumWithLocation,AlbumWithLocationMap>(input, filePath);
+            IoManager.WriteWithMapper<AlbumWithLocation, AlbumWithLocationMap>(input, filePath);
             return input;
         }
 
         public static List<TrackWithFile> WriteFile(this List<TrackWithFile> input, string filePath)
         {
-            IOManager.WriteWithMapper<TrackWithFile,TrackWithFileMap>(input, filePath);
+            IoManager.WriteWithMapper<TrackWithFile, TrackWithFileMap>(input, filePath);
             return input;
         }
 
         public static List<RelationTrackAlbum> WriteFile(this List<RelationTrackAlbum> input, string filePath)
         {
-            IOManager.WriteWithMapper<RelationTrackAlbum,RelationTrackAlbumMap>(input, filePath);
+            IoManager.WriteWithMapper<RelationTrackAlbum, RelationTrackAlbumMap>(input, filePath);
             return input;
 
         }
 
         public static List<RelationComposerTrack> WriteFile(this List<RelationComposerTrack> input, string filePath)
         {
-            IOManager.WriteWithMapper<RelationComposerTrack,RelationComposerTrackMap>(input, filePath);
+            IoManager.WriteWithMapper<RelationComposerTrack, RelationComposerTrackMap>(input, filePath);
             return input;
 
         }
 
         public static List<RelationArtistTrack> WriteFile(this List<RelationArtistTrack> input, string filePath)
         {
-            IOManager.WriteWithMapper<RelationArtistTrack,RelationArtistTrackMap>(input, filePath);
+            IoManager.WriteWithMapper<RelationArtistTrack, RelationArtistTrackMap>(input, filePath);
             return input;
 
         }
 
         public static TrackWithFile ExtractTrack(this FileWithTags input)
         {
-            return new TrackWithFile {File = input.FilePath, Name = input.Title, TrackId = Guid.NewGuid(),TrackNo = input.Track};
+            return new TrackWithFile
+            {
+                File = input.FilePath, Name = input.Title, TrackId = Guid.NewGuid(), TrackNo = input.Track,
+                Year = input.Year
+            };
         }
+
         public static TrackWithArtists ExtractArtists(this FileWithTags input,
-            ArtistNameExporter artistNameExporter,TrackWithFile trackWithFile)
+            ArtistNameExporter artistNameExporter, TrackWithFile trackWithFile)
         {
             var trackWithArtistsWithRoles = new TrackWithArtists
             {
@@ -78,7 +80,7 @@ namespace LIE
                 Artists = new List<Artist>()
             };
 
-            artistNameExporter.AddComposers(input.Composers,trackWithArtistsWithRoles);
+            artistNameExporter.AddComposers(input.Composers, trackWithArtistsWithRoles);
             artistNameExporter.AddArtists(input.Artists, trackWithArtistsWithRoles);
             artistNameExporter.AddAlbumArtists(input.AlbumArtists, trackWithArtistsWithRoles);
             artistNameExporter.AddFeaturedArtists(input.Title, trackWithArtistsWithRoles);
@@ -105,7 +107,8 @@ namespace LIE
 
             return result;
         }
-        public static AlbumWithLocationAndTracks ExtractAlbum(this FileWithTags input, TrackWithFile trackWithFile )
+
+        public static AlbumWithLocationAndTracks ExtractAlbum(this FileWithTags input, TrackWithFile trackWithFile)
         {
             return new AlbumWithLocationAndTracks
             {
@@ -130,7 +133,7 @@ namespace LIE
                             new TrackByArtist
                             {
                                 TrackId = from.TrackId, Type = artist.Type, File = from.File,
-                                Name = from.Name, IsFeatured = artist.IsFeatured,IsComposer = artist.IsComposer
+                                Name = from.Name, IsFeatured = artist.IsFeatured, IsComposer = artist.IsComposer
                             }
                         }
                     });
@@ -147,7 +150,7 @@ namespace LIE
                             File = from.File,
                             Type = artist.Type,
                             IsFeatured = artist.IsFeatured,
-                            IsComposer =artist.IsComposer,
+                            IsComposer = artist.IsComposer,
                             Name = from.Name,
                             TrackId = from.TrackId
                         });
@@ -181,68 +184,7 @@ namespace LIE
             var existingTrackInAlbumWithLocation =
                 existingAlbumWithLocation.Tracks.FirstOrDefault(t => t.TrackId == from.Tracks[0].TrackId);
             if (existingTrackInAlbumWithLocation == null)
-            {
                 existingAlbumWithLocation.Tracks.Add(from.Tracks[0]);
-                return;
-            }
-
-            return;
-        }
-        //public static List<ArtistWithRolesAndTracks> ExtractArtists(this List<FileWithTags> input,
-        //    ArtistNameExporter artistNameExporter)
-        //{
-        //    return artistNameExporter.GetFullListOfArtistNamesFromTags(input);
-        //}
-
-        public static List<AlbumWithLocation> ExtractAlbums(this List<FileWithTags> input)
-        {
-            return input.Where(t => !String.IsNullOrEmpty(t.Album))
-                .Select(f => new AlbumWithLocation
-                {
-                    AlbumId = Guid.NewGuid(),
-                    Name = f.Album,
-                    Location = Path.GetDirectoryName(f.FilePath)?.Trim().ToLower()
-                }).Distinct(new AlbumWithLocationEqualityComparer()).OrderBy(a => a.Name).ToList();
-
-        }
-
-        public static List<TrackWithFile> ExtractTracks(this List<FileWithTags> input)
-        {
-            return input.Where(t => !String.IsNullOrEmpty(t.Title))
-                .Select(f => new TrackWithFile
-                {
-                    TrackId = f.TrackId,
-                    Name = f.Title.Trim(),
-                    File = f.FilePath.Trim().ToLower()
-                }).ToList();
-
-        }
-
-        public static bool IsNumber(this string inputString)
-        {
-            return Double.TryParse(inputString, out var temp);
-        }
-
-
-        //public static List<TrackWithFile> ExtractTracksWithPossibleFeaturedArtistNames(
-        //    this List<FileWithTags> input)
-        //{
-
-        //    return new TracksToFeatureArtistNames().GetTracksWithPossibleFeaturedArtistNames(input).ToList();
-
-        //}
-
-        public static List<Artist> AddRangeAndReturn(this List<Artist> input,
-            IEnumerable<Artist> add)
-        {
-            input.AddRange(add);
-            return input;
-        }
-        public static List<RelationArtistTrack> AddRangeAndReturn(this List<RelationArtistTrack> input,
-            IEnumerable<RelationArtistTrack> add)
-        {
-            input.AddRange(add);
-            return input;
         }
     }
 }

@@ -6,24 +6,20 @@ namespace LIE
     {
         public static class Excludes
         {
-            public static string[] NonTitledInformationFromTitle = new[] { @"\(.?\)",@"\(part \d*\)", @"\(\d*\)", "(live)", "(instrumental)", "(original mix)"};
+            public static string[] NonTitledInformationFromTitle = new[]
+            {
+                @"\(.?\)",
+                @"\(part \d*\)",
+                @"\(\d*\)",
+                "(live)",
+                "(instrumental)",
+                "(original mix)"
+            };
             public static string[] FeaturedMarkers = new[] {"(", ")"};
 
             public static string PlaceholderAlbumArtists = "Various Artists";
 
             public static char[] CharactersSeparatorsForWords = new[] {',','/',';',':','&','+'};
-
-            //public static string[] RemainingPhrasesGlobal = new[]
-            //{
-            //};
-
-            //public static string[] RemainingPhrasesFromFeatures= new string[]
-            //{
-            //    "dub",
-
-            //};
-
-            //public static char[] WordsSeparatorsForFeatures = new[] {' ', '\'', '"'};
 
             public static string[] WordsSeparatorsGlobal = new[]
             {
@@ -487,6 +483,7 @@ namespace LIE
             public static char WordsSimpleSplitter = ' ';
             public static string FeaturedArtistsInTheTitle = @"\([^)]*\)";
         }
+
         public static class Transforms
         {
             public static Dictionary<string, string> ArtistNamesMutation = new Dictionary<string, string>
@@ -550,12 +547,10 @@ namespace LIE
                 {"�","i" },
             };
 
-
         }
 
         public static class Rules
         {
-            public static string[] ExactFullMatchesOnTheArtistField = new[] {"x"};
             //99% chance for being a band for artist that start with "The ", "El ", "My " or "New "
             public static string[] BandStartWords = new[] 
                 { "el", "my", "new", "the",  };
@@ -629,27 +624,6 @@ namespace LIE
             };
 
             public static int MaxWordsPerArtist = 4;
-
-            public static string[] exceptionRules = new[]
-            {
-                "2pac",
-                "alvin pleasant delaney carter",
-                "anna of the north",
-                "antonio carles marques pinto",
-                "aram mp3",
-                "b l a c k i e", 
-                "boydston john d. iii",
-                "jennifer evans van der harten",
-                "john 5",
-                "kh of moscrill",
-                @"luther ""guitar junior"" johnson",
-                "maria isabel garcia asensio",
-                "michael l. williams ii",
-                "michiel van der kuy",
-                "niels henning orsted pedersen",
-                "the reverend peyton",
-                "armistead burwell smith iv",
-            };
         }
     }
 }

@@ -11,10 +11,6 @@ namespace LIE
 
         public event EventHandler<ArtistNameExporterProgressEventArgs> Progress;
 
-        public ArtistNameExporter()
-        {
-        }
-
         public void AddComposers(string composersString, TrackWithArtists trackWithArtists)
         {
             var composers = DisambiguateArtists(composersString, true, false).ToList();
@@ -103,7 +99,7 @@ namespace LIE
                     KnowledgeBase.Excludes.CharactersSeparatorsForWords, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var firstPassSplitPart in firstPassSplitParts)
                 {
-                    var wordParts = firstPassSplitPart.Split(new char[] {KnowledgeBase.Spliters.WordsSimpleSplitter},
+                    var wordParts = firstPassSplitPart.Split(new[] {KnowledgeBase.Spliters.WordsSimpleSplitter},
                         StringSplitOptions.RemoveEmptyEntries);
                     var decomposedArtistName= new List<string>();
                     Artist artist;
@@ -170,7 +166,7 @@ namespace LIE
         public void AddArtists(string artistsString, TrackWithArtists trackWithArtistsWithRoles)
         {
             var artists = DisambiguateArtists(artistsString, false, false).ToList();
-            var artistsCount = artists.Count();
+            var artistsCount = artists.Count;
             if (artistsCount > 0)
             {
                 Progress?.Invoke(this, new ArtistNameExporterProgressEventArgs{ArtistsFound = artistsCount});
@@ -229,7 +225,7 @@ namespace LIE
                 Name = a.Name,
                 Type = a.Tracks.First().Type,
 
-            }).ToList();
+            }).OrderBy(a=>a.Name).ToList();
         }
     }
 }

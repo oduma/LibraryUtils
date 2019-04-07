@@ -7,7 +7,7 @@ namespace LIE.Configuration
     {
         public ExtensionElement this[int index]
         {
-            get { return (ExtensionElement)BaseGet(index); }
+            get => (ExtensionElement)BaseGet(index);
             set
             {
                 if (BaseGet(index) != null)

@@ -13,7 +13,7 @@ namespace LIE
         public event EventHandler<TagProviderProgressEventArgs> Progress;
         public event EventHandler<TagProviderProgressEventArgs> ProgressWithError;
         private readonly FsStorage _fsStorage;
-        private static bool MessageStop = false;
+        private static bool _messageStop;
 
         public TagsProvider(FsStorage fsStorage)
         {
@@ -33,15 +33,15 @@ namespace LIE
 
         private FileWithTags GetFileWithTagsForFile(string filePath)
         {
-            if (DateTime.Now.Second % 5 == 0 && !MessageStop)
+            if (DateTime.Now.Second % 5 == 0 && !_messageStop)
             {
                 Progress?.Invoke(this, new TagProviderProgressEventArgs($"Processing file: {filePath}"));
-                MessageStop = true;
+                _messageStop = true;
             }
 
             if (DateTime.Now.Second % 8 == 0)
             {
-                MessageStop = false;
+                _messageStop = false;
             }
             TagLib.Tag tag;
             try

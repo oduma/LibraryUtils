@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using CsvHelper.Configuration.Attributes;
 
 namespace LIE.DataTypes
