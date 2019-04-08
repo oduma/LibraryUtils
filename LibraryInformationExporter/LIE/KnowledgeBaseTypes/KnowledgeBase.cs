@@ -4,10 +4,10 @@
     {
         public KnowledgeBase()
         {
-            Excludes=new Excludes();
-            Spliters= new Spliters();
-            Transforms= new Transforms();
-            Rules= new Rules();
+            Excludes = new Excludes();
+            Spliters = new Spliters();
+            Transforms = new Transforms();
+            Rules = new Rules();
         }
         public Excludes Excludes { get; set; }
 

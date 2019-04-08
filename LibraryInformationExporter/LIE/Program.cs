@@ -42,7 +42,7 @@ namespace LIE
         private static void ProcessTags(List<FileWithTags> allFilesWithTags, 
             LibraryImporterConfigurationSection config)
         {
-            KnowledgeBase knowledgeBase = LoadKnowledgeBase(config.KnowledgeBase);
+            KnowledgeBase knowledgeBase = new KnowledgeBase();/*LoadKnowledgeBase(config.KnowledgeBase);*/
             ArtistNameExporter artistNameExporter = new ArtistNameExporter(knowledgeBase);
             //build a tree for artists
             List<ArtistWithTracks> allArtists = new List<ArtistWithTracks>();
@@ -60,8 +60,7 @@ namespace LIE
 
         private static KnowledgeBase LoadKnowledgeBase(string knowledgeBaseFile)
         {
-            var knowledgeBase = JsonConvert.DeserializeObject<KnowledgeBase>(File.ReadAllText(knowledgeBaseFile));
-            return knowledgeBase;
+            return JsonConvert.DeserializeObject<KnowledgeBase>(File.ReadAllText(knowledgeBaseFile));
         }
 
         private static void WriteRelationships(LibraryImporterConfigurationSection config, List<AlbumWithLocationAndTracks> allAlbums, List<ArtistWithTracks> allArtists)
