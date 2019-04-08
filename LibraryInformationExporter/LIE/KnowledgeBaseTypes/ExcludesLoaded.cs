@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace LIE
+namespace LIE.KnowledgeBaseTypes
 {
-    public static class KnowledgeBase
+    public class ExcludesLoaded
     {
-        public static class Excludes
+        public string[] NonTitledInformationFromTitle = new[]
         {
-            public static string[] NonTitledInformationFromTitle = new[]
-            {
                 @"\(.?\)",
                 @"\(part \d*\)",
                 @"\(\d*\)",
@@ -15,14 +17,14 @@ namespace LIE
                 "(instrumental)",
                 "(original mix)"
             };
-            public static string[] FeaturedMarkers = new[] {"(", ")"};
+        public string[] FeaturedMarkers = new[] { "(", ")" };
 
-            public static string PlaceholderAlbumArtists = "Various Artists";
+        public string PlaceholderAlbumArtists = "Various Artists";
 
-            public static char[] CharactersSeparatorsForWords = new[] {',','/',';',':','&','+'};
+        public char[] CharactersSeparatorsForWords = new[] { ',', '/', ';', ':', '&', '+' };
 
-            public static string[] WordsSeparatorsGlobal = new[]
-            {
+        public string[] WordsSeparatorsGlobal = new[]
+        {
                 "and",
                 "arr.",
                 "by",
@@ -59,8 +61,8 @@ namespace LIE
                 "✖",
             };
 
-            public static string[] ArtistsForSplitting = new[]
-            {
+        public string[] ArtistsForSplitting = new[]
+        {
                 "2pac",
                 "alvin pleasant delaney carter",
                 "anna of the north",
@@ -107,8 +109,8 @@ namespace LIE
 
             };
 
-            public static string[] BandsForSplitting = new[]
-            {
+        public string[] BandsForSplitting = new[]
+        {
                 "+-",
                 "2000 Years BC",
                 "4 Hero",
@@ -476,154 +478,5 @@ namespace LIE
                 "Zeal and Ardor",
                 "Zolof the Rock & Roll Destroyer",
             };
-        }
-
-        public static class Spliters
-        {
-            public static char WordsSimpleSplitter = ' ';
-            public static string FeaturedArtistsInTheTitle = @"\([^)]*\)";
-        }
-
-        public static class Transforms
-        {
-            public static Dictionary<string, string> ArtistNamesMutation = new Dictionary<string, string>
-            {
-                {"ac; dc", "ac/dc"},
-                {"ac;dc", "ac/dc"},
-                {"dido armstrong", "dido"},
-                {"elo", "electric light orchestra" },
-                {"lorenzo \"jovanotti\" cherubini", "jovanotti"},
-                {"林默", "missmo"},
-                {"mихайло xай", "mihaylo hai"},
-                {"桜庭統", "motoi sakuraba"},
-                {"Ω▽", "ohmslice" },
-                {"ω▽","ohmslice" },
-                {"ω▽(ohmslice)","ohmslice" },
-                {"rollo", "rollo armstrong"},
-                {"つじあやの", "tsuji ayano"},
-            };
-
-            public static Dictionary<string, string> LatinAlphabetTransformations = new Dictionary<string, string>
-            {
-                {"á","a" },
-                {"à","a" },
-                {"ä", "a" },
-                {"Å","a" },
-                {"â","a" },
-                {"ã","a" },
-                {"å","a" },
-                {"æ","a" },
-                {"ß","s" },
-                {"č","c" },
-                {"ć", "c" },
-                {"Ç", "c" },
-                {"é", "e" },
-                {"è","e" },
-                {"ë", "e" },
-                {"Ê", "e" },
-                {"ė","e" },
-                {"ę","e" },
-                {"ğ", "g" },
-                {"í","i" },
-                {"ï","i" },
-                {"Î","i" },
-                {"ñ","n" },
-                {"ń","n" },
-                {"ó","o" },
-                {"ò","o" },
-                {"Ö","o" },
-                {"ø","o" },
-                {"ô","o" },
-                {"ō","o" },
-                {"ř","r" },
-                {"š","s" },
-                { "ș","s"},
-                {"$","s" },
-                {"ü","u" },
-                {"ú","u" },
-                {"ū","u" },
-                {"ý","y" },
-                {"Λ","&" },
-                {"�","i" },
-            };
-
-        }
-
-        public static class Rules
-        {
-            //99% chance for being a band for artist that start with "The ", "El ", "My " or "New "
-            public static string[] BandStartWords = new[] 
-                { "el", "my", "new", "the",  };
-
-            //High chance for artist contain some words to be a band 
-            public static string[] BandWords = new[]
-            {
-                "a",
-                "alliance",
-                "all",
-                "an",
-                "association",
-                "at",
-                "band",
-                "banda",
-                "boys",
-                "bros",
-                "brothers",
-                "chamber",
-                "choir",
-                "chorale",
-                "city",
-                "club",
-                "collective",
-                "committee",
-                "der",
-                "duo",
-                "ensemble",
-                "et",
-                "etc.",
-                "experience",
-                "family",
-                "for",
-                "foundation",
-                "friends",
-                "gang",
-                "girls",
-                "grand",
-                "group",
-                "grupo",
-                "in",
-                "kids",
-                "kolektiv",
-                "las",
-                "les",
-                "los",
-                "men",
-                "n'",
-                "of",
-                "on",
-                "or",
-                "orchestra",
-                "orchestre",
-                "orkestar",
-                "philarmonic",
-                "quartet",
-                "quintet",
-                "quintetto",
-                "royal",
-                "sisters",
-                "society",
-                "squad",
-                "symphony",
-                "to",
-                "trio",
-                "twins",
-                "und",
-                "we",
-                "y",
-                
-            };
-
-            public static int MaxWordsPerArtist = 4;
-        }
     }
 }

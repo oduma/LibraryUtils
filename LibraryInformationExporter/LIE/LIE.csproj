@@ -79,7 +79,16 @@
     <Compile Include="IOManager.cs" />
     <Compile Include="DataTypes\FileWithTags.cs" />
     <Compile Include="DataTypes\RelationArtistTrack.cs" />
-    <Compile Include="KnowledgeBase.cs" />
+    <Compile Include="KnowledgeBaseTypes\ExcludesLoaded.cs" />
+    <Compile Include="KnowledgeBaseTypes\KnowledgeBaseLoaded.cs" />
+    <Compile Include="KnowledgeBaseTypes\KnowledgeBase.cs" />
+    <Compile Include="KnowledgeBaseTypes\Excludes.cs" />
+    <Compile Include="KnowledgeBaseTypes\RulesLoaded.cs" />
+    <Compile Include="KnowledgeBaseTypes\Rules.cs" />
+    <Compile Include="KnowledgeBaseTypes\SplitersLoaded.cs" />
+    <Compile Include="KnowledgeBaseTypes\Spliters.cs" />
+    <Compile Include="KnowledgeBaseTypes\TransformsLoaded.cs" />
+    <Compile Include="KnowledgeBaseTypes\Transforms.cs" />
     <Compile Include="Mappers\AlbumWithLocationMap.cs" />
     <Compile Include="Mappers\ArtistMap.cs" />
     <Compile Include="Mappers\ArtistTypeConvertor.cs" />
@@ -105,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="KnowledgeBaseTypes\knowledgeBase.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

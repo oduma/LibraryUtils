@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using CommandLine;
 using LIE.Configuration;
 using LIE.DataTypes;
+using LIE.KnowledgeBaseTypes;
+using Newtonsoft.Json;
 using Sciendo.Common.IO;
 
 namespace LIE
@@ -14,6 +17,11 @@ namespace LIE
         static void Main(string[] args)
         {
             var result = Parser.Default.ParseArguments<Options>(args);
+
+            //var config = ConfigurationManager.GetSection("libraryImporter") as LibraryImporterConfigurationSection;
+            //var knowledgeBase = JsonConvert.SerializeObject(new KnowledgeBase());
+            //File.WriteAllText(config.KnowledgeBase, knowledgeBase);
+
             if (result.Tag == ParserResultType.Parsed)
             {
                 var options = ((Parsed<Options>)result).Value;
@@ -21,7 +29,7 @@ namespace LIE
                 Console.WriteLine("reading configuration...");
                 var config = ConfigurationManager.GetSection("libraryImporter") as LibraryImporterConfigurationSection;
                 List<FileWithTags> allTags = GetAllTags(options.Rescan, config);
-                if(options.Process)
+                if (options.Process)
                     ProcessTags(allTags, config);
                 Console.WriteLine("Finished.");
                 Console.ReadKey();
@@ -34,6 +42,8 @@ namespace LIE
         private static void ProcessTags(List<FileWithTags> allFilesWithTags, 
             LibraryImporterConfigurationSection config)
         {
+            KnowledgeBase knowledgeBase = LoadKnowledgeBase(config.KnowledgeBase);
+            ArtistNameExporter artistNameExporter = new ArtistNameExporter(knowledgeBase);
             //build a tree for artists
             List<ArtistWithTracks> allArtists = new List<ArtistWithTracks>();
             //build a tree for albums
@@ -41,11 +51,17 @@ namespace LIE
             //build a list of tracks
             List<TrackWithFile> allTracks = new List<TrackWithFile>();
 
-            var artistNameExporter = GetAllTrees(allFilesWithTags, config, allArtists, allAlbums, allTracks);
+            GetAllTrees(artistNameExporter, allFilesWithTags, config, allArtists, allAlbums, allTracks);
 
             WriteNodes(config, artistNameExporter, allArtists, allAlbums, allTracks);
 
             WriteRelationships(config, allAlbums, allArtists);
+        }
+
+        private static KnowledgeBase LoadKnowledgeBase(string knowledgeBaseFile)
+        {
+            var knowledgeBase = JsonConvert.DeserializeObject<KnowledgeBase>(File.ReadAllText(knowledgeBaseFile));
+            return knowledgeBase;
         }
 
         private static void WriteRelationships(LibraryImporterConfigurationSection config, List<AlbumWithLocationAndTracks> allAlbums, List<ArtistWithTracks> allArtists)
@@ -93,12 +109,11 @@ namespace LIE
             Console.WriteLine("Written {0} track names.", allTracks.Count);
         }
 
-        private static ArtistNameExporter GetAllTrees(List<FileWithTags> allFilesWithTags, LibraryImporterConfigurationSection config,
+        private static ArtistNameExporter GetAllTrees(ArtistNameExporter artistNameExporter, List<FileWithTags> allFilesWithTags, LibraryImporterConfigurationSection config,
             List<ArtistWithTracks> allArtists, List<AlbumWithLocationAndTracks> allAlbums, List<TrackWithFile> allTracks)
         {
             Console.WriteLine("Extracting information from Tags...");
 
-            ArtistNameExporter artistNameExporter = new ArtistNameExporter();
             artistNameExporter.Progress += NameExporter_TagPartRead;
             var done = 0;
             foreach (var tag in allFilesWithTags)

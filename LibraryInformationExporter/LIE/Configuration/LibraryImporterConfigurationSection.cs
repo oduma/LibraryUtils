@@ -24,6 +24,12 @@ namespace LIE.Configuration
             set => this["reportFrequency"] = value;
         }
 
+        [ConfigurationProperty("knowledgeBase", DefaultValue = "", IsKey = false, IsRequired = true)]
+        public string KnowledgeBase
+        {
+            get => (string)this["knowledgeBase"];
+            set => this["knowledgeBase"] = value;
+        }
     }
 
     public class DataFileElement : ConfigurationElement
