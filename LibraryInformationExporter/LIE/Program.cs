@@ -42,7 +42,7 @@ namespace LIE
         private static void ProcessTags(List<FileWithTags> allFilesWithTags, 
             LibraryImporterConfigurationSection config)
         {
-            KnowledgeBase knowledgeBase = new KnowledgeBase();/*LoadKnowledgeBase(config.KnowledgeBase);*/
+            KnowledgeBase knowledgeBase = LoadKnowledgeBase(config.KnowledgeBase);
             ArtistNameExporter artistNameExporter = new ArtistNameExporter(knowledgeBase);
             //build a tree for artists
             List<ArtistWithTracks> allArtists = new List<ArtistWithTracks>();
@@ -104,7 +104,7 @@ namespace LIE
             Console.WriteLine("Written {0} album names.", allAlbums.Count);
 
             Console.WriteLine("Writing track names...");
-            allTracks.WriteFile(config.DataFiles.Facts.AllTracksFile);
+            allTracks.OrderBy(t=>t.Name).ToList().WriteFile(config.DataFiles.Facts.AllTracksFile);
             Console.WriteLine("Written {0} track names.", allTracks.Count);
         }
 

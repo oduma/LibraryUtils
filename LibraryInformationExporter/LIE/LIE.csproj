@@ -91,7 +91,6 @@
     <Compile Include="KnowledgeBaseTypes\Transforms.cs" />
     <Compile Include="Mappers\AlbumWithLocationMap.cs" />
     <Compile Include="Mappers\ArtistMap.cs" />
-    <Compile Include="Mappers\ArtistTypeConvertor.cs" />
     <Compile Include="Mappers\StringMap.cs" />
     <Compile Include="Mappers\TrackWithFileMap.cs" />
     <Compile Include="Options.cs" />
@@ -125,6 +124,8 @@
       <Name>Sciendo.Common.Music.Tagging</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="importinneo4j.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

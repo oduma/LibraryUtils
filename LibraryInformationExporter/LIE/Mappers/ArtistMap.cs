@@ -10,7 +10,7 @@ namespace LIE.Mappers
         {
             Map(m => m.ArtistId).Name(":ID(Artist)");
             Map(m => m.Name).Name("name");
-            Map(m => m.Type).Name(":LABEL").TypeConverter<ArtistTypeConvertor>();
+            Map(m => m.ArtistLabels).Name(":LABEL");
         }
     }
 }

@@ -1,0 +1,1 @@
+﻿bin\neo4j-admin import --nodes:Track=import/allTracks.csv --nodes:Album=import/allAlbums.csv --nodes:Performer=import/allArtists.csv --relationships:CONTRIBUTED=import/featuredArtistTrack.csv --relationships:PART_OF=import/relationsAlbumTrack.csv --relationships:RELEASED=import/relationsArtistTrack.csv --relationships:COMPOSED=import/relationsComposerTrack.csv
