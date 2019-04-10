@@ -11,17 +11,7 @@ namespace Sciendo.Common.Music.Tagging
         {
             using (MemoryStream fs = new MemoryStream(fsFile.Read(path)))
             {
-                var fsa = new StreamFileAbstraction(path, fs, fs);
-                try
-                {
-                    TagLib.File file = TagLib.File.Create(fsa);
-                    return file;
-                }
-                catch (CorruptFileException cex)
-                {
-                    Console.WriteLine(cex);
-                    return null;
-                }
+                return TagReader.ReadTag(fs, path);
             }
         }
     }
