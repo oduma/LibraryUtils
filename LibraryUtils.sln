@@ -78,6 +78,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LibraryInformationExporter"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIE", "LibraryInformationExporter\LIE\LIE.csproj", "{2A053B10-DE85-457B-9257-64931C7CFB30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sciendo.LibraryInformationExporter", "LibraryInformationExporter\Sciendo.LibraryInformationExporter\Sciendo.LibraryInformationExporter.csproj", "{4CDF85AB-5569-4C78-9058-20EEC31F29E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -184,6 +186,10 @@ Global
 		{2A053B10-DE85-457B-9257-64931C7CFB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A053B10-DE85-457B-9257-64931C7CFB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A053B10-DE85-457B-9257-64931C7CFB30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CDF85AB-5569-4C78-9058-20EEC31F29E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDF85AB-5569-4C78-9058-20EEC31F29E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDF85AB-5569-4C78-9058-20EEC31F29E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDF85AB-5569-4C78-9058-20EEC31F29E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,6 +220,7 @@ Global
 		{F8497019-BA53-468C-9EA8-26EAD565DB31} = {2A92E14F-B669-49ED-857F-9F175913AAD8}
 		{B85ABAAF-35B6-426B-8015-EE307E2E062C} = {DE065EDC-4D0F-4CBB-B761-F1F2F4055705}
 		{2A053B10-DE85-457B-9257-64931C7CFB30} = {889053F0-227B-4E8A-848F-B74DB8127B37}
+		{4CDF85AB-5569-4C78-9058-20EEC31F29E7} = {889053F0-227B-4E8A-848F-B74DB8127B37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7D453D10-EC02-4A23-8FEA-C64E7651D040}

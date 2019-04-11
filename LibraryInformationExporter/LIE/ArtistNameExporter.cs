@@ -230,6 +230,8 @@ namespace LIE
                 ArtistId = a.ArtistId,
                 Name = a.Name,
                 Type = a.Tracks.First().Type,
+                IsComposer = a.Tracks.Any(t=>t.IsComposer),
+                IsFeatured=a.Tracks.Any(t=>t.IsFeatured)
 
             }).OrderBy(a=>a.Name).ToList();
         }

@@ -18,25 +18,30 @@ namespace LIE.DataTypes
         [Name(":LABEL")]
         public string ArtistLabels
         {
-            get { return $"{Type}{((IsComposer)?";Composer":"")}"; }
+            get
+            {
+                return Type.ToString();
+                //return $"{Type}{((IsComposer)?";Composer":"")}";
+            }
             set
             {
-                var valueParts = value.Split(';');
-                if (valueParts.Length > 0)
-                {
-                    var composerString = valueParts.FirstOrDefault(s => s == "Composer");
-                    if (!string.IsNullOrEmpty(composerString))
-                        IsComposer = true;
-                    var nonComposerString = valueParts.FirstOrDefault(s => s != "Composer");
-                    if(!string.IsNullOrEmpty(nonComposerString))
-                    {
-                        ArtistType temp;
-                        if (ArtistType.TryParse(nonComposerString, true, out temp))
-                        {
-                            Type = temp;
-                        }
-                    }
-                }
+                //var valueParts = value.Split(';');
+                //if (valueParts.Length > 0)
+                //{
+                //    var composerString = valueParts.FirstOrDefault(s => s == "Composer");
+                //    if (!string.IsNullOrEmpty(composerString))
+                //        IsComposer = true;
+                //    var nonComposerString = valueParts.FirstOrDefault(s => s != "Composer");
+                //    if(!string.IsNullOrEmpty(nonComposerString))
+                //    {
+                //        ArtistType temp;
+                //        if (ArtistType.TryParse(nonComposerString, true, out temp))
+                //        {
+                //            Type = temp;
+                //        }
+                //    }
+                //}
+                ;
 
             }
         }

@@ -8,7 +8,7 @@ namespace LIE.Mappers
     {
         public AlbumWithLocationMap()
         {
-            Map(m => m.AlbumId).Name(":ID(Album)");
+            Map(m => m.AlbumId).Name("albumID:ID(Album)");
             Map(m => m.Name).Name("name");
             Map(m => m.Location).Name("location");
         }
