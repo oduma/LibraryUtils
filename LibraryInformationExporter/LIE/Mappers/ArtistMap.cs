@@ -8,7 +8,7 @@ namespace LIE.Mappers
     {
         public ArtistMap()
         {
-            Map(m => m.ArtistId).Name(":ID(Artist)");
+            Map(m => m.ArtistId).Name("artistID:ID(Artist)");
             Map(m => m.Name).Name("name");
             Map(m => m.ArtistLabels).Name(":LABEL");
         }
