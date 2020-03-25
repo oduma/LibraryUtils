@@ -26,6 +26,9 @@ namespace LIE
             {
                 Progress?.Invoke(this, new ArtistNameExporterProgressEventArgs{ComposersFound=composersCount});
                 trackWithArtists.Artists.AddRange(composers);
+
+
+
             }
         }
 
