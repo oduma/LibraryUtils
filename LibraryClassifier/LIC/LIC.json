@@ -1,0 +1,23 @@
+{
+  "NotProcessedFile": "C:\\Code\\work\\Sciendo\\LIE\\allTags.csv",
+  "Facts": {
+    "AllArtistsFile": "C:\\Code\\work\\Sciendo\\LIC\\allArtists.csv",
+
+    "AllAlbumsFile": "C:\\Code\\work\\Sciendo\\LIC\\allAlbums.csv",
+
+    "AllTracksFile": "C:\\Code\\work\\Sciendo\\LIC\\allTracks.csv"
+
+  },
+  "Relations": {
+    "ArtistTrackFile": "C:\\Code\\work\\Sciendo\\LIC\\relationsArtistTrack.csv",
+
+    "AlbumTrackFile": "C:\\Code\\work\\Sciendo\\LIC\\relationsAlbumTrack.csv",
+
+    "ComposerTrackFile": "C:\\Code\\work\\Sciendo\\LIC\\relationsComposerTrack.csv",
+
+    "FeaturedArtistTrackFile": "C:\\Code\\work\\Sciendo\\LIC\\relationsFeaturedArtistTrack.csv"
+
+  },
+  "KnowledgeBase": "knowledgebase\\newknowledgebase.json"
+
+}
