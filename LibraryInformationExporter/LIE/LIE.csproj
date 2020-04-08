@@ -65,57 +65,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArtistNameExporterProgressEventArgs.cs" />
     <Compile Include="Configuration\ExtensionElement.cs" />
     <Compile Include="Configuration\ExtensionsElementCollection.cs" />
     <Compile Include="Configuration\LibraryImporterConfigurationSection.cs" />
-    <Compile Include="DataTypes\AlbumWithLocation.cs" />
-    <Compile Include="AlbumWithLocationEqualityComparer.cs" />
-    <Compile Include="ArtistNameExporter.cs" />
-    <Compile Include="DataTypes\AlbumWithLocationAndTracks.cs" />
-    <Compile Include="DataTypes\ArtistWithTracks.cs" />
-    <Compile Include="DataTypes\TrackByArtist.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IOManager.cs" />
     <Compile Include="DataTypes\FileWithTags.cs" />
-    <Compile Include="DataTypes\RelationArtistTrack.cs" />
-    <Compile Include="KnowledgeBaseTypes\ExcludesLoaded.cs" />
-    <Compile Include="KnowledgeBaseTypes\KnowledgeBaseLoaded.cs" />
-    <Compile Include="KnowledgeBaseTypes\KnowledgeBase.cs" />
-    <Compile Include="KnowledgeBaseTypes\Excludes.cs" />
-    <Compile Include="KnowledgeBaseTypes\RulesLoaded.cs" />
-    <Compile Include="KnowledgeBaseTypes\Rules.cs" />
-    <Compile Include="KnowledgeBaseTypes\SplitersLoaded.cs" />
-    <Compile Include="KnowledgeBaseTypes\Spliters.cs" />
-    <Compile Include="KnowledgeBaseTypes\TransformsLoaded.cs" />
-    <Compile Include="KnowledgeBaseTypes\Transforms.cs" />
-    <Compile Include="Mappers\AlbumWithLocationMap.cs" />
-    <Compile Include="Mappers\ArtistMap.cs" />
     <Compile Include="Mappers\StringMap.cs" />
-    <Compile Include="Mappers\TrackWithFileMap.cs" />
-    <Compile Include="Options.cs" />
-    <Compile Include="ProgressAccumulator.cs" />
-    <Compile Include="Mappers\RelationArtistTrackMap.cs" />
-    <Compile Include="DataTypes\RelationComposerTrack.cs" />
-    <Compile Include="Mappers\RelationComposerTrackMap.cs" />
-    <Compile Include="RelationsBuilder.cs" />
-    <Compile Include="DataTypes\RelationTrackAlbum.cs" />
     <Compile Include="TagProviderProgressEventArgs.cs" />
-    <Compile Include="DataTypes\ArtistType.cs" />
-    <Compile Include="ArtistWithRoleEqualityComparer.cs" />
-    <Compile Include="DataTypes\Artist.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Mappers\RelationTrackAlbumMap.cs" />
-    <Compile Include="DataTypes\TrackWithFile.cs" />
     <Compile Include="TagsProvider.cs" />
-    <Compile Include="DataTypes\TrackWithArtists.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="KnowledgeBaseTypes\knowledgeBase.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -123,9 +86,6 @@
       <Project>{079b9e86-6a95-41d3-8ca3-e7fb34921812}</Project>
       <Name>Sciendo.Common.Music.Tagging</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="importinneo4j.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

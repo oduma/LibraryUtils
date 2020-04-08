@@ -24,12 +24,6 @@ namespace LIE.Configuration
             set => this["reportFrequency"] = value;
         }
 
-        [ConfigurationProperty("knowledgeBase", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string KnowledgeBase
-        {
-            get => (string)this["knowledgeBase"];
-            set => this["knowledgeBase"] = value;
-        }
     }
 
     public class DataFileElement : ConfigurationElement
@@ -37,11 +31,6 @@ namespace LIE.Configuration
         [ConfigurationProperty("notProcessed")]
         public NotProcessedElement NotProcessed => (NotProcessedElement)this["notProcessed"];
 
-        [ConfigurationProperty("facts")]
-        public FactsElement Facts => (FactsElement)this["facts"];
-
-        [ConfigurationProperty("relations")]
-        public RelationsElement Relations => (RelationsElement)this["relations"];
     }
 
     public class NotProcessedElement : ConfigurationElement
@@ -59,60 +48,5 @@ namespace LIE.Configuration
             set => this["errorsFile"] = value;
         }
     }
-    public class FactsElement : ConfigurationElement
-    {
-        [ConfigurationProperty("allArtistsFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string AllArtistsFile
-        {
-            get => (string)this["allArtistsFile"];
-            set => this["allArtistsFile"] = value;
-        }
 
-        [ConfigurationProperty("allAlbumsFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string AllAlbumsFile
-        {
-            get => (string)this["allAlbumsFile"];
-            set => this["allAlbumsFile"] = value;
-        }
-
-        [ConfigurationProperty("allTracksFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string AllTracksFile
-        {
-            get => (string)this["allTracksFile"];
-            set => this["allTracksFile"] = value;
-        }
-
-    }
-
-    public class RelationsElement : ConfigurationElement
-    {
-        [ConfigurationProperty("artistTrackFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string ArtistTrackFile
-        {
-            get => (string)this["artistTrackFile"];
-            set => this["artistTrackFile"] = value;
-        }
-
-        [ConfigurationProperty("albumTrackFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string AlbumTrackFile
-        {
-            get => (string)this["albumTrackFile"];
-            set => this["albumTrackFile"] = value;
-        }
-
-        [ConfigurationProperty("composerTrackFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string ComposerTrackFile
-        {
-            get => (string)this["composerTrackFile"];
-            set => this["composerTrackFile"] = value;
-        }
-
-        [ConfigurationProperty("featuredArtistTrackFile", DefaultValue = "", IsKey = false, IsRequired = true)]
-        public string FeaturedArtistTrackFile
-        {
-            get => (string)this["featuredArtistTrackFile"];
-            set => this["featuredArtistTrackFile"] = value;
-        }
-
-    }
 }
