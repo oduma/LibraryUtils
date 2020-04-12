@@ -36,6 +36,7 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>newknowledgebase.tt</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="LIC.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
