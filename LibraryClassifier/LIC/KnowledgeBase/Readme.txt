@@ -1,1 +1,0 @@
-To Generate the knowledgebase file automatically run KBG.exe from Sciendo.MusicClassifier
