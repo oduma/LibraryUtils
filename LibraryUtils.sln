@@ -78,7 +78,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LibraryInformationExporter"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIE", "LibraryInformationExporter\LIE\LIE.csproj", "{2A053B10-DE85-457B-9257-64931C7CFB30}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LibraryClassifier", "LibraryClassifier", "{5265DA7D-B050-4C3D-B4E4-6384F5D9B2E5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LibraryClassifiers", "LibraryClassifiers", "{5265DA7D-B050-4C3D-B4E4-6384F5D9B2E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIC", "LibraryClassifier\LIC\LIC.csproj", "{A2DEE33F-5F8C-4AC7-9D11-529C2E352F75}"
 EndProject
