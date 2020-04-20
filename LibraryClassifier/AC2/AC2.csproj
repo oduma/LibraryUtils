@@ -178,7 +178,7 @@
       <HintPath>..\..\packages\Sciendo.ArtistClassifier.NLP.NER.1.0.0-Build00033\lib\net461\Sciendo.ArtistClassifier.NLP.NER.dll</HintPath>
     </Reference>
     <Reference Include="Sciendo.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Config.1.0.0-Build00003\lib\netstandard2.0\Sciendo.Config.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.Config.1.0.6\lib\netstandard2.0\Sciendo.Config.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
@@ -243,6 +243,9 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
