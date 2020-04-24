@@ -13,6 +13,12 @@ namespace AE.DataTypes
 
         public string WikiPage { get; set; }
 
+        [Name("artistInCollection")]
+        public bool ArtistInCollection { get; set; }
+
+        [Name("manualValidated")]
+        public bool ManualValidated { get; set; }
+
         public OutputArtistNode()
         {
 
@@ -24,6 +30,8 @@ namespace AE.DataTypes
             ArtistLabel = artist.ArtistLabel;
             ArtistId = artist.ArtistId;
             WikiPage = string.Empty;
+            ManualValidated = false;
+            ArtistInCollection = true;
         }
     }
 }

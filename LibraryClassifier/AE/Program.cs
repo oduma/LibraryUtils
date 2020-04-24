@@ -38,10 +38,8 @@ namespace AE
             logger.LogInformation("Loading artists from file: {0}...", artistEnhancerConfiguration.AllArtistsInputFile);
             var allArtists = IoManager.ReadWithMapper<ArtistNode, ArtistNodeMap>(artistEnhancerConfiguration.AllArtistsInputFile);
             logger.LogInformation("Loaded {0} artists.", allArtists.Count());
-            ProcessAllBands(logger,ConfigureServices(serviceCollection, artistEnhancerConfiguration), allArtists, artistEnhancerConfiguration);
-            Save(logger,artistEnhancerConfiguration);
-
-
+            ProcessAllBands(logger, ConfigureServices(serviceCollection, artistEnhancerConfiguration), allArtists, artistEnhancerConfiguration);
+            Save(logger, artistEnhancerConfiguration);
         }
 
         private static void Save(ILogger<Program> logger, ArtistEnhancerConfiguration artistEnhancerConfiguration)
