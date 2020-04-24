@@ -12,6 +12,10 @@
         "Helper": "(band)"
       },
       {
+        "Language": "en",
+        "Helper": "(english group)"
+      },
+      {
         "Language": "fr",
         "Helper": "(groupe)"
       },
@@ -50,5 +54,10 @@
 
   "bandsWithoutMembersFile": "C:\\Code\\work\\Sciendo\\LIC\\bandwithoutmembers.csv",
 
-  "relationshipBandArtistFile": "C:\\Code\\work\\Sciendo\\LIC\\relationBandArtists.csv"
+  "relationshipBandArtistFile": "C:\\Code\\work\\Sciendo\\LIC\\relationBandArtists.csv",
+
+  "nextArtistFile": "C:\\Code\\work\\Sciendo\\LIC\\ae-next-artist.txt",
+
+  "writeBatchSize": 500
+
 }

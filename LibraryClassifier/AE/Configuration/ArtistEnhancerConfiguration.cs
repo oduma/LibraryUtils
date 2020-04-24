@@ -32,6 +32,12 @@ namespace AE.Configuration
         [ConfigProperty("knowledgeBaseFile")]
         public string KnowledgeBaseFile { get; set; }
 
+        [ConfigProperty("nextArtistFile")]
+        public string NextArtistFile { get; set; }
+
+        [ConfigProperty("writeBatchSize")]
+        public int WriteBatchSize { get; set; }
+
 
     }
 }

@@ -2,6 +2,7 @@
 using AE.DataTypes;
 using AE.IoAccess;
 using AE.Mappers;
+using CsvHelper.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -37,25 +38,80 @@ namespace AE
             logger.LogInformation("Loading artists from file: {0}...", artistEnhancerConfiguration.AllArtistsInputFile);
             var allArtists = IoManager.ReadWithMapper<ArtistNode, ArtistNodeMap>(artistEnhancerConfiguration.AllArtistsInputFile);
             logger.LogInformation("Loaded {0} artists.", allArtists.Count());
-            List<RelationBandArtist> bandsWithMembers = new List<RelationBandArtist>();
-            List<ArtistNode> bandsWithoutMembers = new List<ArtistNode>();
-            var allOutputArtists = ProcessAllBands(ConfigureServices(serviceCollection, artistEnhancerConfiguration), allArtists, artistEnhancerConfiguration, out bandsWithMembers, out bandsWithoutMembers);
-            logger.LogInformation("{0} artists for writing", allArtists.Count);
-            IoManager.WriteWithMapper<OutputArtistNode, OutputArtistNodeMap>(allOutputArtists, artistEnhancerConfiguration.AllArtistsOutputFile);
-            IoManager.WriteWithMapper<RelationBandArtist, RelationBandArtistMap>(bandsWithMembers, artistEnhancerConfiguration.RelationshipBandArtistFile);
-            IoManager.WriteWithMapper<ArtistNode, ArtistNodeMap>(bandsWithoutMembers, artistEnhancerConfiguration.BandsWithoutMembersFile);
+            ProcessAllBands(logger,ConfigureServices(serviceCollection, artistEnhancerConfiguration), allArtists, artistEnhancerConfiguration);
+            Save(logger,artistEnhancerConfiguration);
 
 
         }
 
-        private static List<OutputArtistNode> ProcessAllBands(ServiceProvider serviceProvider, List<ArtistNode> allArtists, ArtistEnhancerConfiguration artistEnhancerConfiguration, out List<RelationBandArtist> bandsWithMembers, out List<ArtistNode> bandsWithoutMembers)
+        private static void Save(ILogger<Program> logger, ArtistEnhancerConfiguration artistEnhancerConfiguration)
+        {
+            var fileTrackers = GetFileTrackers(artistEnhancerConfiguration);
+            var outputArtists = GetAllItems<OutputArtistNode,OutputArtistNodeMap>(fileTrackers, artistEnhancerConfiguration.AllArtistsOutputFile);
+            var bandsWithMembers = GetAllItems<RelationBandArtist,RelationBandArtistMap>(fileTrackers, artistEnhancerConfiguration.RelationshipBandArtistFile);
+            var bandsWithoutMembers = GetAllItems<ArtistNode, ArtistNodeMap>(fileTrackers, artistEnhancerConfiguration.BandsWithoutMembersFile);
+
+            IoManager.WriteWithMapper<OutputArtistNode, OutputArtistNodeMap>(outputArtists, artistEnhancerConfiguration.AllArtistsOutputFile);
+            IoManager.WriteWithMapper<RelationBandArtist, RelationBandArtistMap>(bandsWithMembers, artistEnhancerConfiguration.RelationshipBandArtistFile);
+            IoManager.WriteWithMapper<ArtistNode, ArtistNodeMap>(bandsWithoutMembers, artistEnhancerConfiguration.BandsWithoutMembersFile);
+
+            logger.LogInformation("Total write {0} Artists.", outputArtists.Count);
+            logger.LogInformation("Total write {0} Bands Artists relations.", bandsWithMembers.Count);
+            logger.LogInformation("Total write {0} Bands without members.", bandsWithoutMembers.Count);
+
+
+        }
+
+        private static List<T> GetAllItems<T,TMap>(string[] fileTrackers, string file) where T: class where TMap:ClassMap
+        {
+            var result = new List<T>();
+            foreach(var fileTracker in fileTrackers)
+            {
+                result.AddRange(IoManager.ReadWithMapper<T, TMap>(file.Replace(".csv", $".{fileTracker}.csv")));
+            }
+            return result;
+        }
+
+        private static string[] GetFileTrackers(ArtistEnhancerConfiguration artistEnhancerConfiguration)
+        {
+            var fileNames = Directory.GetFiles(Path.GetDirectoryName(artistEnhancerConfiguration.AllArtistsOutputFile), Path.GetFileName(artistEnhancerConfiguration.AllArtistsOutputFile).Replace(".csv", ".???.csv"))
+                .OrderBy(s => s);
+            return fileNames.Select(f => f.Split(new[] { '.' })[1]).ToArray();
+        }
+
+        private static void ProcessAllBands(ILogger<Program> logger, ServiceProvider serviceProvider, List<ArtistNode> allArtists, ArtistEnhancerConfiguration artistEnhancerConfiguration)
         {
             var bandEnhancerService = serviceProvider.GetService<IBandEnhancer>();
             List<OutputArtistNode> outputArtists = new List<OutputArtistNode>();
-            bandsWithMembers = new List<RelationBandArtist>();
-            bandsWithoutMembers = new List<ArtistNode>();
+            var bandsWithMembers = new List<RelationBandArtist>();
+            var bandsWithoutMembers = new List<ArtistNode>();
+            int fileTracker = DetermineStartingFileTracker(artistEnhancerConfiguration);
+            int artistCounter = 1;
+            var nextArtist = GetNextArtist(artistEnhancerConfiguration);
+            bool beginFound = string.IsNullOrEmpty(nextArtist);
+            string lastArtist = string.Empty;
             foreach(var artist in allArtists)
             {
+                if(!beginFound && artist.Name!=nextArtist)
+                {
+                    continue;
+                }
+                else
+                {
+                    beginFound = true;
+                }
+                if(artistCounter%artistEnhancerConfiguration.WriteBatchSize==0)
+                {
+                    TemporaryWrite(outputArtists, bandsWithMembers, bandsWithoutMembers, fileTracker++, artistEnhancerConfiguration, artist.Name);
+                    logger.LogInformation("Temporary write {0} Artists.", outputArtists.Count);
+                    logger.LogInformation("Temporary write {0} Bands Artists relations.", bandsWithMembers.Count);
+                    logger.LogInformation("Temporary write {0} Bands without members.", bandsWithoutMembers.Count);
+
+                    outputArtists = new List<OutputArtistNode>();
+                    bandsWithMembers = new List<RelationBandArtist>();
+                    bandsWithoutMembers = new List<ArtistNode>();
+                }
+                artistCounter++;
                 if (artist.ArtistLabel == "Artist")
                     outputArtists.Add(new OutputArtistNode(artist));
                 else
@@ -79,8 +135,46 @@ namespace AE
                         bandsWithMembers.AddRange(CreateRelationsBetweenBandAndMembers(artist.ArtistId,members));
                     }
                 }
+                lastArtist = artist.Name;
             }
-            return outputArtists;
+            TemporaryWrite(outputArtists, bandsWithMembers, bandsWithoutMembers, fileTracker++, artistEnhancerConfiguration, lastArtist);
+            logger.LogInformation("Temporary write {0} Artists.", outputArtists.Count);
+            logger.LogInformation("Temporary write {0} Bands Artists relations.", bandsWithMembers.Count);
+            logger.LogInformation("Temporary write {0} Bands without members.", bandsWithoutMembers.Count);
+
+        }
+
+        private static string GetNextArtist(ArtistEnhancerConfiguration artistEnhancerConfiguration)
+        {
+            if (!File.Exists(artistEnhancerConfiguration.NextArtistFile))
+                return string.Empty;
+            return File.ReadAllText(artistEnhancerConfiguration.NextArtistFile);
+        }
+
+        private static void TemporaryWrite(List<OutputArtistNode> outputArtists, List<RelationBandArtist> bandsWithMembers, List<ArtistNode> bandsWithoutMembers, int fileTracker, ArtistEnhancerConfiguration artistEnhancerConfiguration, string nextArtist)
+        {
+
+            var fileTrackerSequence = fileTracker.ToString().PadLeft(3, '0');
+
+            IoManager.WriteWithMapper<OutputArtistNode, OutputArtistNodeMap>(outputArtists, artistEnhancerConfiguration.AllArtistsOutputFile.Replace(".csv",$".{fileTrackerSequence}.csv"));
+            IoManager.WriteWithMapper<RelationBandArtist, RelationBandArtistMap>(bandsWithMembers, artistEnhancerConfiguration.RelationshipBandArtistFile.Replace(".csv", $".{fileTrackerSequence}.csv"));
+            IoManager.WriteWithMapper<ArtistNode, ArtistNodeMap>(bandsWithoutMembers, artistEnhancerConfiguration.BandsWithoutMembersFile.Replace(".csv", $".{fileTrackerSequence}.csv"));
+            if (!string.IsNullOrEmpty(nextArtist))
+                File.WriteAllText(artistEnhancerConfiguration.NextArtistFile, nextArtist);
+            else
+                File.Delete(artistEnhancerConfiguration.NextArtistFile);
+        }
+
+        private static int DetermineStartingFileTracker(ArtistEnhancerConfiguration artistEnhancerConfiguration)
+        {
+            var temporaryOutputFile = Directory.GetFiles(Path.GetDirectoryName(artistEnhancerConfiguration.AllArtistsOutputFile), Path.GetFileName(artistEnhancerConfiguration.AllArtistsOutputFile).Replace(".csv", ".???.csv"))
+                .OrderBy(s=>s).LastOrDefault();
+            if (string.IsNullOrEmpty(temporaryOutputFile))
+                return 0;
+            var fileParts = temporaryOutputFile.Split(new[] { '.' });
+            var currentMax = Convert.ToInt32(fileParts[1]);
+            return currentMax + 1;
+
         }
 
         private static IEnumerable<RelationBandArtist> CreateRelationsBetweenBandAndMembers(Guid artistId, IEnumerable<OutputArtistNode> members)

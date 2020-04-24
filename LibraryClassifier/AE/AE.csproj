@@ -178,19 +178,19 @@
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Sciendo.ArtistClassifier.NLP.NER, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.ArtistClassifier.NLP.NER.1.0.0-Build00034\lib\net461\Sciendo.ArtistClassifier.NLP.NER.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.ArtistClassifier.NLP.NER.1.0.0-Build00036\lib\net461\Sciendo.ArtistClassifier.NLP.NER.dll</HintPath>
     </Reference>
     <Reference Include="Sciendo.ArtistEnhancer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.ArtistEnhancer.1.0.0-Build00034\lib\net461\Sciendo.ArtistEnhancer.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.ArtistEnhancer.1.0.0-Build00036\lib\net461\Sciendo.ArtistEnhancer.dll</HintPath>
     </Reference>
     <Reference Include="Sciendo.Config, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Config.1.0.6\lib\netstandard2.0\Sciendo.Config.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.Config.1.0.7\lib\netstandard2.0\Sciendo.Config.dll</HintPath>
     </Reference>
     <Reference Include="Sciendo.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Web.1.0.6\lib\netstandard2.0\Sciendo.Web.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.Web.1.0.7\lib\netstandard2.0\Sciendo.Web.dll</HintPath>
     </Reference>
     <Reference Include="Sciendo.Wiki.Search, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sciendo.Wiki.Search.1.0.0-Build00034\lib\netstandard2.0\Sciendo.Wiki.Search.dll</HintPath>
+      <HintPath>..\..\packages\Sciendo.Wiki.Search.1.0.0-Build00036\lib\netstandard2.0\Sciendo.Wiki.Search.dll</HintPath>
     </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
