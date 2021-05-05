@@ -1,21 +1,26 @@
 ﻿using System.IO;
+using System.Linq;
 using TagLib;
 
 namespace Sciendo.T2F.Processor
 {
     public class TagFileProcessor:IFileProcessor<Tag>
     {
-        public string CalculateFileName(Tag input, string rootPath, string extension, string fileNamePattern)
+        public string CalculateFileName(Tag input, string rootPath, string extension, string fileNamePattern, bool isPartOfCollection)
         {
+            var finalArtist = IOFy((input.AlbumArtists.Any() && !isPartOfCollection) ? string.Join("-",input.AlbumArtists):string.Join("-",input.Performers));
+
             return
-                $"{rootPath}{Path.DirectorySeparatorChar}{string.Format(MapPattern(fileNamePattern), IOFy(input.Title), IOFy(input.Album), IOFy(string.Join("-", input.AlbumArtists)), IOFy(string.Join("-", input.Artists)), input.Track, input.Disc,CalculateCategory(input.Artists))}{extension}";
+                $"{rootPath}" +
+                $"{Path.DirectorySeparatorChar}" +
+                $"{string.Format(MapPattern(fileNamePattern), IOFy(input.Title), IOFy(input.Album), finalArtist, input.Track, input.Disc,CalculateCategory(finalArtist))}{extension}";
         }
 
-        private string CalculateCategory(string[] inputArtists)
+        private string CalculateCategory(string inputArtist)
         {
-            if (char.IsLetter(inputArtists[0][0]))
+            if (char.IsLetter(inputArtist[0]))
             {
-                return inputArtists[0].Substring((inputArtists[0].ToLower().StartsWith("the ")) ? 4 : 0, 1).ToLower();
+                return inputArtist.Substring((inputArtist.ToLower().StartsWith("the ")) ? 4 : 0, 1).ToLower();
             }
             else
             {
@@ -35,13 +40,12 @@ namespace Sciendo.T2F.Processor
         private string MapPattern(string fileNamePattern)
         {
             return
-                fileNamePattern.Replace("%aa", "{2}")
-                    .Replace("%a", "{3}")
+                fileNamePattern.Replace("%a", "{2}")
                     .Replace("%l", "{1}")
                     .Replace("%t", "{0}")
-                    .Replace("%n", "{4}")
-                    .Replace("%d", "{5}")
-                    .Replace("%z","{6}");
+                    .Replace("%n", "{3}")
+                    .Replace("%d", "{4}")
+                    .Replace("%z","{5}");
         }
     }
 }

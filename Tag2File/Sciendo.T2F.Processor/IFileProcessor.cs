@@ -2,6 +2,6 @@
 {
     public interface IFileProcessor<in T>
     {
-        string CalculateFileName(T input, string rootPath, string extension,string fileNamePattern);
+        string CalculateFileName(T input, string rootPath, string extension,string fileNamePattern, bool isPartOfCollection);
     }
 }

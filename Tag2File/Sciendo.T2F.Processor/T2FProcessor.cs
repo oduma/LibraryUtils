@@ -38,8 +38,10 @@ namespace Sciendo.T2F.Processor
                     {
 
                         var fileExtension = Path.GetExtension(file);
+                        bool isPartOfACollection = IsPartOfCollection(file, extensions);
+
                         var newFileName = _tagFileProcessor.CalculateFileName(tag, path, fileExtension,
-                            (IsPartOfCollection(file, extensions)) ? fileNamePatternCollection : fileNamePattern);
+                            ((isPartOfACollection) ? fileNamePatternCollection : fileNamePattern),isPartOfACollection);
                         if (!string.Equals(file.ToLower(), newFileName.ToLower()))
                         {
                             _storage.File.Create(newFileName, _storage.File.Read(file));
@@ -98,6 +100,11 @@ namespace Sciendo.T2F.Processor
                 _collectionDirectories.Add(parentDirectory,true);
                 return true;
             }
+            if (tagProcessed.AlbumArtists.FirstOrDefault()!=null)
+            {
+                _collectionDirectories.Add(parentDirectory, false);
+                return false;
+            }
             var tags = new List<Tag>();
             foreach( var file in _storage.Directory.GetFiles(parentDirectory, SearchOption.AllDirectories, extensions))
             {
@@ -105,9 +112,6 @@ namespace Sciendo.T2F.Processor
                 if(tag!=null)
                     tags.Add(tag.Tag);
             }
-            //var tags =
-            //    _storage.Directory.GetFiles(parentDirectory, SearchOption.AllDirectories, extensions)
-            //        .Select(fn => _storage.File.ReadTag(fn).Tag);
             if (tags.SelectMany(t => t.Performers).Distinct().Count() > 1)
             {
                 _collectionDirectories.Add(parentDirectory,true);
