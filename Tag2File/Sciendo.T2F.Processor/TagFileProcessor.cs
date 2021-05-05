@@ -23,9 +23,13 @@ namespace Sciendo.T2F.Processor
             }
         }
 
-        private object IOFy(string input)
+        private string IOFy(string input)
         {
-            return input.Replace(':', '_').Replace('?', '_').Replace('*', '_').Replace('/','_').Replace('\\','_');
+
+            foreach (char invalidInPath in Path.GetInvalidPathChars())
+                input = input.Replace(invalidInPath, '_');
+            //return input.Replace(':', '_').Replace('?', '_').Replace('*', '_').Replace('/','_').Replace('\\','_');
+            return input;
         }
 
         private string MapPattern(string fileNamePattern)

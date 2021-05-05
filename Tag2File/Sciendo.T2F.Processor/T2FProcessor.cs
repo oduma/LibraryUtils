@@ -30,22 +30,26 @@ namespace Sciendo.T2F.Processor
             var files = _storage.Directory.GetFiles(path,SearchOption.AllDirectories, extensions);
             foreach (var file in files)
             {
-                var tag = _storage.File.ReadTag(file).Tag;
-                if (!(string.IsNullOrEmpty(tag?.Album) || string.IsNullOrEmpty(tag.Title)))
+                var preTag = _storage.File.ReadTag(file);
+                if(preTag!=null)
                 {
-                    
-                    var fileExtension = Path.GetExtension(file);
-                    var newFileName = _tagFileProcessor.CalculateFileName(tag,path,fileExtension,
-                        (IsPartOfCollection(file, extensions))?fileNamePatternCollection:fileNamePattern);
-                    if (!string.Equals(file.ToLower(), newFileName.ToLower()))
+                    var tag = preTag.Tag;
+                    if (!(string.IsNullOrEmpty(tag?.Album) || string.IsNullOrEmpty(tag.Title)))
                     {
-                        _storage.File.Create(newFileName, _storage.File.Read(file));
-                        if (actionType == ActionType.Move)
-                            _storage.File.Delete(file);
-                        if (_directoriesProcessed.All(d => d != Path.GetDirectoryName(file)))
+
+                        var fileExtension = Path.GetExtension(file);
+                        var newFileName = _tagFileProcessor.CalculateFileName(tag, path, fileExtension,
+                            (IsPartOfCollection(file, extensions)) ? fileNamePatternCollection : fileNamePattern);
+                        if (!string.Equals(file.ToLower(), newFileName.ToLower()))
                         {
-                            ProcessNonMusicContents(Path.GetDirectoryName(file), Path.GetDirectoryName(newFileName),
-                                extensions, actionType);
+                            _storage.File.Create(newFileName, _storage.File.Read(file));
+                            if (actionType == ActionType.Move)
+                                _storage.File.Delete(file);
+                            if (_directoriesProcessed.All(d => d != Path.GetDirectoryName(file)))
+                            {
+                                ProcessNonMusicContents(Path.GetDirectoryName(file), Path.GetDirectoryName(newFileName),
+                                    extensions, actionType);
+                            }
                         }
                     }
                 }
@@ -94,9 +98,16 @@ namespace Sciendo.T2F.Processor
                 _collectionDirectories.Add(parentDirectory,true);
                 return true;
             }
-            var tags =
-                _storage.Directory.GetFiles(parentDirectory, SearchOption.AllDirectories, extensions)
-                    .Select(fn => _storage.File.ReadTag(fn).Tag);
+            var tags = new List<Tag>();
+            foreach( var file in _storage.Directory.GetFiles(parentDirectory, SearchOption.AllDirectories, extensions))
+            {
+                var tag = _storage.File.ReadTag(file);
+                if(tag!=null)
+                    tags.Add(tag.Tag);
+            }
+            //var tags =
+            //    _storage.Directory.GetFiles(parentDirectory, SearchOption.AllDirectories, extensions)
+            //        .Select(fn => _storage.File.ReadTag(fn).Tag);
             if (tags.SelectMany(t => t.Performers).Distinct().Count() > 1)
             {
                 _collectionDirectories.Add(parentDirectory,true);
