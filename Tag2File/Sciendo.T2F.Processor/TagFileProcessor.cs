@@ -8,7 +8,10 @@ namespace Sciendo.T2F.Processor
     {
         public string CalculateFileName(Tag input, string rootPath, string extension, string fileNamePattern, bool isPartOfCollection)
         {
-            var finalArtist = IOFy((input.AlbumArtists.Any() && !isPartOfCollection) ? string.Join("-",input.AlbumArtists):string.Join("-",input.Performers));
+            var finalArtist = IOFy(
+                (input.AlbumArtists.Any() && !isPartOfCollection) ? 
+                string.Join("-",input.AlbumArtists):
+                string.Join("-",input.Performers));
 
             return
                 $"{rootPath}" +
@@ -33,7 +36,7 @@ namespace Sciendo.T2F.Processor
 
             foreach (char invalidInPath in Path.GetInvalidPathChars())
                 input = input.Replace(invalidInPath, '_');
-            //return input.Replace(':', '_').Replace('?', '_').Replace('*', '_').Replace('/','_').Replace('\\','_');
+            input = input.Replace(':', '_').Replace('?', '_').Replace('*', '_').Replace('/','_').Replace('\\','_');
             return input;
         }
 

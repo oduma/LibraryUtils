@@ -37,8 +37,9 @@ namespace AE
             var artistEnhancerConfiguration = ReadConfiguration(logger, args);
             logger.LogInformation("Loading artists from file: {0}...", artistEnhancerConfiguration.AllArtistsInputFile);
             var allArtists = IoManager.ReadWithMapper<ArtistNode, ArtistNodeMap>(artistEnhancerConfiguration.AllArtistsInputFile);
+            var allArtistsEvolve= IoManager.ReadWithMapper<ArtistNode, ArtistNodeMap>(artistEnhancerConfiguration.AllArtistsInputFile);
             logger.LogInformation("Loaded {0} artists.", allArtists.Count());
-            ProcessAllBands(logger, ConfigureServices(serviceCollection, artistEnhancerConfiguration), allArtists, artistEnhancerConfiguration);
+            ProcessAllBands(logger, ConfigureServices(serviceCollection, artistEnhancerConfiguration), allArtists, allArtistsEvolve, artistEnhancerConfiguration);
             Save(logger, artistEnhancerConfiguration);
         }
 
@@ -77,7 +78,7 @@ namespace AE
             return fileNames.Select(f => f.Split(new[] { '.' })[1]).ToArray();
         }
 
-        private static void ProcessAllBands(ILogger<Program> logger, ServiceProvider serviceProvider, List<ArtistNode> allArtists, ArtistEnhancerConfiguration artistEnhancerConfiguration)
+        private static void ProcessAllBands(ILogger<Program> logger, ServiceProvider serviceProvider, List<ArtistNode> allArtists, List<ArtistNode> allArtistsEvolve, ArtistEnhancerConfiguration artistEnhancerConfiguration)
         {
             var bandEnhancerService = serviceProvider.GetService<IBandEnhancer>();
             List<OutputArtistNode> outputArtists = new List<OutputArtistNode>();
@@ -128,7 +129,7 @@ namespace AE
                     else
                     {
                         outputArtists.Add(MapBandWithInfoToOutputArtist(artistEnhancerConfiguration, artist, bandWithInfo));
-                        var members = MapMembersToOutputArtists(allArtists, outputArtists, bandWithInfo.Members);
+                        var members = MapMembersToOutputArtists(allArtistsEvolve, bandWithInfo.Members);
                         outputArtists.AddRange(members);
                         bandsWithMembers.AddRange(CreateRelationsBetweenBandAndMembers(artist.ArtistId,members));
                     }
@@ -183,28 +184,30 @@ namespace AE
             }
         }
 
-        private static IEnumerable<OutputArtistNode> MapMembersToOutputArtists(List<ArtistNode> allArtists, List<OutputArtistNode> outputArtists, List<string> members)
+        private static List<OutputArtistNode> MapMembersToOutputArtists(List<ArtistNode> allArtistsEvolving, List<string> members)
         {
+            List<OutputArtistNode> result = new List<OutputArtistNode>();
             foreach (var member in members)
             {
-                var outputArtist = new OutputArtistNode();
-                var existingArtist = allArtists.FirstOrDefault(a => a.Name == member.ToLower());
-                if (existingArtist == null)
-                    existingArtist = outputArtists.FirstOrDefault(a => a.Name == member.ToLower());
+                var existingArtist = allArtistsEvolving.FirstOrDefault(a => a.Name == member.ToLower());
                 if (existingArtist == null)
                 {
-                    yield return new OutputArtistNode 
+                    var newArtist= new ArtistNode
                     {
                         ArtistId = Guid.NewGuid(),
                         ArtistLabel = "Artist",
                         Name = member
                     };
+                    allArtistsEvolving.Add(newArtist);
+
+                    result.Add(new OutputArtistNode(newArtist)); 
                 }
                 else
                 {
-                    yield return new OutputArtistNode(existingArtist);
+                    result.Add(new OutputArtistNode(existingArtist));
                 }
             }
+            return result;
         }
 
         private static OutputArtistNode MapBandWithInfoToOutputArtist(ArtistEnhancerConfiguration artistEnhancerConfiguration, ArtistNode artist, BandWikiPageInfo bandWithInfo)

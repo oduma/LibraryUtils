@@ -40,6 +40,8 @@ namespace Sciendo.Playlists.M3U
         {
             string[] playlistContentsLines = playlistContents.Split(new[] {Environment.NewLine},
                 StringSplitOptions.RemoveEmptyEntries);
+            if(playlistContentsLines.Length==1)
+             playlistContentsLines = playlistContents.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             Track newTrack = null;
             foreach (string playlistContentsLine in playlistContentsLines)
             {
